@@ -18,7 +18,7 @@
             <v-img :src="artCard.imageUrl" height="200"></v-img>
             <!-- :src="" src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" aspect-ratio="1.60"-->
 
-            <v-card-title primary-title>
+            <v-card-text class="pt-2 pb-0">
               <!-- <h3 class="headline mb-0">Kangaroo Valley Safari</h3> -->
 
               <v-layout column text-xs-center>
@@ -44,12 +44,67 @@
                 </v-flex>
               </v-layout>
               <!-- <div>{{ card_text }}</div> -->
-            </v-card-title>
+            </v-card-text>
 
-            <!-- <v-card-actions class="text-xs-center"> -->
-            <!-- <v-btn flat color="orange">Share</v-btn>
-              <v-btn flat color="orange">Explore</v-btn> -->
-            <!-- </v-card-actions> -->
+            <v-card-actions class="">
+              <!-- <v-btn flat color="orange">Share</v-btn>
+              <v-btn flat color="orange">Explore</v-btn>-->
+              <!-- <v-btn icon color="green">
+                <v-icon>home</v-icon>
+              </v-btn> -->
+              <social-sharing
+                url="https://kibart-gallery.firebaseapp.com/"
+                :title="
+                  `View, [ ${
+                    artCard.title
+                  } ], this art piece in KibArt Gallery.`
+                "
+                description="`View, [ ${artCard.title} ], this art piece in KibArt Gallery.`"
+                quote="Art enables us to find ourselves and lose ourselves at the same
+              time. Welcome to KibArt Gallery !!"
+                hashtags="art,pencilart"
+                twitter-user="muikiaallan"
+                :media="artCard.imageUrl"
+                inline-template
+              >
+                <div>
+                  <!-- <network network="email" class="shareIconWrap">
+                    <i class="fa fa-envelope"></i> Email
+                    <font-awesome-icon
+                      :icon="{ prefix: 'fas', iconName: 'envelope' }"
+                    ></font-awesome-icon>
+                  </network> -->
+                  <network network="facebook" class="shareIconWrap mx-2">
+                    <!-- <i class="fa fa-facebook"></i> Facebook -->
+                    <font-awesome-icon
+                      :icon="{ prefix: 'fab', iconName: 'facebook' }"
+                    ></font-awesome-icon>
+                    <!-- Facebook -->
+                  </network>
+                  <network network="pinterest" class="shareIconWrap mx-2">
+                    <font-awesome-icon
+                      :icon="{ prefix: 'fab', iconName: 'pinterest' }"
+                    ></font-awesome-icon>
+                  </network>
+                  <!-- <network network="telegram" class="shareIconWrap">
+                    <font-awesome-icon
+                      :icon="{ prefix: 'fab', iconName: 'telegram' }"
+                    ></font-awesome-icon>
+                  </network> -->
+                  <network network="twitter" class="shareIconWrap mx-2">
+                    <font-awesome-icon
+                      :icon="{ prefix: 'fab', iconName: 'twitter' }"
+                    ></font-awesome-icon>
+                  </network>
+                  <!-- <network network="whatsapp" class="shareIconWrap">
+                    <font-awesome-icon
+                      :icon="{ prefix: 'fab', iconName: 'whatsapp' }"
+                    ></font-awesome-icon>
+                  </network> -->
+                </div>
+              </social-sharing>
+              <!-- . -->
+            </v-card-actions>
           </v-card>
         </v-flex>
         <!-- . -->
@@ -146,5 +201,9 @@ export default {
 </script>
 
 <style scoped>
-/*.*/
+.shareIconWrap {
+  /*margin-left: 20px;
+  margin-right: 20px;
+  background-color: blue !important;*/
+}
 </style>

@@ -83,6 +83,7 @@
 </template>
 
 <script>
+// eslint-disable-next-line
 import utils from "@/utils/V1";
 
 export default {

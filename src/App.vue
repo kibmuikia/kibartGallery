@@ -21,6 +21,8 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
+
 import Toolbar from "./components/Toolbar";
 require("vue2-animate/dist/vue2-animate.min.css");
 import PreloadSpinner from "./components/PreloadSpinner";
@@ -47,6 +49,10 @@ export default {
       setTimeout(() => {
         self.flag = !self.flag;
       }, 1200);
+    },
+    trackPage() {
+      this.$ga.page(this.$router);
+      console.log("page tracked");
     }
   },
   watch: {
@@ -57,6 +63,7 @@ export default {
       // eventBus.$emit("onEntityChanged",to.path);
       // this.toggleLoader();
       this.toggleFlag();
+      this.trackPage();
       // toggleFlag
       // console.log("beforeUpdate: called");
       // eventBus.$emit("renderForm");

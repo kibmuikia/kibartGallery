@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import Vue from "vue";
 import "./plugins/vuetify";
 import App from "./App.vue";
@@ -5,17 +7,51 @@ import store from "./store";
 import { router } from "./router/V1";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { faTwitter } from "@fortawesome/free-brands-svg-icons"; // faFacebook pencil-alt
+import { faPencilAlt, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTwitter,
+  faFacebook,
+  faPinterest,
+  faTelegram,
+  faWhatsapp
+} from "@fortawesome/free-brands-svg-icons"; // faFacebook pencil-alt
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+import VueAnalytics from "vue-analytics";
+
+Vue.use(VueAnalytics, {
+  id: "UA-135976056-1",
+  router,
+  checkDuplicatedScript: true,
+  autoTracking: {
+    screenview: true,
+    transformQueryString: false
+  },
+  debug: {
+    enabled: true,
+    sendHitTask: false
+  }
+});
+
+import SocialSharing from "vue-social-sharing";
+
+Vue.use(SocialSharing);
 
 // import NProgress from "nprogress";
 // import "nprogress/nprogress.css";
 
 // NProgress.configure({ easing: "ease", speed: 1300, showSpinner: false });
 
-library.add(faTwitter);
-library.add(faPencilAlt);
+library.add(
+  faTwitter,
+  faPencilAlt,
+  faFacebook,
+  faPinterest,
+  faTelegram,
+  faWhatsapp,
+  faEnvelope
+);
+// library.add(faPencilAlt);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
