@@ -28,23 +28,35 @@ export const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    meta: {
+      title: "KibArt Gallery | Welcome"
+    }
   },
   {
     path: "/about",
     name: "About",
-    component: About
+    component: About,
+    meta: {
+      title: "KibArt Gallery | About"
+    }
   },
   {
     path: "/notfound",
     name: "NotFound",
-    component: NotFound
+    component: NotFound,
+    meta: {
+      title: "KibArt Gallery | NotFound"
+    }
   },
   { path: "*", redirect: "/notfound" },
   {
     path: "/gallery",
     name: "Gallery",
-    component: Gallery
+    component: Gallery,
+    meta: {
+      title: "KibArt Gallery | Gallery"
+    }
   }
   // AuthenticationRoutes,
   // DashboardRoutes,

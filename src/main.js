@@ -65,6 +65,7 @@ new Vue({
 
 router.beforeResolve((to, from, next) => {
   // store.commit("ON_PRELOADERFLAG");
+  console.log(to.meta);
   // If this isn't an initial page load.
   if (to.name) {
     // Start the route progress bar.
@@ -81,6 +82,15 @@ router.beforeResolve((to, from, next) => {
     // TOGGLE_PRELOADERFLAG
     // eslint-disable-next-line
     // console.log(`b4R :: ${store.state.viewPreloaderFlag}`);
+  }
+  if (to.matched.some(record => record.meta.title)) {
+    // console.log(to.matched.some(record => record.meta.title));
+    // console.log(to);
+    // console.log(to.meta.title);
+    document.title = to.meta.title;
+    console.log(document.title);
+    // let titleVal = record.meta.title;
+    // console.log(`Title[ ${titleVal}`);
   }
   next();
 });

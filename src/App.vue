@@ -76,6 +76,8 @@ export default {
     this.toggleFlag();
     // toggleFlag
     // eventBus.$on("toggleSnackbar", data => this.toggleSnackbar(data));
+
+    // document.title = "Look Ma!";
   }
   // mounted() {
   //   // this.showFlagValue();
