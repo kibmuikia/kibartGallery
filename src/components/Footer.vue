@@ -54,14 +54,14 @@
             </v-btn>
           </v-card-text>
 
-          <v-card-text class="">
+          <!-- <v-card-text class="">
             <p class="subheading">
               “Art enables us to find ourselves and lose ourselves at the same
               time.”
               <br />
               - Thomas Merton
             </p>
-          </v-card-text>
+          </v-card-text> -->
 
           <v-divider></v-divider>
 
@@ -71,7 +71,7 @@
                 <span class="body-1"> &copy;2019</span>
               </v-flex>
               <v-spacer></v-spacer>
-              <v-flex xs5 md3>
+              <v-flex xs7 md3>
                 <span class="body-1">
                   Developed by: Muikia Allan
                 </span>

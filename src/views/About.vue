@@ -15,6 +15,24 @@
     <v-flex xs12 md3>
       <v-card elevation="5" color="grey lighten-1">
         <v-img
+          :src="require('../assets/art-3-kibart.png')"
+          height="200"
+        ></v-img>
+
+        <v-card-text>
+          <p class="subheading black--text">
+            “Art enables us to find ourselves and lose ourselves at the same
+            time.”
+            <br />
+            - <strong>Thomas Merton</strong> .
+          </p>
+        </v-card-text>
+      </v-card>
+    </v-flex>
+
+    <v-flex xs12 md3>
+      <v-card elevation="5" color="grey lighten-1">
+        <v-img
           :src="require('../assets/art-1-whatever.jpg')"
           height="200"
         ></v-img>

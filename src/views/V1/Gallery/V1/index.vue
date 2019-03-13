@@ -152,6 +152,11 @@ export default {
           desc: ""
         },
         {
+          title: "Culture",
+          imageUrl: require("@/assets/galleryimages/africa.jpeg"),
+          desc: ""
+        },
+        {
           title: "Golden Age",
           imageUrl: require("@/assets/galleryimages/gargoyles.jpeg"),
           desc: ""
