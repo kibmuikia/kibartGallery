@@ -13,7 +13,10 @@
               color="blue lighten-2"
               dark
               @click="snackbar = true"
-              @mouseenter="snackbarinfo = 'Select one or more images, AT ONCE'"
+              @mouseenter="
+                snackbarinfo =
+                  'Select one or more images, AT ONCE.Preferably small sized images to gurantee upload, for now.'
+              "
               class=""
             >
               <v-icon>info</v-icon>
@@ -60,8 +63,9 @@ export default {
       snackbar: false,
       mode: "multi-line",
       // y: "top",
-      timeout: 3000,
-      snackbarinfo: "Select one or more images, AT ONCE",
+      timeout: 4000,
+      snackbarinfo:
+        "Select one or more images, AT ONCE.Preferably small sized images to gurantee upload, for now.",
       labeltext: "Choose Art-Work File(s)"
     }; //end-return
   }, //end-data

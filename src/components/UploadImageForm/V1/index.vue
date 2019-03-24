@@ -112,7 +112,7 @@ export default {
         console.log(
           `form-submit event triggered.Next, processing the form-data. filesdata is VALID`
         );
-        console.log(this.filesdata);
+        // console.log(this.filesdata);
 
         // Create a root reference
         let storageRef = fire.storage.ref();
@@ -168,14 +168,10 @@ export default {
                   let imageclone = imageoriginal.clone();
                   imageclone.scaleToFit(300, 300);
                   imageclone.blur(5);
-                  // console.log(`val of fileModified :: ${fileModified}`);
                   imageclone.getBase64(jimp.AUTO, (err, res) => {
                     fileModified = self.dataURItoBlob(res);
                     if (fileModified) {
-                      console.log(
-                        "Type of fileModified :: " + typeof fileModified
-                      );
-                      console.log(fileModified);
+                      // console.log(fileModified);
                       artworkRefModified
                         .put(fileModified)
                         .then(snapshot => {
@@ -233,13 +229,17 @@ export default {
     // Using the server bus
     serverBus.$on("imagesSelected", fd => {
       this.filesdata = fd;
-      console.log("created()->serverBus.on[imagesSelected] running !!");
+      // console.log("created()->serverBus.on[imagesSelected] running !!");
       // console.log(this.filesdata);
     });
   },
   watch: {
     storagepaths: function() {
-      console.log(this.storagepaths);
+      // console.log(this.storagepaths);
+    },
+    arttitle: function() {
+      // str = str.replace(/\s+/g, '');
+      this.arttitle = this.arttitle.replace(/\s+/g, "");
     }
   }
 }; //end-export
