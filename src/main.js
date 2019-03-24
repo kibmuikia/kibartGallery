@@ -6,6 +6,9 @@ import App from "./App.vue";
 import store from "./store";
 import { router } from "./router/V1";
 
+// import LazyLoadDirective from "./directives/LazyLoadDirective";
+// import KibShow from "./directives/KibShow";
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPencilAlt, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -17,21 +20,21 @@ import {
 } from "@fortawesome/free-brands-svg-icons"; // faFacebook pencil-alt
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-import VueAnalytics from "vue-analytics";
+// import VueAnalytics from "vue-analytics";
 
-Vue.use(VueAnalytics, {
-  id: "UA-135976056-1",
-  router,
-  checkDuplicatedScript: true,
-  autoTracking: {
-    screenview: true,
-    transformQueryString: false
-  },
-  debug: {
-    enabled: true,
-    sendHitTask: false
-  }
-});
+// Vue.use(VueAnalytics, {
+//   id: "UA-135976056-1",
+//   router,
+//   checkDuplicatedScript: true,
+//   autoTracking: {
+//     screenview: true,
+//     transformQueryString: false
+//   },
+//   debug: {
+//     enabled: true,
+//     sendHitTask: false
+//   }
+// });
 
 import SocialSharing from "vue-social-sharing";
 
@@ -56,6 +59,11 @@ library.add(
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
+
+// Vue.directive("lazyload", LazyLoadDirective);
+// Vue.directive("kibshow", KibShow);
+
+export const serverBus = new Vue();
 
 new Vue({
   router,

@@ -6,6 +6,7 @@ import Home from "../../../views/Home.vue";
 import About from "../../../views/About.vue";
 import NotFound from "../../../views/404Not";
 import Gallery from "../../../views/V1/Gallery/V1";
+import UploadImage from "../../../views/V1/UploadImage/V1";
 
 // let AuthenticationRoutes = {
 //   path: "/auth",
@@ -56,6 +57,14 @@ export const routes = [
     component: Gallery,
     meta: {
       title: "KibArt Gallery | Gallery"
+    }
+  },
+  {
+    path: "/upload-image",
+    name: "UploadImage",
+    component: UploadImage,
+    meta: {
+      title: "KibArt Gallery | Art Upload"
     }
   }
   // AuthenticationRoutes,

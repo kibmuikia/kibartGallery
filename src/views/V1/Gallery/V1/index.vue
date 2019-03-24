@@ -1,13 +1,14 @@
 <template>
   <v-layout app wrap align-center fill-height row class="">
     <!-- align-center justify-space-around row fill-height wrap light-blue lighten-4 -->
+    <!-- <v-flex xs12 md6 offset-md3>
+      <ImageSpinner class="image__spinner" />
+    </v-flex> -->
     <v-flex xs12 md12 text-xs-center class="black--text">
-      <!-- green lighten-2 -->
-      <!-- <h2 class="py-2">Gallery</h2> -->
       <v-layout align-center justify-space-around row fill-height wrap>
         <!-- . -->
         <v-flex
-          v-for="artCard in artCards"
+          v-for="(artCard, index) in artCards"
           :key="artCard.title"
           xs12
           md4
@@ -15,12 +16,18 @@
           mx-1
         >
           <v-card light max-width="400" hover>
-            <v-img :src="artCard.imageUrl" height="200"></v-img>
-            <!-- :src="" src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" aspect-ratio="1.60"-->
+            <v-card-title class="pa-0">
+              <v-img
+                :lazy-src="imageUrlLazy"
+                :src="artCard.imageUrl"
+                :alt="artCard.title"
+                :id="index"
+                height="200"
+                class=""
+              ></v-img>
+            </v-card-title>
 
             <v-card-text class="pt-2 pb-0">
-              <!-- <h3 class="headline mb-0">Kangaroo Valley Safari</h3> -->
-
               <v-layout column text-xs-center>
                 <v-flex xs12>
                   <h3 class="headline ">{{ artCard.title }}</h3>
@@ -43,15 +50,10 @@
                   </v-tooltip>
                 </v-flex>
               </v-layout>
-              <!-- <div>{{ card_text }}</div> -->
             </v-card-text>
 
             <v-card-actions class="">
-              <!-- <v-btn flat color="orange">Share</v-btn>
-              <v-btn flat color="orange">Explore</v-btn>-->
-              <!-- <v-btn icon color="green">
-                <v-icon>home</v-icon>
-              </v-btn> -->
+              <!-- <v-btn flat color="orange">Share</v-btn> -->
               <social-sharing
                 url="https://kibart-gallery.firebaseapp.com/"
                 :title="
@@ -74,29 +76,29 @@
                       :icon="{ prefix: 'fas', iconName: 'envelope' }"
                     ></font-awesome-icon>
                   </network> -->
-                  <network network="facebook" class="shareIconWrap mx-2">
+                  <network network="facebook" class="mx-2">
                     <!-- <i class="fa fa-facebook"></i> Facebook -->
                     <font-awesome-icon
                       :icon="{ prefix: 'fab', iconName: 'facebook' }"
                     ></font-awesome-icon>
                     <!-- Facebook -->
                   </network>
-                  <network network="pinterest" class="shareIconWrap mx-2">
+                  <network network="pinterest" class="mx-2">
                     <font-awesome-icon
                       :icon="{ prefix: 'fab', iconName: 'pinterest' }"
                     ></font-awesome-icon>
                   </network>
-                  <!-- <network network="telegram" class="shareIconWrap">
+                  <!-- <network network="telegram" class="">
                     <font-awesome-icon
                       :icon="{ prefix: 'fab', iconName: 'telegram' }"
                     ></font-awesome-icon>
                   </network> -->
-                  <network network="twitter" class="shareIconWrap mx-2">
+                  <network network="twitter" class="mx-2">
                     <font-awesome-icon
                       :icon="{ prefix: 'fab', iconName: 'twitter' }"
                     ></font-awesome-icon>
                   </network>
-                  <!-- <network network="whatsapp" class="shareIconWrap">
+                  <!-- <network network="whatsapp" class="">
                     <font-awesome-icon
                       :icon="{ prefix: 'fab', iconName: 'whatsapp' }"
                     ></font-awesome-icon>
@@ -141,35 +143,60 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
+
+// import ImageItem from "@/components/ImageItem";
+
 export default {
   name: "gallery-component",
+  components: {
+    // ImageItem
+  },
   data() {
     return {
+      imageUrlLazy: require("@/assets/loading_dna.gif"),
       artCards: [
         {
           title: "I See You",
           imageUrl: require("@/assets/galleryimages/findingDory.jpeg"),
-          desc: ""
+          desc: "",
+          id: "img-1"
         },
         {
-          title: "Culture",
-          imageUrl: require("@/assets/galleryimages/africa.jpeg"),
-          desc: ""
+          title: "Calm",
+          imageUrl: require("@/assets/galleryimages/face_calm.jpeg"),
+          desc: "",
+          id: "img-2"
         },
         {
           title: "Golden Age",
           imageUrl: require("@/assets/galleryimages/gargoyles.jpeg"),
-          desc: ""
+          desc: "",
+          id: "img-3"
+        },
+        {
+          title: "Culture",
+          imageUrl: require("@/assets/galleryimages/africa.jpeg"),
+          desc: "",
+          id: "img-4"
         },
         {
           title: "With Age...",
           imageUrl: require("@/assets/galleryimages/kratosBoxed.png"),
-          desc: ""
+          desc: "",
+          id: "img-5"
+        },
+        {
+          title: "Bull Horn Taking",
+          imageUrl: require("@/assets/galleryimages/face_gorilla.jpeg"),
+          desc: "",
+          id: "img-6"
         },
         {
           title: "Lilo N' Stich",
           imageUrl: require("@/assets/galleryimages/lilonstitch.jpeg"),
-          desc: ""
+          desc: "",
+          id: "img-7"
         }
       ],
       card_text:
@@ -180,11 +207,9 @@ export default {
   }, //end-data
   methods: {
     showArtCards() {
-      // eslint-disable-next-line
       console.log(this.artCards);
     },
     toggleDialog(title) {
-      // eslint-disable-next-line
       // console.log(
       //   `received title :: [ ${title} ] :: dialog[ ${
       //     this.dialog
@@ -194,7 +219,6 @@ export default {
         return artCard.title == title;
       });
       this.dialogData = filteredCards;
-      // eslint-disable-next-line
       // console.log(this.dialogData[0].title);
       this.dialog = true;
     }
@@ -205,10 +229,4 @@ export default {
 }; //end-export
 </script>
 
-<style scoped>
-.shareIconWrap {
-  /*margin-left: 20px;
-  margin-right: 20px;
-  background-color: blue !important;*/
-}
-</style>
+<style scoped></style>

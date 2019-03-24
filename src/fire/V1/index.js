@@ -18,4 +18,4 @@ const db = firebase.firestore();
 
 const storage = firebase.storage();
 
-export { db, storage };
+export default { db, storage };
