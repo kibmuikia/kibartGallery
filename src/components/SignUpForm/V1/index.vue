@@ -8,7 +8,9 @@
   >
     <v-container>
       <v-layout align-center justify-center row wrap>
-        <v-flex xs12> <h4 class="subheading">Sign Up Form</h4> </v-flex>
+        <v-flex xs12>
+          <h4 class="subheading text-xs-center">Artist Sign Up Form</h4>
+        </v-flex>
         <v-flex xs12 md5>
           <v-text-field
             v-model="user.displayname"
@@ -118,10 +120,10 @@ export default {
         utils.showAlert("Error", msg, "error");
         throw new Error(msg);
       } //end-if-password-check
-      console.log(this.user);
+      // console.log(this.user);
       //this.arttitle.replace(/\s+/g, "");
       let uname = this.user.displayname.replace(/\s+/g, "").toLowerCase();
-      console.log(uname);
+      // console.log(uname);
       await fire.auth
         .createUserWithEmailAndPassword(this.user.email, this.user.password)
         .then(data => {
@@ -129,15 +131,11 @@ export default {
             console.log("In data.user if function");
             let user = data.user;
             console.log(user);
-            let uid = user.providerData[0].uid;
+            let uid = user.uid;
             let pic = self.user.photo[0];
             let filename = pic.name;
             filename = filename.split(".");
             filename = `${uname}.${filename[1]}`;
-            /*
-            let filenameSplit = filename.split(".");
-            filename = `${this.arttitle}-${i}.${filenameSplit[1]}`;
-            */
             let picurl = "";
 
             // Create a root reference
@@ -156,25 +154,30 @@ export default {
                         photoURL: picurl
                       })
                       .then(data => {
-                        console.log(`received data from updateProfile process`);
-                        console.log(data);
+                        self.loadingflag = false;
+                        console.log(`updateProfile process DONE!`);
                       })
                       .catch(e => {
+                        self.loadingflag = false;
                         console.error(e);
                       });
                   }
                 } else {
+                  self.loadingflag = false;
                   console.log("\tDifferent state received !");
                 }
               })
               .catch(e => {
+                self.loadingflag = false;
                 console.error(e);
               });
           } else {
+            self.loadingflag = false;
             throw new Error("User Issue Raised");
           }
         })
         .catch(e => {
+          self.loadingflag = false;
           console.log(e);
           let errormessage = e.message;
           throw errormessage;
@@ -186,7 +189,7 @@ export default {
     serverBus.$on("imagesSelected", fd => {
       // (files[x].size/1024)/1024).toFixed(4); // MB
       let filesize = (fd[0].size / 1024 / 1024).toFixed(4); //in MB
-      console.log(filesize);
+      // console.log(filesize);
       if (fd.length === 1 && filesize <= 2.0) {
         this.user.photo = fd;
       } else {

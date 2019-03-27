@@ -1,9 +1,9 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12 style="">
+    <!-- <v-flex xs12 style="">
       <h3>Artist SignUp View</h3>
       <p>The artist shall provide detail in order to be verified</p>
-    </v-flex>
+    </v-flex> -->
     <v-flex xs12 class="">
       <SignUpForm />
       <!-- <div id="firebaseui-auth-container"></div> -->
@@ -16,8 +16,8 @@
 /* eslint-disable no-console */
 
 import SignUpForm from "@/components/SignUpForm/V1/";
-import fire from "@/fire/V1";
-import firebaseui from "firebaseui"; // var firebaseui = require('firebaseui');
+// import fire from "@/fire/V1";
+// import firebaseui from "firebaseui"; // var firebaseui = require('firebaseui');
 
 export default {
   name: "artist-sign-up-view",
