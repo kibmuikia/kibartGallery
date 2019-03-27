@@ -125,22 +125,50 @@ export default {
       await fire.auth
         .createUserWithEmailAndPassword(this.user.email, this.user.password)
         .then(data => {
-          console.log(`Received data which is type - ${typeof data}`);
-          console.log(data);
           if (data.user) {
             console.log("In data.user if function");
             let user = data.user;
             console.log(user);
+            let uid = user.providerData[0].uid;
+            let pic = self.user.photo[0];
+            let filename = pic.name;
+            filename = filename.split(".");
+            filename = `${uname}.${filename[1]}`;
+            /*
+            let filenameSplit = filename.split(".");
+            filename = `${this.arttitle}-${i}.${filenameSplit[1]}`;
+            */
+            let picurl = "";
+
             // Create a root reference
             let storageRef = fire.storage.ref();
             // Create a reference to 'users/usernameID/imagename.extension[jpg,png,gif]'
-            let usersPhotoRef = storageRef.child(`users/userID/filename`);
-            user
-              .updateProfile({
-                displayName: self.user.displayname
+            let usersPhotoRef = storageRef.child(`users/${uid}/${filename}`);
+            usersPhotoRef
+              .put(pic)
+              .then(snapshot => {
+                if (snapshot.state === "success") {
+                  picurl = snapshot.ref.location.path;
+                  if (picurl) {
+                    user
+                      .updateProfile({
+                        displayName: self.user.displayname,
+                        photoURL: picurl
+                      })
+                      .then(data => {
+                        console.log(`received data from updateProfile process`);
+                        console.log(data);
+                      })
+                      .catch(e => {
+                        console.error(e);
+                      });
+                  }
+                } else {
+                  console.log("\tDifferent state received !");
+                }
               })
-              .then(data => {
-                console.log(data);
+              .catch(e => {
+                console.error(e);
               });
           } else {
             throw new Error("User Issue Raised");
