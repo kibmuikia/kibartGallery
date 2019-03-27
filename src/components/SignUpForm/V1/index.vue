@@ -124,8 +124,12 @@ export default {
       console.log(uname);
       await fire.auth
         .createUserWithEmailAndPassword(this.user.email, this.user.password)
-        .then(user => {
-          if (user) {
+        .then(data => {
+          console.log(`Received data which is type - ${typeof data}`);
+          console.log(data);
+          if (data.user) {
+            console.log("In data.user if function");
+            let user = data.user;
             console.log(user);
             // Create a root reference
             let storageRef = fire.storage.ref();
