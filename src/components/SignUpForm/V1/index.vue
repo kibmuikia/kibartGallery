@@ -155,6 +155,12 @@ export default {
                       })
                       .then(data => {
                         self.loadingflag = false;
+                        this.resetForm();
+                        utils.showAlert(
+                          "Success",
+                          "You are now Registered",
+                          "success"
+                        );
                         console.log(`updateProfile process DONE!`);
                       })
                       .catch(e => {
@@ -182,7 +188,16 @@ export default {
           let errormessage = e.message;
           throw errormessage;
         });
-    }
+    },
+    resetForm() {
+      var self = this;
+      //Iterate through each object field, key is name of the object field`
+      Object.keys(this.user).forEach(function(key) {
+        self.user[key] = "";
+      });
+      this.$refs.formSignUp.resetValidation();
+      // this.$refs.formSignUp.reset();
+    } //end-resetForm
   },
   created() {
     // Using the server bus

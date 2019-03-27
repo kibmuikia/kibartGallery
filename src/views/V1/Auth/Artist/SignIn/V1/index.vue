@@ -49,6 +49,7 @@
 <script>
 /* eslint-disable no-console */
 import fire from "@/fire/V1";
+import utils from "@/utils/V1";
 
 export default {
   name: "artist-sign-in-view",
@@ -83,31 +84,40 @@ export default {
     async processForm() {
       this.loadingflag = true;
       console.log("\tentered SignIn-processForm !");
-      console.log(
-        `email-${this.user.email},passwordGot-${this.user.password} .`
-      );
-      try {
-        await fire.auth
-          .signInWithEmailAndPassword(this.user.email, this.user.password)
-          .then(data => {
-            console.log("response after process-signIn");
-            console.log(data);
-            this.loadingflag = false;
-          })
-          .catch(e => {
-            this.loadingflag = false;
-            console.error(e);
-          });
-      } catch (err) {
+      if (!this.$refs.formSignIn.validate()) {
         this.loadingflag = false;
-        console.error(err);
-      }
+        utils.showAlert("Error", "Invalid data", "error");
+        throw new Error("Invalid form data");
+      } //end-if-valid data
+      // try {
+      await fire.auth
+        .signInWithEmailAndPassword(this.user.email, this.user.password)
+        .then(data => {
+          this.loadingflag = false;
+          console.log("response after process-signIn");
+          console.log(data);
+          this.resetForm();
+          utils.showAlert("Success", "You are now signed-In", "success");
+        })
+        .catch(e => {
+          this.loadingflag = false;
+          console.error(e);
+          utils.showAlert("Error", e.message, "error");
+        });
+      // } catch (err) {
+      // this.loadingflag = false;
+      // console.error(err);
+      // }
     }, //end-processForm
     async checkUser() {
       try {
         let currentuser = await fire.auth.currentUser;
-        console.log("Found current is :: ");
-        console.log(currentuser);
+        if (currentuser) {
+          console.log("Found current is :: ");
+          console.log(currentuser);
+        } else {
+          throw new Error("No currentuser to check");
+        }
       } catch (err) {
         console.error(err);
       }
@@ -122,7 +132,16 @@ export default {
         .catch(e => {
           console.error(e);
         });
-    }
+    },
+    resetForm() {
+      var self = this;
+      //Iterate through each object field, key is name of the object field`
+      Object.keys(this.user).forEach(function(key) {
+        self.user[key] = "";
+      });
+      this.$refs.formSignIn.resetValidation();
+      // this.$refs.formSignIn.reset();
+    } //end-resetForm
   } //end-methods
 }; //end-export
 </script>
