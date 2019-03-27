@@ -57,6 +57,7 @@ import { serverBus } from "@/main";
 
 export default {
   name: "image-input-component",
+  props: [],
   data() {
     return {
       filesdata: null,
@@ -85,7 +86,9 @@ export default {
   }, //end-methods
   watch: {}, //end-watch
   computed: {}, //end-computed
-  created() {}, //end-created
+  created() {
+    // .
+  }, //end-created
   mounted() {} //end-mounted
 }; //end-export
 </script>

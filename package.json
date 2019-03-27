@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "start": "./node_modules/.bin/webpack-dev-server --host localhost --port 3000 --content-base src --inline --hot",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
@@ -15,6 +16,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.5",
     "epic-spinners": "^1.0.4",
     "firebase": "^5.8.6",
+    "firebaseui": "^3.5.2",
     "jimp": "^0.6.0",
     "nprogress": "^0.2.0",
     "sweetalert2": "^8.2.6",

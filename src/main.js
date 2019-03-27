@@ -65,6 +65,8 @@ Vue.config.productionTip = false;
 
 export const serverBus = new Vue();
 
+// Vue.http.headers.common["Access-Control-Allow-Origin"] = true;
+
 new Vue({
   router,
   store,
