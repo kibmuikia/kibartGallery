@@ -52,7 +52,7 @@ export default {
     },
     trackPage() {
       this.$ga.page(this.$router);
-      console.log("page tracked");
+      // console.log("page tracked");
     }
   },
   watch: {

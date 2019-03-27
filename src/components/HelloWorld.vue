@@ -7,16 +7,17 @@
     wrap
     class="landingView"
   >
-    <v-flex xs12 md12>
+    <!-- <v-flex xs12 md12>
+
+    </v-flex> -->
+
+    <v-flex xs12 md12 mb-4>
       <v-img
         :src="require('../assets/A.svg')"
         class=""
         contain
         height="200"
       ></v-img>
-    </v-flex>
-
-    <v-flex xs12 md12 mb-4>
       <h1 class="display-2 font-weight-bold mb-3">
         Welcome to KibArt Gallery
       </h1>

@@ -20,21 +20,21 @@ import {
 } from "@fortawesome/free-brands-svg-icons"; // faFacebook pencil-alt
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-// import VueAnalytics from "vue-analytics";
+import VueAnalytics from "vue-analytics";
 
-// Vue.use(VueAnalytics, {
-//   id: "UA-135976056-1",
-//   router,
-//   checkDuplicatedScript: true,
-//   autoTracking: {
-//     screenview: true,
-//     transformQueryString: false
-//   },
-//   debug: {
-//     enabled: true,
-//     sendHitTask: false
-//   }
-// });
+Vue.use(VueAnalytics, {
+  id: "UA-135976056-1",
+  router,
+  checkDuplicatedScript: true,
+  autoTracking: {
+    screenview: true,
+    transformQueryString: false
+  },
+  debug: {
+    enabled: true,
+    sendHitTask: false
+  }
+});
 
 import SocialSharing from "vue-social-sharing";
 
@@ -75,7 +75,7 @@ new Vue({
 
 router.beforeResolve((to, from, next) => {
   // store.commit("ON_PRELOADERFLAG");
-  console.log(to.meta);
+  // console.log(to.meta);
   // If this isn't an initial page load.
   if (to.name) {
     // Start the route progress bar.
