@@ -5,7 +5,7 @@ export default {
     title,
     message,
     type,
-    timer = 2100,
+    timer = 2500,
     hasConfirm = false,
     hasCancel = false,
     confirmBtnText = "Yes",

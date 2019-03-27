@@ -162,6 +162,26 @@ export default {
                           "success"
                         );
                         console.log(`updateProfile process DONE!`);
+                        user
+                          .sendEmailVerification()
+                          .then(() => {
+                            utils.showAlert(
+                              "Success",
+                              "Please Verify Your Email",
+                              "success"
+                            );
+                          })
+                          .catch(e => {
+                            utils.showAlert("Error", e.message, "error");
+                            console.log(e);
+                          });
+                        /*
+firebase.auth().currentUser.sendEmailVerification().then(function() {
+ // Email sent.
+}, function(error) {
+ // An error happened.
+});
+                        */
                       })
                       .catch(e => {
                         self.loadingflag = false;
