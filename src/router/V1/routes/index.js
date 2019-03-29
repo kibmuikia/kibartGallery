@@ -6,7 +6,8 @@ import Home from "../../../views/Home.vue";
 import About from "../../../views/About.vue";
 import NotFound from "../../../views/404Not";
 import Gallery from "../../../views/V1/Gallery/V1";
-import UploadImage from "../../../views/V1/UploadImage/V1";
+// import UploadImage from "../../../views/V1/UploadImage/V1";
+import UploadImage from "../../../views/V1/UploadImage/V2";
 import ArtistSignUp from "../../../views/V1/Auth/Artist/SignUp/V1";
 import ArtistSignIn from "../../../views/V1/Auth/Artist/SignIn/V1";
 
