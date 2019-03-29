@@ -50,6 +50,12 @@
           <v-btn color="primary" type="submit" :loading="loadingflag">
             Submit Details
           </v-btn>
+          <v-btn color="" @click="navigateTo('/auth/artist/signin')">
+            Oops! I have an account, Sign In
+          </v-btn>
+        </v-flex>
+        <v-flex v-if="status">
+          <p class="subheading">{{ status }}</p>
         </v-flex>
       </v-layout>
     </v-container>
@@ -72,6 +78,7 @@ export default {
     return {
       valid: null,
       loadingflag: false,
+      status: "",
       user: {
         displayname: "",
         email: "",
@@ -101,6 +108,12 @@ export default {
     };
   },
   methods: {
+    navigateTo(path) {
+      // eslint-disable-next-line
+      // console.log(path);
+      this.drawer = !this.drawer;
+      this.$router.push(path);
+    },
     async processForm() {
       this.loadingflag = true;
       let self = this;
@@ -111,12 +124,14 @@ export default {
         this.user.photo.length !== 1
       ) {
         this.loadingflag = false;
+        this.status = "Ensure the details you are providing are as required";
         utils.showAlert("Error", "Invalid data", "error");
         throw new Error("Invalid form data");
       } //end-if-valid data
       if (this.user.password !== this.user.confirm_password) {
         this.loadingflag = false;
         let msg = "Invalid Password[Not Same]";
+        this.status = msg;
         utils.showAlert("Error", msg, "error");
         throw new Error(msg);
       } //end-if-password-check
@@ -153,9 +168,8 @@ export default {
                         displayName: self.user.displayname,
                         photoURL: picurl
                       })
-                      .then(data => {
-                        self.loadingflag = false;
-                        this.resetForm();
+                      .then(() => {
+                        self.status = "Registration Successfull";
                         utils.showAlert(
                           "Success",
                           "You are now Registered",
@@ -165,9 +179,13 @@ export default {
                         user
                           .sendEmailVerification()
                           .then(() => {
+                            self.loadingflag = false;
+                            this.resetForm();
+                            self.status =
+                              "Verification of Account Now Required";
                             utils.showAlert(
                               "Success",
-                              "Please Verify Your Email",
+                              "Access Your Email To Verify Your Account",
                               "success"
                             );
                           })
@@ -175,13 +193,6 @@ export default {
                             utils.showAlert("Error", e.message, "error");
                             console.log(e);
                           });
-                        /*
-firebase.auth().currentUser.sendEmailVerification().then(function() {
- // Email sent.
-}, function(error) {
- // An error happened.
-});
-                        */
                       })
                       .catch(e => {
                         self.loadingflag = false;

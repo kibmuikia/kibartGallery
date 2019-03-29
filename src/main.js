@@ -1,10 +1,12 @@
 /* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 
 import Vue from "vue";
 import "./plugins/vuetify";
 import App from "./App.vue";
-import store from "./store";
+// import store from "./store";
 import { router } from "./router/V1";
+import { store } from "./store/V1";
 
 // import LazyLoadDirective from "./directives/LazyLoadDirective";
 // import KibShow from "./directives/KibShow";
@@ -54,7 +56,6 @@ library.add(
   faWhatsapp,
   faEnvelope
 );
-// library.add(faPencilAlt);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
@@ -65,8 +66,6 @@ Vue.config.productionTip = false;
 
 export const serverBus = new Vue();
 
-// Vue.http.headers.common["Access-Control-Allow-Origin"] = true;
-
 new Vue({
   router,
   store,
@@ -74,25 +73,6 @@ new Vue({
 }).$mount("#app");
 
 router.beforeResolve((to, from, next) => {
-  // store.commit("ON_PRELOADERFLAG");
-  // console.log(to.meta);
-  // If this isn't an initial page load.
-  if (to.name) {
-    // Start the route progress bar.
-    // NProgress.start();
-    // console.log("route load START-ing !");
-    // eslint-disable-next-line
-    // console.log(`b4R :: ${store.state.viewPreloaderFlag}`);
-    // store.commit("toggleFlagStore");
-    // store.commit("ON_PRELOADERFLAG");
-    // setTimeout(() => {
-    //   store.commit("TOGGLE_PRELOADERFLAG");
-    // }, 20);
-    // setTimeout(function(){ alert("Hello"); }, 3000);
-    // TOGGLE_PRELOADERFLAG
-    // eslint-disable-next-line
-    // console.log(`b4R :: ${store.state.viewPreloaderFlag}`);
-  }
   if (to.matched.some(record => record.meta.title)) {
     // console.log(to.matched.some(record => record.meta.title));
     // console.log(to);

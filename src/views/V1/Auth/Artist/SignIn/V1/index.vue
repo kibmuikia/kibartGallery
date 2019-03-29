@@ -32,12 +32,24 @@
               <v-btn color="primary" type="submit" :loading="loadingflag">
                 Sign In
               </v-btn>
+              <v-btn color="" @click="navigateTo('/auth/artist/signup')">
+                Do not have an account, Sign Up
+              </v-btn>
               <v-btn color="lightgreen" @click="checkUser">
                 Check User
+              </v-btn>
+              <v-btn color="brown" @click="checkUserStore">
+                Check User Store
               </v-btn>
               <v-btn color="red" @click="signout">
                 Sign Out
               </v-btn>
+              <v-btn color="" @click="navigateTo('/upload-image')">
+                Upload Your ArtWork
+              </v-btn>
+            </v-flex>
+            <v-flex v-if="status">
+              <p class="subheading">{{ status }}</p>
             </v-flex>
           </v-layout>
         </v-container>
@@ -50,6 +62,7 @@
 /* eslint-disable no-console */
 import fire from "@/fire/V1";
 import utils from "@/utils/V1";
+// import { serverBus } from "@/main";
 
 export default {
   name: "artist-sign-in-view",
@@ -57,12 +70,8 @@ export default {
     return {
       loadingflag: false,
       valid: null,
-      user: {
-        displayname: "",
-        email: "",
-        password: "",
-        photo: null
-      },
+      status: "",
+      user: {},
       rules: {
         emailRules: [
           v => !!v || "Email is required",
@@ -81,26 +90,50 @@ export default {
     }; //end-return
   }, //end-data
   methods: {
+    navigateTo(path) {
+      // eslint-disable-next-line
+      // console.log(path);
+      this.drawer = !this.drawer;
+      this.$router.push(path);
+    },
     async processForm() {
       this.loadingflag = true;
-      console.log("\tentered SignIn-processForm !");
+      let self = this;
+      // console.log("\tentered SignIn-processForm !");
       if (!this.$refs.formSignIn.validate()) {
         this.loadingflag = false;
-        utils.showAlert("Error", "Invalid data", "error");
+        this.status = "Invalid Form Data";
+        utils.showAlert("Error", this.status, "error");
         throw new Error("Invalid form data");
       } //end-if-valid data
       // try {
       await fire.auth
         .signInWithEmailAndPassword(this.user.email, this.user.password)
         .then(data => {
-          this.loadingflag = false;
-          console.log("response after process-signIn");
-          console.log(data);
-          this.resetForm();
-          utils.showAlert("Success", "You are now signed-In", "success");
+          // console.log(data);
+          // console.log(data.user);
+          this.status = "Successful Sign-IN";
+          self.user = {
+            displayName: data.user.displayName,
+            email: data.user.email,
+            emailVerified: data.user.emailVerified,
+            photoURL: data.user.photoURL,
+            uid: data.user.uid
+          };
+          if (this.$store.dispatch("setUser", self.user)) {
+            this.checkUserStore();
+            utils.showAlert("Success", this.status, "success");
+            this.resetForm();
+            this.loadingflag = false;
+          } else {
+            throw new Error("Dispatch to set user in store FAILED");
+          }
+          // Using the server bus
+          // serverBus.$emit("gotuser", user);
         })
         .catch(e => {
           this.loadingflag = false;
+          this.status = e.message;
           console.error(e);
           utils.showAlert("Error", e.message, "error");
         });
@@ -109,14 +142,36 @@ export default {
       // console.error(err);
       // }
     }, //end-processForm
+    isEmpty(obj) {
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) return false;
+      }
+      return true;
+    },
+    checkUserStore() {
+      this.user = this.$store.getters.user;
+      if (this.isEmpty(this.user)) {
+        this.status = "User-object is EMPTY thus No User Available";
+        console.error(this.status);
+      } else {
+        // Object is NOT empty (would return false in this example)
+        console.log(`In View[ SignIn ], User=>[ ${this.user} ]`);
+        console.log(this.user);
+        this.status = `from STORE, displayName = ${this.user.displayName} .`;
+      }
+    },
     async checkUser() {
       try {
         let currentuser = await fire.auth.currentUser;
         if (currentuser) {
-          console.log("Found current is :: ");
+          this.status = `Current user[via auth()] is, ${
+            currentuser.displayName
+          }`;
+          console.log(this.status);
           console.log(currentuser);
         } else {
-          throw new Error("No currentuser to check");
+          this.status = "No current-User available";
+          throw new Error(this.status);
         }
       } catch (err) {
         console.error(err);
@@ -125,22 +180,25 @@ export default {
     async signout() {
       await fire.auth
         .signOut()
-        .then(data => {
-          console.log("response after process-signOUT");
-          console.log(data);
+        .then(() => {
+          this.status = "Now Signed-OUT !";
+          this.$store.dispatch("unsetUser");
+          this.resetForm();
         })
         .catch(e => {
+          this.status = e.message;
           console.error(e);
         });
     },
     resetForm() {
-      var self = this;
-      //Iterate through each object field, key is name of the object field`
-      Object.keys(this.user).forEach(function(key) {
-        self.user[key] = "";
-      });
+      this.user = {};
       this.$refs.formSignIn.resetValidation();
-      // this.$refs.formSignIn.reset();
+      this.$refs.formSignIn.reset();
+      // var self = this;
+      //Iterate through each object field, key is name of the object field`
+      // Object.keys(this.user).forEach(function(key) {
+      //   self.user[key] = "";
+      // });
     } //end-resetForm
   } //end-methods
 }; //end-export

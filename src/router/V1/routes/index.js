@@ -66,7 +66,8 @@ export const routes = [
     name: "UploadImage",
     component: UploadImage,
     meta: {
-      title: "KibArt Gallery | Art Upload"
+      title: "KibArt Gallery | Art Upload",
+      requiresAuth: true
     }
   },
   {

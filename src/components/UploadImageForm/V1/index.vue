@@ -5,14 +5,12 @@
     ref="formImageUpload"
     @submit.prevent="processForm"
     enctype="multipart/form-data"
+    class=""
   >
-    <v-container>
-      <v-layout align-center justify-center column fill-height>
-        <v-flex xs12 md4>
-          <h2>Upload your Art-Work</h2>
-        </v-flex>
-        <v-flex xs12 md6>
-          <ImageInput ref="imageinput" />
+    <v-container fluid>
+      <v-layout align-center justify-center row wrap>
+        <v-flex xs12>
+          <h2 class="text-xs-center">Upload your Art-Work</h2>
         </v-flex>
         <v-flex xs12 md6>
           <v-text-field
@@ -22,10 +20,14 @@
             required
           ></v-text-field>
         </v-flex>
-        <v-flex xs12 md12>
+        <v-flex xs12 md6>
+          <ImageInput ref="imageinput" />
+        </v-flex>
+        <v-flex xs12>
           <v-text-field
             v-model="artdescription"
             label="ArtWork Description"
+            :rules="descriptionRules"
           ></v-text-field>
         </v-flex>
         <v-flex xs12 md4>
@@ -66,12 +68,16 @@ export default {
       filesdata: null,
       arttitle: "",
       artdescription: "",
-      user: {
-        name: "kibart"
-      },
+      user: {},
+      // user: {
+      //   name: "kibart"
+      // },
       titleRules: [
         v => !!v || "Name is required",
         v => v.length <= 50 || "Name must be less than 50 characters"
+      ],
+      descriptionRules: [
+        v => v.length <= 200 || "Name must be less than 200 characters"
       ],
       loadingflag: false,
       storagepaths: []
@@ -103,8 +109,8 @@ export default {
 
       if (this.filesdata) {
         if (!this.$refs.formImageUpload.validate()) {
-          this.snackbarinfo = "Invalid!";
           this.loadingflag = false;
+          this.snackbarinfo = "Invalid!";
           this.snackbar = true;
           return false;
         }
@@ -126,18 +132,21 @@ export default {
 
             let filename = file.name;
             let filenameSplit = filename.split(".");
-            filename = `${this.arttitle}-${i}.${filenameSplit[1]}`;
-            // console.log(`Name of file[-${i}-] :: [ ${filename} ].`);
-            let filename_for_modified = `${this.arttitle}-${i}-small.${
+            filename = `${this.arttitle.replace(/\s+/g, "")}-${i}.${
               filenameSplit[1]
             }`;
+            // console.log(`Name of file[-${i}-] :: [ ${filename} ].`);
+            let filename_for_modified = `${this.arttitle.replace(
+              /\s+/g,
+              ""
+            )}-${i}-small.${filenameSplit[1]}`;
             let fileModified = null;
             // Create a reference to 'artwork/imagename.extension[jpg,png,gif]'
             let artworkRef = storageRef.child(
-              `artwork/${this.user.name}/${this.arttitle}/${filename}`
+              `artwork/${this.user.uid}/${this.arttitle}/${filename}`
             );
             let artworkRefModified = storageRef.child(
-              `artwork/${this.user.name}/${
+              `artwork/${this.user.uid}/${
                 this.arttitle
               }/${filename_for_modified}`
             );
@@ -209,7 +218,7 @@ export default {
 
             if (i == self.filesdata.length - 1) {
               self.loadingflag = false;
-              console.log("\t[loop done]all files handles");
+              console.log("\t[loop done]");
             }
           } else {
             console.error("[ file ] invalid");
@@ -219,7 +228,7 @@ export default {
         this.loadingflag = false;
         utils.showAlert(
           "Error",
-          "You must choose at atleast one image file, in order to be able to proceed with the upload",
+          "You must choose at ONE image file, in order to be able to proceed with the upload",
           "error"
         );
       }
@@ -228,19 +237,29 @@ export default {
   created() {
     // Using the server bus
     serverBus.$on("imagesSelected", fd => {
-      this.filesdata = fd;
+      let filesize = (fd[0].size / 1024 / 1024).toFixed(4); //in MB
+      if (fd.length === 1 && filesize <= 2.0) {
+        this.filesdata = fd;
+      } else {
+        utils.showAlert(
+          "Error",
+          "Choose Only One File and ensure its size is below 2MB",
+          "error"
+        );
+      }
       // console.log("created()->serverBus.on[imagesSelected] running !!");
       // console.log(this.filesdata);
     });
+    this.user = this.$store.getters.user;
   },
   watch: {
     storagepaths: function() {
       // console.log(this.storagepaths);
-    },
-    arttitle: function() {
-      // str = str.replace(/\s+/g, '');
-      this.arttitle = this.arttitle.replace(/\s+/g, "");
     }
+    // arttitle: function() {
+    //   // str = str.replace(/\s+/g, '');
+    //   this.arttitle = this.arttitle.replace(/\s+/g, "");
+    // }
   }
 }; //end-export
 </script>

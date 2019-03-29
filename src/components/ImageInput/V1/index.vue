@@ -1,21 +1,20 @@
 <template>
-  <v-layout align-center justify-center column fill-height>
+  <v-layout align-center justify-center column>
     <v-flex xs12 md12>
-      <label for="imageinput" class="subheading">
-        <v-layout>
-          <v-flex xs12 md10 class="text-xs-center">
-            <p class="subheading labeltextwrap">{{ labeltext }}</p>
+      <label for="imageinput" class="">
+        <v-layout row align-center justify-center>
+          <v-flex xs12 class="text-xs-center">
+            <p class="subheading labeltextwrap pa-1">{{ labeltext }}</p>
           </v-flex>
-          <v-flex xs12 md2>
+          <v-flex xs12>
             <v-btn
               flat
               icon
               color="blue lighten-2"
-              dark
               @click="snackbar = true"
               @mouseenter="
                 snackbarinfo =
-                  'Select one or more images, AT ONCE.Preferably small sized images to gurantee upload, for now.'
+                  'Preferably small sized[ equal to or less than 2MB ] images to gurantee upload, for now.'
               "
               class=""
             >
@@ -25,7 +24,7 @@
         </v-layout>
       </label>
     </v-flex>
-    <!-- <v-flex xs12 md12> -->
+
     <input
       id="imageinput"
       name="imageinput"
@@ -35,7 +34,6 @@
       v-on:change="processImage($event.target)"
       class="hide-input-file"
     />
-    <!-- </v-flex> -->
 
     <v-snackbar
       v-model="snackbar"
@@ -66,7 +64,7 @@ export default {
       // y: "top",
       timeout: 4000,
       snackbarinfo:
-        "Select one or more images, AT ONCE.Preferably small sized images to gurantee upload, for now.",
+        "Preferably small sized[ equal to or less than 2MB ] images to gurantee upload, for now.",
       labeltext: "Choose Art-Work File(s)"
     }; //end-return
   }, //end-data

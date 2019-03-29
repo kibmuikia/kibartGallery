@@ -26,6 +26,7 @@
 import Toolbar from "./components/Toolbar";
 require("vue2-animate/dist/vue2-animate.min.css");
 import PreloadSpinner from "./components/PreloadSpinner";
+// import { serverBus } from "@/main";
 
 export default {
   name: "App",
@@ -33,12 +34,9 @@ export default {
     Toolbar,
     Footer: () => import("@/components/Footer"),
     PreloadSpinner
-    // PreloaderSpinner
   },
   data() {
     return {
-      // viewPreloaderFlag: this.$store.state.viewPreloaderFlag,
-      // flag: this.$store.getters.viewPreloaderFlag
       flag: false
     };
   },
@@ -60,11 +58,8 @@ export default {
     $route(to, from) {
       // react to route changes...
       // console.log(to, from);
-      // eventBus.$emit("onEntityChanged",to.path);
-      // this.toggleLoader();
       this.toggleFlag();
       this.trackPage();
-      // toggleFlag
       // console.log("beforeUpdate: called");
       // eventBus.$emit("renderForm");
       // eventBus.$emit("formClear");
@@ -72,16 +67,20 @@ export default {
     }
   },
   created() {
-    // this.toggleLoader();
     this.toggleFlag();
-    // toggleFlag
-    // eventBus.$on("toggleSnackbar", data => this.toggleSnackbar(data));
-
-    // document.title = "Look Ma!";
+  },
+  mounted() {
+    // this.showFlagValue();
+    // Using the server bus
+    // serverBus.$on("gotuser", receiveduser => {
+    //   console.log("created()->serverBus.on[gotuser] running !!");
+    //   console.log(receiveduser);
+    //   this.$store.dispatch("setUser");
+    //   this.user = this.$store.user;
+    //   this.filesdata = fd;
+    //   console.log(this.filesdata);
+    // });
   }
-  // mounted() {
-  //   // this.showFlagValue();
-  // }
   // computed: {
   //   // a computed getter
   //   flagComputed: function() {
@@ -91,13 +90,6 @@ export default {
   //     let flag = this.$store.getters.viewPreloaderFlag;
   //     return this.flag;
   //   }
-  // }
-  // watch: {
-  //   // kilometers: function(val) {
-  //   //   this.kilometers = val;
-  //   //   this.meters = val * 1000;
-  //   // },
-  //   flagWatched: this.showFlagValue()
   // }
 };
 </script>
