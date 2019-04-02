@@ -19,19 +19,34 @@ const router = new Router({
 
 /* eslint-disable no-console */
 
+function isEmpty(obj) {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) return false;
+  }
+  return true;
+}
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     // let current_user = fire.auth.currentUser;
-    if (!store.getters.user.uid) {
+    // !store.getters.user.uid
+    if (
+      isEmpty(store.getters.user) ||
+      store.getters.user.emailVerified != true
+    ) {
       console.log(`\tUser-id[ ${store.getters.user.uid} ]-not-present !`);
       next({
         path: "/auth/artist/signin",
-        query: { redirect: to.fullPath }
+        query: { status: "Invalid-User", redirect: to.fullPath }
       });
     } else {
-      console.log(`\tUser[ ${store.getters.user.email} ] present.`);
+      console.log(
+        `\tUser[ ${store.getters.user.email} ][${
+          store.getters.user.emailVerified
+        }] present & valid.`
+      );
       next();
     }
   } else {

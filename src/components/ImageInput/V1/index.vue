@@ -65,7 +65,7 @@ export default {
       timeout: 4000,
       snackbarinfo:
         "Preferably small sized[ equal to or less than 2MB ] images to gurantee upload, for now.",
-      labeltext: "Choose Art-Work File(s)"
+      labeltext: "Choose Art-Work File"
     }; //end-return
   }, //end-data
   methods: {

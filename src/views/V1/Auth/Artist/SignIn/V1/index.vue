@@ -32,6 +32,9 @@
               <v-btn color="primary" type="submit" :loading="loadingflag">
                 Sign In
               </v-btn>
+              <v-btn @click="resetForm">
+                Reset Form
+              </v-btn>
               <v-btn color="" @click="navigateTo('/auth/artist/signup')">
                 Do not have an account, Sign Up
               </v-btn>
@@ -192,8 +195,8 @@ export default {
     },
     resetForm() {
       this.user = {};
-      this.$refs.formSignIn.resetValidation();
       this.$refs.formSignIn.reset();
+      this.$refs.formSignIn.resetValidation();
       // var self = this;
       //Iterate through each object field, key is name of the object field`
       // Object.keys(this.user).forEach(function(key) {

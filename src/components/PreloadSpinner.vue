@@ -60,7 +60,12 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0); /* Black background with opacity */
+  background-color: rgba(
+    255,
+    253,
+    208,
+    0.4
+  ); /* current-color--cream, Black background with opacity */
   z-index: 499; /* Specify a stack order in case you're using a different order for other elements */
 }
 

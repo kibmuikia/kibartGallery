@@ -34,14 +34,20 @@
           <v-btn color="success" type="submit" :loading="loadingflag">
             Upload Art
           </v-btn>
+          <v-btn color="" @click="resetForm">
+            Reset Form
+          </v-btn>
         </v-flex>
-        <v-flex v-if="storagepaths" xs12 md12 class="pa-2">
+        <v-flex xs12 v-if="status">
+          <p class="subheading">{{ status }}</p>
+        </v-flex>
+        <!-- <v-flex v-if="storagepaths" xs12 md12 class="pa-2">
           <ul>
             <li v-for="(path, index) in storagepaths" :key="index">
-              {{ path }}
+              {{ path
             </li>
           </ul>
-        </v-flex>
+        </v-flex> -->
       </v-layout>
     </v-container>
   </v-form>
@@ -80,7 +86,8 @@ export default {
         v => v.length <= 200 || "Name must be less than 200 characters"
       ],
       loadingflag: false,
-      storagepaths: []
+      storagepaths: [],
+      status: ""
     };
   },
   methods: {
@@ -107,7 +114,7 @@ export default {
     processForm() {
       this.loadingflag = true;
 
-      if (this.filesdata) {
+      if (this.filesdata && !this.isEmpty(this.user)) {
         if (!this.$refs.formImageUpload.validate()) {
           this.loadingflag = false;
           this.snackbarinfo = "Invalid!";
@@ -115,9 +122,7 @@ export default {
           return false;
         }
 
-        console.log(
-          `form-submit event triggered.Next, processing the form-data. filesdata is VALID`
-        );
+        console.log(`Now processing artwork upload`);
         // console.log(this.filesdata);
 
         // Create a root reference
@@ -159,10 +164,12 @@ export default {
                   let imagepath = snapshot.ref.location.path;
                   self.storagepaths.push(imagepath);
                 } else {
+                  self.loadingflag = false;
                   console.error("state NOT successful");
                 } //end-else
               })
               .catch(e => {
+                self.loadingflag = false;
                 console.error("artworkRef FAILED");
                 console.error(e);
               });
@@ -193,6 +200,7 @@ export default {
                             let imagepathModified = snapshot.ref.location.path;
                             self.storagepaths.push(imagepathModified);
                           } else {
+                            self.loadingflag = false;
                             console.error("state NOT successful");
                           }
                         })
@@ -203,24 +211,23 @@ export default {
                         });
                     }
                     if (err) {
+                      self.loadingflag = false;
                       console.error(err);
                     }
                   });
                 })
                 .catch(err => {
+                  self.loadingflag = false;
                   console.error("jimp failed");
                   console.error(err);
                 });
             }; //end-onloadend
             readerJimpUse.onerror = function(e) {
+              self.loadingflag = false;
               console.error("Failed file read: " + e.toString());
             };
-
-            if (i == self.filesdata.length - 1) {
-              self.loadingflag = false;
-              console.log("\t[loop done]");
-            }
           } else {
+            self.loadingflag = false;
             console.error("[ file ] invalid");
           }
         } //end-for
@@ -228,11 +235,30 @@ export default {
         this.loadingflag = false;
         utils.showAlert(
           "Error",
-          "You must choose at ONE image file, in order to be able to proceed with the upload",
+          "You must choose at ONE image file and be a VALID user.",
           "error"
         );
       }
-    } //end-processForm
+    }, //end-processForm
+    resetForm() {
+      this.$refs.formImageUpload.resetValidation();
+      this.arttitle = "";
+      this.artdescription = "";
+      this.storagepaths = [];
+      console.log("Form has been reset");
+      // var self = this;
+      //Iterate through each object field, key is name of the object field`
+      // Object.keys(this.user).forEach(function(key) {
+      //   self.user[key] = "";
+      // });
+      // this.$refs.formSignUp.reset();
+    }, //end-resetForm
+    isEmpty(obj) {
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) return false;
+      }
+      return true;
+    }
   },
   created() {
     // Using the server bus
@@ -254,7 +280,46 @@ export default {
   },
   watch: {
     storagepaths: function() {
-      // console.log(this.storagepaths);
+      if (this.storagepaths.length == 2) {
+        // console.log(this.storagepaths);
+        // console.log(`title-[${this.arttitle}], desc[${this.artdescription}]`);
+        let artwork = {
+          userID: this.user.uid,
+          artTitle: this.arttitle,
+          artDesc: this.artdescription,
+          artLocation: this.storagepaths
+        };
+        // console.log(artwork);
+        fire.db
+          .collection("artworks")
+          .add(artwork)
+          .then(docRef => {
+            console.log("Document written with ID: ", docRef.id);
+            this.status = `Art-work[ ${
+              artwork.artTitle
+            } ] uploaded successfully`;
+            utils.showAlert("Success", this.status, "success");
+            this.resetForm();
+            this.loadingflag = false;
+          })
+          .catch(error => {
+            console.error("Error adding document: ", error);
+          });
+        /*
+        artworks
+// Add a new document with a generated id.
+db.collection("cities").add({
+    name: "Tokyo",
+    country: "Japan"
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+        */
+      }
     }
     // arttitle: function() {
     //   // str = str.replace(/\s+/g, '');

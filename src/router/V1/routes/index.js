@@ -34,7 +34,7 @@ export const routes = [
     name: "Home",
     component: Home,
     meta: {
-      title: "KibArt Gallery | Welcome"
+      title: "Welcome | KibArt Gallery"
     }
   },
   {
@@ -42,7 +42,7 @@ export const routes = [
     name: "About",
     component: About,
     meta: {
-      title: "KibArt Gallery | About"
+      title: "About | KibArt Gallery"
     }
   },
   {
@@ -50,7 +50,7 @@ export const routes = [
     name: "NotFound",
     component: NotFound,
     meta: {
-      title: "KibArt Gallery | NotFound"
+      title: "NotFound | KibArt Gallery"
     }
   },
   { path: "*", redirect: "/notfound" },
@@ -59,7 +59,7 @@ export const routes = [
     name: "Gallery",
     component: Gallery,
     meta: {
-      title: "KibArt Gallery | Gallery"
+      title: "Gallery | KibArt Gallery"
     }
   },
   {
@@ -67,7 +67,7 @@ export const routes = [
     name: "UploadImage",
     component: UploadImage,
     meta: {
-      title: "KibArt Gallery | Art Upload",
+      title: "Art Upload | KibArt Gallery",
       requiresAuth: true
     }
   },
@@ -76,7 +76,7 @@ export const routes = [
     name: "ArtistSignUp",
     component: ArtistSignUp,
     meta: {
-      title: "KibArt Gallery | Artist SignUp"
+      title: "Artist SignUp | KibArt Gallery"
     }
   },
   {
@@ -84,7 +84,7 @@ export const routes = [
     name: "ArtistSignIn",
     component: ArtistSignIn,
     meta: {
-      title: "KibArt Gallery | Artist SignIn"
+      title: "Artist SignIn | KibArt Gallery"
     }
   }
   // AuthenticationRoutes,
