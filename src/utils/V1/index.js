@@ -31,5 +31,17 @@ export default {
           // https://sweetalert2.github.io/#handling-dismissals
         }
       });
-  } // end-showAlert
+  }, // end-showAlert
+  isEmpty(obj) {
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key)) return false;
+    }
+    return true;
+  },
+  extend(obj, src) {
+    Object.keys(src).forEach(function(key) {
+      obj[key] = src[key];
+    });
+    return obj;
+  }
 };

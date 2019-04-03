@@ -1,18 +1,59 @@
 <template>
-  <v-layout align-center justify-center column fill-height>
+  <v-layout align-center justify-center row fill-height wrap>
     <v-flex xs12 md12>
       <UploadImageForm />
     </v-flex>
-    <v-flex xs12 v-if="your_artwork.length > 0">
-      <h3 class="text-xs-center">Your Art Work</h3>
-      <v-card v-for="(artitem, index) in your_artwork" :key="index" flat>
+    <v-flex xs12 md8 v-if="your_artwork.length > 0">
+      <h3 class="text-xs-center pb-1">Your Art Work</h3>
+      <v-expansion-panel>
+        <v-expansion-panel-content
+          v-for="(artitem, index) in your_artwork"
+          :key="index"
+        >
+          <div slot="header">
+            <h6 class="title font-weight-light">{{ artitem.artTitle }}</h6>
+          </div>
+          <v-card>
+            <v-card-text class="pa-0">
+              <v-layout row wrap>
+                <v-flex xs6 v-if="artitem.artDesc" class="">
+                  <p class="subheading pl-3">{{ artitem.artDesc }}</p>
+                </v-flex>
+                <v-flex xs8 v-else>
+                  <p class="subheading pl-3">No Description Available</p>
+                </v-flex>
+                <v-spacer></v-spacer>
+                <v-flex xs4 class=" text-xs-center">
+                  <v-btn icon flat small @click="editArtWork(artitem, index)">
+                    <v-icon>edit</v-icon>
+                  </v-btn>
+                  <v-btn
+                    icon
+                    flat
+                    small
+                    color="warning"
+                    @click="
+                      deleteArtWork(artitem.docID, artitem.artLocation, index)
+                    "
+                  >
+                    <v-icon>delete_outline</v-icon>
+                  </v-btn>
+                </v-flex>
+              </v-layout>
+            </v-card-text>
+          </v-card>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+      <!-- . -->
+      <!-- <v-card v-for="(artitem, index) in your_artwork" :key="index" flat>
         <v-layout row wrap align-center justify-center class="pa-3 mb-1">
           <v-flex xs6 md6>
-            {{ artitem.artTitle }}
+            {{ artitem.artTitle
           </v-flex>
           <v-flex xs3 md3>
-            <v-btn icon flat>
+            <v-btn icon flat @click="editArtWork(artitem, index)">
               <v-icon>edit</v-icon>
+              artitem.docID
             </v-btn>
           </v-flex>
           <v-flex xs3 md3>
@@ -25,7 +66,7 @@
             </v-btn>
           </v-flex>
         </v-layout>
-      </v-card>
+      </v-card> -->
     </v-flex>
     <v-flex xs12 v-else>
       <p class="subheading text-xs-center">
@@ -37,6 +78,7 @@
 
 <script>
 /* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 
 import UploadImageForm from "@/components/UploadImageForm/V1/";
 import fire from "@/fire/V1";
@@ -58,11 +100,23 @@ export default {
     }; //end-return
   }, //end-data
   methods: {
-    isEmpty(obj) {
-      for (var key in obj) {
-        if (obj.hasOwnProperty(key)) return false;
-      }
-      return true;
+    // isEmpty(obj) {
+    //   for (var key in obj) {
+    //     if (obj.hasOwnProperty(key)) return false;
+    //   }
+    //   return true;
+    // },
+    async editArtWork(artitem, index) {
+      console.log(artitem);
+      let docID = artitem.docID;
+      // console.log(
+      //   `Doc[ ${docID} ]-title[ ${artitem.artTitle}]-UID[ ${artitem.userID} ]`
+      // );
+      // toUpdate: artitem
+      this.$router.push({
+        name: "EditArtWork",
+        params: { key: docID }
+      });
     },
     async deleteArtWork(docid, imagelocations, indexvalue) {
       this.loading = true;
@@ -101,12 +155,12 @@ export default {
           console.error("Error removing document: ", error);
         });
     },
-    extend(obj, src) {
-      Object.keys(src).forEach(function(key) {
-        obj[key] = src[key];
-      });
-      return obj;
-    },
+    // extend(obj, src) {
+    //   Object.keys(src).forEach(function(key) {
+    //     obj[key] = src[key];
+    //   });
+    //   return obj;
+    // },
     async getArtWork() {
       let self = this;
       await fire.db
@@ -118,7 +172,8 @@ export default {
             changes.forEach(change => {
               if (change.type == "added") {
                 console.log(`Doc[${change.doc.id}], ${change.type}`);
-                let gotdocument = self.extend(
+                // console.log(change.doc.data());
+                let gotdocument = utils.extend(
                   { docID: change.doc.id },
                   change.doc.data()
                 );
@@ -133,7 +188,7 @@ export default {
                 );
               }
             });
-            console.log(self.your_artwork);
+            // console.log(self.your_artwork);
           },
           error => {
             console.error("Listener failed :: ", error);
@@ -147,7 +202,7 @@ export default {
     },
     getUser() {
       this.user = this.$store.getters.user;
-      if (this.isEmpty(this.user) || this.user.emailVerified != true) {
+      if (utils.isEmpty(this.user) || this.user.emailVerified != true) {
         let msg = "No User Available or Not Yet Verified.Redirecting to signin";
         console.error(msg);
         alert(msg);
@@ -169,8 +224,13 @@ export default {
   mounted() {}, //end-mounted
   watch: {}, //end-watch
   created() {
+    // console.log(this.$route.params);
     this.getUser();
     this.getArtWork();
+    if (this.$route.params.status) {
+      let status = this.$route.params.status;
+      utils.showAlert("Success", status, "success");
+    }
   }
 }; //end-export
 </script>

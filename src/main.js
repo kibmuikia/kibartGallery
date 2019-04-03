@@ -33,7 +33,7 @@ Vue.use(VueAnalytics, {
     transformQueryString: false
   },
   debug: {
-    enabled: true,
+    enabled: false,
     sendHitTask: false
   }
 });

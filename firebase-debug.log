@@ -1,54 +1,29 @@
-[debug] [2019-03-26T12:03:33.895Z] ----------------------------------------------------------------------
-[debug] [2019-03-26T12:03:33.899Z] Command:       /usr/bin/node /usr/bin/firebase serve
-[debug] [2019-03-26T12:03:33.899Z] CLI Version:   6.5.0
-[debug] [2019-03-26T12:03:33.899Z] Platform:      linux
-[debug] [2019-03-26T12:03:33.899Z] Node Version:  v10.15.3
-[debug] [2019-03-26T12:03:33.942Z] Time:          Tue Mar 26 2019 15:03:33 GMT+0300 (East Africa Time)
-[debug] [2019-03-26T12:03:33.942Z] ----------------------------------------------------------------------
+[debug] [2019-04-02T05:52:38.909Z] ----------------------------------------------------------------------
+[debug] [2019-04-02T05:52:38.916Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2019-04-02T05:52:38.917Z] CLI Version:   6.5.0
+[debug] [2019-04-02T05:52:38.917Z] Platform:      linux
+[debug] [2019-04-02T05:52:38.917Z] Node Version:  v10.15.3
+[debug] [2019-04-02T05:52:38.955Z] Time:          Tue Apr 02 2019 08:52:38 GMT+0300 (East Africa Time)
+[debug] [2019-04-02T05:52:38.955Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-03-26T12:03:34.275Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-03-26T12:03:34.276Z] > authorizing via signed-in user
-[debug] [2019-03-26T12:03:34.277Z] [iam] checking project kibart-gallery for permissions ["firebase.projects.get"]
-[debug] [2019-03-26T12:03:34.284Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
-[debug] [2019-03-26T12:03:34.285Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+[debug] [2019-04-02T05:52:39.054Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-04-02T05:52:39.054Z] > authorizing via signed-in user
+[debug] [2019-04-02T05:52:39.055Z] [iam] checking project kibart-gallery for permissions ["firebase.projects.get"]
+[debug] [2019-04-02T05:52:39.058Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-04-02T05:52:39.059Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
  <request body omitted>
-[debug] [2019-03-26T12:03:35.888Z] <<< HTTP RESPONSE 200
-[debug] [2019-03-26T12:03:35.978Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/kibart-gallery:testIamPermissions  
+[debug] [2019-04-02T05:52:41.023Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-02T05:52:41.083Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/kibart-gallery:testIamPermissions  
 
-[debug] [2019-03-26T12:03:38.996Z] <<< HTTP RESPONSE 200
-[debug] [2019-03-26T12:03:39.000Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/kibart-gallery  
+[debug] [2019-04-02T05:52:44.132Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-02T05:52:44.136Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/kibart-gallery  
  
-[debug] [2019-03-26T12:03:41.495Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-02T05:52:46.892Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from '/home/kibdev/Documents/webProjects/kibartGallery'...
 [info] 
-[debug] [2019-03-26T12:03:41.501Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/84237026232/clients/_:getWebAppConfig  
+[debug] [2019-04-02T05:52:46.897Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/84237026232/clients/_:getWebAppConfig  
  
-[debug] [2019-03-26T12:03:43.262Z] <<< HTTP RESPONSE 200
-[info] i  hosting: Serving hosting files from: dist
-[info] ✔  hosting: Local server: http://localhost:5000
-[debug] [2019-03-26T12:12:19.699Z] ----------------------------------------------------------------------
-[debug] [2019-03-26T12:12:19.702Z] Command:       /usr/bin/node /usr/bin/firebase serve
-[debug] [2019-03-26T12:12:19.702Z] CLI Version:   6.5.0
-[debug] [2019-03-26T12:12:19.702Z] Platform:      linux
-[debug] [2019-03-26T12:12:19.702Z] Node Version:  v10.15.3
-[debug] [2019-03-26T12:12:19.842Z] Time:          Tue Mar 26 2019 15:12:19 GMT+0300 (East Africa Time)
-[debug] [2019-03-26T12:12:19.842Z] ----------------------------------------------------------------------
-[debug] 
-[debug] [2019-03-26T12:12:20.011Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-03-26T12:12:20.011Z] > authorizing via signed-in user
-[debug] [2019-03-26T12:12:20.011Z] [iam] checking project kibart-gallery for permissions ["firebase.projects.get"]
-[debug] [2019-03-26T12:12:20.013Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/kibart-gallery:testIamPermissions  
-
-[debug] [2019-03-26T12:12:22.774Z] <<< HTTP RESPONSE 200
-[debug] [2019-03-26T12:12:22.777Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/kibart-gallery  
- 
-[debug] [2019-03-26T12:12:25.076Z] <<< HTTP RESPONSE 200
-[info] 
-[info] === Serving from '/home/kibdev/Documents/webProjects/kibartGallery'...
-[info] 
-[debug] [2019-03-26T12:12:25.081Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/84237026232/clients/_:getWebAppConfig  
- 
-[debug] [2019-03-26T12:12:26.646Z] <<< HTTP RESPONSE 200
+[debug] [2019-04-02T05:52:49.059Z] <<< HTTP RESPONSE 200
 [info] i  hosting: Serving hosting files from: dist
 [info] ✔  hosting: Local server: http://localhost:5000

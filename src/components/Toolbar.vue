@@ -26,6 +26,15 @@
             <v-list-tile-title>Gallery</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile @click="navigateTo('/gallery-v2')">
+          <v-list-tile-action>
+            <!-- <v-icon>pageview</v-icon> -->
+            <font-awesome-icon icon="pencil-alt" />
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Gallery V2</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <v-list-tile @click="navigateTo('/about')">
           <v-list-tile-action>
             <v-icon>info</v-icon>
