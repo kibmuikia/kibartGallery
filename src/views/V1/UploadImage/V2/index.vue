@@ -11,13 +11,27 @@
           :key="index"
         >
           <div slot="header">
-            <h6 class="title font-weight-light">{{ artitem.artTitle }}</h6>
+            <h6 class="title font-weight-light">
+              <v-avatar size="30" color="" v-if="artitem.artUrls">
+                <v-img
+                  :lazy-src="artitem.artUrls[0]"
+                  :src="artitem.artUrls[1]"
+                  alt="artitem.artTitle"
+                ></v-img>
+                <!-- src="https://vuetifyjs.com/apple-touch-icon-180x180.png" -->
+              </v-avatar>
+              {{ artitem.artTitle }}
+              <!-- {{ artitem.artUrls[1]  -->
+            </h6>
           </div>
           <v-card>
             <v-card-text class="pa-0">
               <v-layout row wrap>
                 <v-flex xs6 v-if="artitem.artDesc" class="">
-                  <p class="subheading pl-3">{{ artitem.artDesc }}</p>
+                  <p class="subheading pl-3">
+                    {{ artitem.artDesc }}
+                    <!-- {{ artitem.artUrls[1]  -->
+                  </p>
                 </v-flex>
                 <v-flex xs8 v-else>
                   <p class="subheading pl-3">No Description Available</p>
@@ -161,6 +175,29 @@ export default {
     //   });
     //   return obj;
     // },
+    getUrl(array) {
+      let imageUrls = [];
+      let storageRef = fire.storage.ref();
+      array.forEach(async (currentValue, index, arr) => {
+        // console.log(currentValue);
+        await storageRef
+          .child(currentValue)
+          .getDownloadURL()
+          .then(url => {
+            // console.log(url);
+            imageUrls.push(url);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      });
+      if (imageUrls[0] != "undefined" && imageUrls[1] != "undefined") {
+        return imageUrls;
+      } else {
+        console.log(imageUrls);
+        return false;
+      }
+    },
     async getArtWork() {
       let self = this;
       await fire.db
@@ -173,11 +210,22 @@ export default {
               if (change.type == "added") {
                 console.log(`Doc[${change.doc.id}], ${change.type}`);
                 // console.log(change.doc.data());
+                // artLocation
+                // array.forEach(function(currentValue, index, arr), thisValue)
+                // storageRef.child('images/stars.jpg').getDownloadURL().then
+                // function here
+                let urls = self.getUrl(change.doc.data().artLocation);
+                // console.log(urls);
                 let gotdocument = utils.extend(
-                  { docID: change.doc.id },
+                  {
+                    docID: change.doc.id,
+                    artUrls: urls
+                  },
                   change.doc.data()
                 );
                 self.your_artwork.push(gotdocument);
+                console.log(self.your_artwork);
+                // }
               } else if (change.type == "removed") {
                 console.log(`\tDoc[${change.doc.id}] has been removed`);
                 self.your_artwork = self.your_artwork.filter(
