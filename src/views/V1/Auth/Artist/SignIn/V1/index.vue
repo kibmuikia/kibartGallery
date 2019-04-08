@@ -26,6 +26,7 @@
                 label="Password"
                 :rules="rules.passwordRules"
                 required
+                type="password"
               ></v-text-field>
             </v-flex>
             <v-flex xs12>
