@@ -38,18 +38,18 @@
               <v-btn color="" @click="navigateTo('/auth/artist/signup')">
                 Do not have an account, Sign Up
               </v-btn>
-              <v-btn color="lightgreen" @click="checkUser">
+              <!-- <v-btn color="lightgreen" @click="checkUser">
                 Check User
               </v-btn>
               <v-btn color="brown" @click="checkUserStore">
                 Check User Store
-              </v-btn>
-              <v-btn color="red" @click="signout">
+              </v-btn> -->
+              <!-- <v-btn color="red" @click="signout">
                 Sign Out
-              </v-btn>
-              <v-btn color="" @click="navigateTo('/upload-image')">
+              </v-btn> -->
+              <!-- <v-btn color="" @click="navigateTo('/upload-image')">
                 Upload Your ArtWork
-              </v-btn>
+              </v-btn> -->
             </v-flex>
             <v-flex v-if="status">
               <p class="subheading">{{ status }}</p>
@@ -124,10 +124,11 @@ export default {
             uid: data.user.uid
           };
           if (this.$store.dispatch("setUser", self.user)) {
-            this.checkUserStore();
+            this.loadingflag = false;
+            // this.checkUserStore();
             utils.showAlert("Success", this.status, "success");
             this.resetForm();
-            this.loadingflag = false;
+            this.navigateTo("/upload-image");
           } else {
             throw new Error("Dispatch to set user in store FAILED");
           }

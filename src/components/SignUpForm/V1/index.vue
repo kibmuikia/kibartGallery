@@ -46,6 +46,14 @@
         <v-flex xs12 md12>
           <ImageInput ref="userphoto" />
         </v-flex>
+        <v-flex xs12 md5>
+          <v-text-field
+            v-model="user.about"
+            label="About You"
+            :rules="rules.aboutRules"
+            required
+          ></v-text-field>
+        </v-flex>
         <v-flex xs12>
           <v-btn color="primary" type="submit" :loading="loadingflag">
             Submit Details
@@ -84,12 +92,18 @@ export default {
         email: "",
         password: "",
         confirm_password: "",
-        photo: null
+        photo: null,
+        about: ""
       },
       rules: {
         nameRules: [
           v => !!v || "Display Name is required",
           v => v.length <= 50 || "Display Name must be less than 50 characters"
+        ],
+        aboutRules: [
+          v => !!v || "Please provide a short description about yourself",
+          v =>
+            v.length <= 250 || "Display Name must be less than 250 characters"
         ],
         emailRules: [
           v => !!v || "Email is required",
@@ -169,20 +183,39 @@ export default {
                         photoURL: picurl
                       })
                       .then(() => {
-                        self.status = "Registration Successfull";
-                        utils.showAlert(
-                          "Success",
-                          "You are now Registered",
-                          "success"
-                        );
-                        console.log(`updateProfile process DONE!`);
+                        fire.db
+                          .collection("users")
+                          .add({
+                            userName: self.user.displayname,
+                            userPhoto: picurl,
+                            userEmail: self.user.email,
+                            userAbout: self.user.about,
+                            userID: uid
+                          })
+                          .then(docRef => {
+                            console.log(
+                              "Document written with ID: ",
+                              docRef.id
+                            );
+                            // self.status = "Registration Successfull";
+                            // utils.showAlert(
+                            //   "Success",
+                            //   "You are now Registered",
+                            //   "success"
+                            // );
+                            console.log(`updateProfile process DONE!`);
+                          })
+                          .catch(err => {
+                            console.error("Error adding User-document: ", err);
+                          });
                         user
                           .sendEmailVerification()
                           .then(() => {
                             self.loadingflag = false;
                             this.resetForm();
+                            this.signout();
                             self.status =
-                              "Verification of Account Now Required";
+                              "Registration Successfully, Verification of Account Now Required!";
                             utils.showAlert(
                               "Success",
                               "Access Your Email To Verify Your Account",
@@ -228,7 +261,23 @@ export default {
       });
       this.$refs.formSignUp.resetValidation();
       // this.$refs.formSignUp.reset();
-    } //end-resetForm
+    }, //end-resetForm
+    async signout() {
+      await fire.auth
+        .signOut()
+        .then(() => {
+          // this.status = "Now Signed-OUT !";
+          console.log(
+            "Signed-OUT user, since creating him/her creates an authenticated user."
+          );
+          // this.$store.dispatch("unsetUser");
+          // this.resetForm();
+        })
+        .catch(e => {
+          this.status = e.message;
+          console.error(e);
+        });
+    }
   },
   created() {
     // Using the server bus

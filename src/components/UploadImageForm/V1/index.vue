@@ -285,6 +285,8 @@ export default {
         // console.log(`title-[${this.arttitle}], desc[${this.artdescription}]`);
         let artwork = {
           userID: this.user.uid,
+          // userName: this.user.displayName,
+          // userPhoto: this.user.photoURL,
           artTitle: this.arttitle,
           artDesc: this.artdescription,
           artLocation: this.storagepaths
@@ -295,9 +297,9 @@ export default {
           .add(artwork)
           .then(docRef => {
             console.log("Document written with ID: ", docRef.id);
-            this.status = `Art-work[ ${
-              artwork.artTitle
-            } ] uploaded successfully`;
+            // this.status = `Art-work[ ${
+            //   artwork.artTitle
+            // } ] uploaded successfully`;
             utils.showAlert("Success", this.status, "success");
             this.resetForm();
             this.loadingflag = false;

@@ -24,12 +24,12 @@ export default {
     }; //end-return
   }, //end-data
   methods: {
-    extend(obj, src) {
-      Object.keys(src).forEach(function(key) {
-        obj[key] = src[key];
-      });
-      return obj;
-    }
+    // extend(obj, src) {
+    //   Object.keys(src).forEach(function(key) {
+    //     obj[key] = src[key];
+    //   });
+    //   return obj;
+    // }
   }, //end-methods
   created() {
     // console.log(this.$route.params);
@@ -39,7 +39,7 @@ export default {
     const ref = fire.db.collection("artworks").doc(this.key);
     ref.get().then(doc => {
       if (doc.exists) {
-        let gotdocument = self.extend({ docID: self.key }, doc.data());
+        let gotdocument = utils.extend({ docID: self.key }, doc.data());
         self.artwork = gotdocument;
         // console.log("Found document!");
         // console.log(self.artwork);

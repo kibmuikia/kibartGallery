@@ -7,6 +7,7 @@ import About from "../../../views/About.vue";
 import NotFound from "../../../views/404Not";
 import Gallery from "../../../views/V1/Gallery/V1";
 import Gallery2 from "../../../views/V1/Gallery/V2";
+import ArtistWorkView from "../../../views/V1/Gallery/V2/oneview.vue";
 // import UploadImage from "../../../views/V1/UploadImage/V1";
 import UploadImage from "../../../views/V1/UploadImage/V2";
 import ArtistSignUp from "../../../views/V1/Auth/Artist/SignUp/V1";
@@ -57,7 +58,7 @@ export const routes = [
   },
   { path: "*", redirect: "/notfound" },
   {
-    path: "/gallery",
+    path: "/gallery-v1",
     name: "Gallery",
     component: Gallery,
     meta: {
@@ -65,11 +66,19 @@ export const routes = [
     }
   },
   {
-    path: "/gallery-v2",
+    path: "/gallery",
     name: "Gallery2",
     component: Gallery2,
     meta: {
       title: "Gallery-V2 | KibArt Gallery"
+    }
+  }, // ArtistWorkView
+  {
+    path: "/artist-artwork",
+    name: "ArtistWorkView",
+    component: ArtistWorkView,
+    meta: {
+      title: "Artist's ArtWork | KibArt Gallery"
     }
   },
   {

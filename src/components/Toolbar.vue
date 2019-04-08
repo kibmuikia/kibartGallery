@@ -17,6 +17,15 @@
             <v-list-tile-title>Home</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <!-- <v-list-tile @click="navigateTo('/gallery')">
+          <v-list-tile-action>
+            <v-icon>pageview</v-icon>
+            <font-awesome-icon icon="pencil-alt" />
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Gallery</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile> -->
         <v-list-tile @click="navigateTo('/gallery')">
           <v-list-tile-action>
             <!-- <v-icon>pageview</v-icon> -->
@@ -24,15 +33,6 @@
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>Gallery</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="navigateTo('/gallery-v2')">
-          <v-list-tile-action>
-            <!-- <v-icon>pageview</v-icon> -->
-            <font-awesome-icon icon="pencil-alt" />
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Gallery V2</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile @click="navigateTo('/about')">
@@ -59,6 +59,14 @@
             <v-list-tile-title>Sign Up</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile @click="signout">
+          <v-list-tile-action>
+            <v-icon>exit_to_app</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Sign Out</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <!-- . -->
@@ -74,6 +82,9 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
+import fire from "@/fire/V1";
+import utils from "@/utils/V1";
 export default {
   name: "main-toolbar-component",
   data() {
@@ -87,6 +98,21 @@ export default {
       // console.log(path);
       this.drawer = !this.drawer;
       this.$router.push(path);
+    },
+    async signout() {
+      await fire.auth
+        .signOut()
+        .then(() => {
+          console.log("Now Signed-OUT !");
+          this.$store.dispatch("unsetUser");
+          this.drawer = !this.drawer;
+          utils.showAlert("Status", "Signed Out", "info");
+          // this.resetForm();
+        })
+        .catch(e => {
+          this.status = e.message;
+          console.error(e);
+        });
     }
   }, //end-methods
   created() {

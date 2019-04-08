@@ -1,43 +1,96 @@
 <template>
   <v-layout app wrap align-center justify-center row class="">
-    <v-flex xs12 md8>
-      <!-- <h6 class="title font-weight-light">New Gallery View</h6> -->
-      <v-card class="mb-3">
-        <v-img
-          src="https://cdn.vuetifyjs.com/images/cards/desert.jpg"
-          aspect-ratio="2.75"
-        ></v-img>
-
-        <v-card-title primary-title>
-          <div>
-            <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-            <div>card_text</div>
-          </div>
-        </v-card-title>
-
-        <v-card-actions>
-          <v-btn flat color="orange">Share</v-btn>
-          <v-btn flat color="orange">Explore</v-btn>
+    <v-flex xs12 md5>
+      <v-card
+        color="grass-l"
+        class="white--text mb-3"
+        v-if="kibartMain.userName"
+      >
+        <!-- cyan darken-2 -->
+        <v-layout>
+          <v-flex xs7>
+            <v-card-title primary-title>
+              <div>
+                <div class="headline">{{ kibartMain.userName }}</div>
+                <div>{{ kibartMain.userAbout }}</div>
+                <!-- <div>(2014)</div> -->
+              </div>
+            </v-card-title>
+          </v-flex>
+          <v-flex xs5 class="pa-2">
+            <!-- <v-img :src="user.userPhotoUrl" height="125px" contain></v-img> -->
+            <v-avatar size="100" color="">
+              <v-img
+                :src="kibartMain.userPhotoUrl"
+                :lazy-src="imageUrlLazy"
+                :alt="kibartMain.userName"
+              ></v-img>
+            </v-avatar>
+          </v-flex>
+        </v-layout>
+        <v-divider light></v-divider>
+        <v-card-actions class="pa-3 grass-d">
+          View My Gallery
+          <v-spacer></v-spacer>
+          <v-btn icon flat @click="viewArtistWork(kibartMain)">
+            <v-icon>arrow_forward_ios</v-icon>
+          </v-btn>
         </v-card-actions>
       </v-card>
-      <v-layout row wrap align-center justify-center>
-        <v-flex xs12>
-          <v-carousel hide-delimiters height="auto">
-            <v-carousel-item v-for="(item, i) in items" :key="i">
-              <v-card width="">
-                <v-img :src="item.src" height="250"></v-img>
+      <p v-else>Kib-Art Not Available</p>
+      <!-- . -->
+      <v-layout row wrap align-center justify-center v-if="users.length > 0">
+        <v-flex xs12 v-for="(user, i) in users" :key="i" class="mb-3">
+          <v-card color="bitter-sweet-l" class="white--text">
+            <!-- cyan darken-2 -->
+            <v-layout>
+              <v-flex xs5 class="pa-2">
+                <!-- <v-img :src="user.userPhotoUrl" height="125px" contain></v-img> -->
+                <v-avatar size="100" color="">
+                  <v-img
+                    :src="user.userPhotoUrl"
+                    :lazy-src="imageUrlLazy"
+                    :alt="user.userName"
+                  ></v-img>
+                </v-avatar>
+              </v-flex>
+              <v-flex xs7>
                 <v-card-title primary-title>
-                  <p>Display Name</p>
+                  <div>
+                    <div class="headline">{{ user.userName }}</div>
+                    <div>{{ user.userAbout }}</div>
+                    <!-- <div>(2014)</div> -->
+                  </div>
+                </v-card-title>
+              </v-flex>
+            </v-layout>
+            <v-divider light></v-divider>
+            <v-card-actions class="pa-3 bitter-sweet-d">
+              <div>Explore {{ user.userName }}'s Gallery</div>
+              <v-spacer></v-spacer>
+              <v-btn icon flat @click="viewArtistWork(user)">
+                <v-icon>arrow_forward_ios</v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <!-- <v-carousel hide-delimiters height="auto">
+            <v-carousel-item v-for="(user, i) in users" :key="i">
+              <v-card class="text-xs-center">
+                <v-img :src="user.userPhotoUrl" height="250"></v-img>
+                <v-card-title primary-title>
+                  <p class="title">{{ user.userName }}</p>
                 </v-card-title>
                 <v-card-actions>
-                  <v-btn flat color="orange">Share</v-btn>
-                  <v-btn flat color="orange">Explore</v-btn>
+                  <v-btn flat color="orange" @click="viewArtistWork(user)">
+                    Explore
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-carousel-item>
-          </v-carousel>
+          </v-carousel> -->
         </v-flex>
       </v-layout>
+      <p v-else class="subheading">No user is registered yet.</p>
     </v-flex>
   </v-layout>
 </template>
@@ -46,84 +99,123 @@
 /* eslint-disable no-console */
 
 import fire from "@/fire/V1";
-import fireAdmin from "@/fireAdmin/V1";
-// import utils from "@/utils/V1";
+import utils from "@/utils/V1";
 
 export default {
   name: "gallery-component-v2",
+  components: {
+    // .
+  },
   data() {
     return {
-      items: [
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg"
-        },
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg"
-        },
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg"
-        },
-        {
-          src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg"
-        }
-      ],
-      artworks: []
+      imageUrlLazy: require("@/assets/rings.svg"),
+      // ball-triangle.svg loading_dna.gif rings.svg gooey-spinner.svg
+      users: [],
+      artworks: [],
+      kibartMain: {}
     };
   },
   methods: {
-    async getArtWorks() {
-      let artworksRef = fire.db.collection("artworks");
-      let artworks = [];
+    viewArtistWork(user) {
+      // console.log(`Got id-->[ ${user} ]`);
+      // console.log(user);
+      this.$router.push({
+        name: "ArtistWorkView",
+        params: { artistData: user }
+      });
+    },
+    async getUrl(path) {
+      // console.log(`Got path[ ${path} ]`);
+      let imageUrl = "";
+      let storageRef = fire.storage.ref();
+      await storageRef
+        .child(path)
+        .getDownloadURL()
+        .then(url => {
+          imageUrl = url;
+          // console.log(`\tthen-running ... imageUrl[ -  ${imageUrl}  - ]`);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+      return imageUrl;
+    },
+    async getUsers() {
+      let usersRef = fire.db.collection("users");
       let self = this;
-      await artworksRef
+      await usersRef
         .get()
         .then(querySnapshot => {
-          // console.log(querySnapshot);
-          querySnapshot.docs.forEach(doc => {
-            // console.log("cycling thru docs to get doc.data()");
-            console.log(doc.data().userID);
-            artworks.push(doc.data());
-            self.getUserData(doc.data().userID);
-          });
-        })
-        .catch(err => {
-          console.error(err);
-        });
-      // console.log("\tShowing artworks::");
-      // console.log(artworks);
-      if (artworks.length != 0) {
-        return artworks;
-      }
-    },
-    async getUserData(uid) {
-      await fireAdmin.admin
-        .auth()
-        .getUser(uid)
-        .then(userRecord => {
-          console.log("Successfully fetched user data:", userRecord.toJSON());
-        })
-        .catch(err => {
-          console.error(err);
-        });
-      /*
-        admin.auth().getUser(uid)
-          .then(function(userRecord) {
-            // See the UserRecord reference doc for the contents of userRecord.
-            console.log('Successfully fetched user data:', userRecord.toJSON());
-          })
-          .catch(function(error) {
-            console.log('Error fetching user data:', error);
-          });
+          querySnapshot.docs.forEach(async doc => {
+            // console.log("cycling thru [users]docs to get doc.data()");
+            // console.log(doc.data().userPhoto);
+            let url = await self.getUrl(doc.data().userPhoto);
+            // console.log(` url -- [ ${typeof url} ] .. ` + url);
 
-              */
+            let gotdocument = utils.extend(
+              {
+                userPhotoUrl: url
+              },
+              doc.data()
+            );
+            if (doc.data().userEmail === "muikiaa@gmail.com") {
+              self.kibartMain = gotdocument;
+            } else {
+              self.users.push(gotdocument);
+            }
+          });
+        })
+        .catch(err => {
+          console.error(err);
+        });
     }
+
+    // async getUserData(uid) {
+    //   await fireAdmin.admin
+    //     .auth()
+    //     .getUser(uid)
+    //     .then(userRecord => {
+    //       console.log("Successfully fetched user data:", userRecord.toJSON());
+    //     })
+    //     .catch(err => {
+    //       console.error(err);
+    //     });
+    // }
   },
   created() {
-    this.artworks = this.getArtWorks();
-    console.log(`Created func: showing this.artworks :: [ ${this.artworks} ]`);
-    console.log(this.artworks);
-  }
+    this.getUsers();
+    if (this.$route.params.status) {
+      utils.showAlert("Status", this.$route.params.status, "info");
+    }
+  },
+  watch: {
+    users: function() {
+      console.log("\tUSERS just changed value to ::");
+      console.log(this.users);
+    },
+    kibartMain: function() {
+      console.log("\tkibartMain is now ::");
+      console.log(this.kibartMain);
+    },
+    artworks: function() {
+      console.log("artworks value just changed ::");
+      // console.log(this.artworks);
+    }
+  } //end-watch
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.bitter-sweet-l {
+  background-color: #fc6e51 !important;
+}
+.bitter-sweet-d {
+  background-color: #e9573f !important;
+}
+.grass-l {
+  background-color: #a0d468 !important;
+}
+.grass-d {
+  background-color: #8cc152 !important;
+}
+</style>
