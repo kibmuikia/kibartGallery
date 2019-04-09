@@ -54,14 +54,15 @@
             </v-btn>
           </v-card-text>
 
-          <!-- <v-card-text class="">
+          <v-card-text class="">
             <p class="subheading">
-              “Art enables us to find ourselves and lose ourselves at the same
+              <!-- “Art enables us to find ourselves and lose ourselves at the same
               time.”
               <br />
-              - Thomas Merton
+              - Thomas Merton -->
+              Site currently under development
             </p>
-          </v-card-text> -->
+          </v-card-text>
 
           <v-divider></v-divider>
 

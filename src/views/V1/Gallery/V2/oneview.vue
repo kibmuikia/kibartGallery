@@ -55,7 +55,7 @@
           contain
         ></v-img>
         <v-card-actions>
-          <v-btn>Click</v-btn>
+          <!-- <v-btn>Click</v-btn> -->
           <v-spacer></v-spacer>
           <v-btn flat icon @click="sheet = false" color="red lighten-2">
             <v-icon>close</v-icon>

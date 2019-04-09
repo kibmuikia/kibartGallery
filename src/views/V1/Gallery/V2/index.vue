@@ -37,7 +37,10 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-      <p v-else>Kib-Art Not Available</p>
+      <!-- <p v-else>Kib-Art Not Available</p> require('@-->
+      <div v-else class="text-xs-center mb-3">
+        <v-chip>Loading Kib-Art</v-chip>
+      </div>
       <!-- . -->
       <v-layout row wrap align-center justify-center v-if="users.length > 0">
         <v-flex xs12 v-for="(user, i) in users" :key="i" class="mb-3">
@@ -90,7 +93,10 @@
           </v-carousel> -->
         </v-flex>
       </v-layout>
-      <p v-else class="subheading">No user is registered yet.</p>
+      <!-- <p v-else class="subheading">No user is registered yet.</p> -->
+      <div v-else class="text-xs-center mt-1">
+        <v-chip>Loading registered users</v-chip>
+      </div>
     </v-flex>
   </v-layout>
 </template>

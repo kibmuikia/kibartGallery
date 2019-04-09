@@ -48,7 +48,7 @@
         <v-flex xs12 md12>
           <ImageInput ref="userphoto" />
         </v-flex>
-        <v-flex xs12 md5>
+        <v-flex xs12 md6>
           <v-text-field
             v-model="user.about"
             label="About You"
@@ -56,12 +56,16 @@
             required
           ></v-text-field>
         </v-flex>
-        <v-flex xs12>
+        <v-flex xs12 md6 offset-md1 class="">
           <v-btn color="primary" type="submit" :loading="loadingflag">
-            Submit Details
+            Register
+          </v-btn>
+          <v-btn @click="resetForm" color="warning">
+            Reset Form
           </v-btn>
           <v-btn color="" @click="navigateTo('/auth/artist/signin')">
-            Oops! I have an account, Sign In
+            Have an account?
+            <v-icon color="green">keyboard_arrow_right</v-icon> Sign In
           </v-btn>
         </v-flex>
         <v-flex v-if="status">
@@ -214,15 +218,20 @@ export default {
                           .sendEmailVerification()
                           .then(() => {
                             self.loadingflag = false;
+                            self.status = `Registration of [ ${
+                              self.user.displayname
+                            } ] Successfully, Verification of Account Now Required!`;
+                            // utils.showAlert(
+                            //   "Success",
+                            //   "Access Your Email To Verify Your Account",
+                            //   "success"
+                            // );
                             this.resetForm();
                             this.signout();
-                            self.status =
-                              "Registration Successfully, Verification of Account Now Required!";
-                            utils.showAlert(
-                              "Success",
-                              "Access Your Email To Verify Your Account",
-                              "success"
-                            );
+                            this.$router.push({
+                              name: "ArtistSignIn",
+                              params: { registrationStatus: self.status }
+                            });
                           })
                           .catch(e => {
                             utils.showAlert("Error", e.message, "error");

@@ -62,7 +62,7 @@ export const routes = [
     name: "Gallery",
     component: Gallery,
     meta: {
-      title: "Gallery | KibArt Gallery"
+      title: "Gallery-V1 | KibArt Gallery"
     }
   },
   {
@@ -70,7 +70,7 @@ export const routes = [
     name: "Gallery2",
     component: Gallery2,
     meta: {
-      title: "Gallery-V2 | KibArt Gallery"
+      title: "Gallery | KibArt Gallery"
     }
   }, // ArtistWorkView
   {

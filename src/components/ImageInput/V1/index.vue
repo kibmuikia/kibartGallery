@@ -100,16 +100,19 @@ export default {
   opacity: 0;
 }
 .labeltextwrap {
-  background-color: #4caf50; /* Green */
+  background-color: #aab2bd;
   border: 1px solid grey;
   border-radius: 8px;
   cursor: pointer;
-  color: white;
+  color: black;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
 }
 .labeltextwrap:hover {
-  box-shadow: 0 5px 8px 0 rgba(255, 255, 255, 0.2),
-    0 3px 12px 0 rgba(255, 255, 255, 0.19);
+  /*box-shadow: 0 5px 8px 0 rgba(235, 235, 235, 0.2),
+    0 3px 12px 0 rgba(235, 235, 235, 0.19);*/
+  -webkit-box-shadow: -1px 2px 11px -2px rgba(79, 240, 135, 1);
+  -moz-box-shadow: -1px 2px 11px -2px rgba(79, 240, 135, 1);
+  box-shadow: -1px 2px 11px -2px rgba(79, 240, 135, 1);
 }
 </style>

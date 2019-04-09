@@ -29,15 +29,16 @@
                 type="password"
               ></v-text-field>
             </v-flex>
-            <v-flex xs12>
+            <v-flex xs12 md6>
               <v-btn color="primary" type="submit" :loading="loadingflag">
                 Sign In
               </v-btn>
-              <v-btn @click="resetForm">
+              <v-btn @click="resetForm" color="warning">
                 Reset Form
               </v-btn>
               <v-btn color="" @click="navigateTo('/auth/artist/signup')">
-                Do not have an account, Sign Up
+                No account?
+                <v-icon color="green">keyboard_arrow_right</v-icon> Sign Up
               </v-btn>
               <!-- <v-btn color="lightgreen" @click="checkUser">
                 Check User
@@ -53,7 +54,7 @@
               </v-btn> -->
             </v-flex>
             <v-flex v-if="status">
-              <p class="subheading">{{ status }}</p>
+              <p class="subheading text-xs-center">{{ status }}</p>
             </v-flex>
           </v-layout>
         </v-container>
@@ -116,6 +117,11 @@ export default {
         .then(data => {
           // console.log(data);
           // console.log(data.user);
+          if (data.user.emailVerified != true) {
+            this.status = "Please Verify Your Account!";
+            utils.showAlert("Error", "Account Not Verified", "error");
+            throw new Error("Account Not Verified");
+          }
           this.status = "Successful Sign-IN";
           self.user = {
             displayName: data.user.displayName,
@@ -199,13 +205,16 @@ export default {
       this.user = {};
       this.$refs.formSignIn.reset();
       this.$refs.formSignIn.resetValidation();
-      // var self = this;
-      //Iterate through each object field, key is name of the object field`
-      // Object.keys(this.user).forEach(function(key) {
-      //   self.user[key] = "";
-      // });
     } //end-resetForm
-  } //end-methods
+  }, //end-methods
+  created() {
+    // registrationStatus
+    if (this.$route.params.registrationStatus) {
+      this.status = this.$route.params.registrationStatus;
+      console.log(`created() running:received param --> [ ${this.status} ]`);
+      utils.showAlert("Success", this.status, "success");
+    }
+  } //end-created
 }; //end-export
 </script>
 

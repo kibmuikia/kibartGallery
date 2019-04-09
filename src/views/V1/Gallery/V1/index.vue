@@ -155,50 +155,50 @@ export default {
   data() {
     return {
       imageUrlLazy: require("@/assets/loading_dna.gif"),
-      artCards: [
-        {
-          title: "I See You",
-          imageUrl: require("@/assets/galleryimages/findingDory.jpeg"),
-          desc: "",
-          id: "img-1"
-        },
-        {
-          title: "Calm",
-          imageUrl: require("@/assets/galleryimages/face_calm.jpeg"),
-          desc: "",
-          id: "img-2"
-        },
-        {
-          title: "Golden Age",
-          imageUrl: require("@/assets/galleryimages/gargoyles.jpeg"),
-          desc: "",
-          id: "img-3"
-        },
-        {
-          title: "Culture",
-          imageUrl: require("@/assets/galleryimages/africa.jpeg"),
-          desc: "",
-          id: "img-4"
-        },
-        {
-          title: "With Age...",
-          imageUrl: require("@/assets/galleryimages/kratosBoxed.png"),
-          desc: "",
-          id: "img-5"
-        },
-        {
-          title: "Bull Horn Taking",
-          imageUrl: require("@/assets/galleryimages/face_gorilla.jpeg"),
-          desc: "",
-          id: "img-6"
-        },
-        {
-          title: "Lilo N' Stich",
-          imageUrl: require("@/assets/galleryimages/lilonstitch.jpeg"),
-          desc: "",
-          id: "img-7"
-        }
-      ],
+      // artCards: [
+      //   {
+      //     title: "I See You",
+      //     imageUrl: require("@/assets/galleryimages/findingDory.jpeg"),
+      //     desc: "",
+      //     id: "img-1"
+      //   },
+      //   {
+      //     title: "Calm",
+      //     imageUrl: require("@/assets/galleryimages/face_calm.jpeg"),
+      //     desc: "",
+      //     id: "img-2"
+      //   },
+      //   {
+      //     title: "Golden Age",
+      //     imageUrl: require("@/assets/galleryimages/gargoyles.jpeg"),
+      //     desc: "",
+      //     id: "img-3"
+      //   },
+      //   {
+      //     title: "Culture",
+      //     imageUrl: require("@/assets/galleryimages/africa.jpeg"),
+      //     desc: "",
+      //     id: "img-4"
+      //   },
+      //   {
+      //     title: "With Age...",
+      //     imageUrl: require("@/assets/galleryimages/kratosBoxed.png"),
+      //     desc: "",
+      //     id: "img-5"
+      //   },
+      //   {
+      //     title: "Bull Horn Taking",
+      //     imageUrl: require("@/assets/galleryimages/face_gorilla.jpeg"),
+      //     desc: "",
+      //     id: "img-6"
+      //   },
+      //   {
+      //     title: "Lilo N' Stich",
+      //     imageUrl: require("@/assets/galleryimages/lilonstitch.jpeg"),
+      //     desc: "",
+      //     id: "img-7"
+      //   }
+      // ],
       card_text:
         "Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat.",
       dialog: false,
