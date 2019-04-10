@@ -21,6 +21,7 @@
     "sweetalert2": "^8.2.6",
     "vue": "^2.6.6",
     "vue-analytics": "^5.16.3",
+    "vue-content-loading": "^1.6.0",
     "vue-router": "^3.0.1",
     "vue-social-sharing": "^2.4.2",
     "vue2-animate": "^2.1.0",

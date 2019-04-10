@@ -12,6 +12,7 @@ import ArtistWorkView from "../../../views/V1/Gallery/V2/oneview.vue";
 import UploadImage from "../../../views/V1/UploadImage/V2";
 import ArtistSignUp from "../../../views/V1/Auth/Artist/SignUp/V1";
 import ArtistSignIn from "../../../views/V1/Auth/Artist/SignIn/V1";
+import ArtistProfile from "../../../views/V1/Auth/Artist/Profile/V1";
 import EditArtWork from "../../../views/V1/EditArtWork/V1";
 
 // let AuthenticationRoutes = {
@@ -95,7 +96,7 @@ export const routes = [
     name: "EditArtWork",
     component: EditArtWork,
     meta: {
-      title: "Edit | KibArt Gallery",
+      title: "Edit Art | KibArt Gallery",
       requiresAuth: true
     }
   },
@@ -113,6 +114,15 @@ export const routes = [
     component: ArtistSignIn,
     meta: {
       title: "Artist SignIn | KibArt Gallery"
+    }
+  },
+  {
+    path: "/artist/profile",
+    name: "ArtistProfile",
+    component: ArtistProfile,
+    meta: {
+      title: "Artist Profile | KibArt Gallery",
+      requiresAuth: true
     }
   }
   // AuthenticationRoutes,

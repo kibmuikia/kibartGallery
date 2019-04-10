@@ -3,7 +3,7 @@
     <v-flex xs12 md5>
       <v-card
         color="grass-l"
-        class="white--text mb-3"
+        class="black--text mb-3"
         v-if="kibartMain.userName"
       >
         <!-- cyan darken-2 -->
@@ -17,9 +17,9 @@
               </div>
             </v-card-title>
           </v-flex>
-          <v-flex xs5 class="pa-2">
+          <v-flex xs5 class="">
             <!-- <v-img :src="user.userPhotoUrl" height="125px" contain></v-img> -->
-            <v-avatar size="100" color="">
+            <v-avatar size="120" color="" class="ml-4">
               <v-img
                 :src="kibartMain.userPhotoUrl"
                 :lazy-src="imageUrlLazy"
@@ -37,10 +37,16 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-      <!-- <p v-else>Kib-Art Not Available</p> require('@-->
-      <div v-else class="text-xs-center mb-3">
+      <!-- <div v-else class="text-xs-center mb-3">
         <v-chip>Loading Kib-Art</v-chip>
-      </div>
+      </div> -->
+      <vcl-facebook
+        v-else
+        :speed="speed"
+        secondary="#a0d468"
+        class="mb-3"
+      ></vcl-facebook>
+
       <!-- . -->
       <v-layout row wrap align-center justify-center v-if="users.length > 0">
         <v-flex xs12 v-for="(user, i) in users" :key="i" class="mb-3">
@@ -76,27 +82,11 @@
               </v-btn>
             </v-card-actions>
           </v-card>
-          <!-- <v-carousel hide-delimiters height="auto">
-            <v-carousel-item v-for="(user, i) in users" :key="i">
-              <v-card class="text-xs-center">
-                <v-img :src="user.userPhotoUrl" height="250"></v-img>
-                <v-card-title primary-title>
-                  <p class="title">{{ user.userName }}</p>
-                </v-card-title>
-                <v-card-actions>
-                  <v-btn flat color="orange" @click="viewArtistWork(user)">
-                    Explore
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-carousel-item>
-          </v-carousel> -->
         </v-flex>
       </v-layout>
-      <!-- <p v-else class="subheading">No user is registered yet.</p> -->
-      <div v-else class="text-xs-center mt-1">
+      <!-- <div v-else class="text-xs-center mt-1">
         <v-chip>Loading registered users</v-chip>
-      </div>
+      </div> -->
     </v-flex>
   </v-layout>
 </template>
@@ -107,18 +97,21 @@
 import fire from "@/fire/V1";
 import utils from "@/utils/V1";
 
+import { VclFacebook } from "vue-content-loading";
+
 export default {
   name: "gallery-component-v2",
   components: {
-    // .
+    VclFacebook
   },
   data() {
     return {
       imageUrlLazy: require("@/assets/rings.svg"),
       // ball-triangle.svg loading_dna.gif rings.svg gooey-spinner.svg
       users: [],
-      artworks: [],
-      kibartMain: {}
+      // artworks: [],
+      kibartMain: {},
+      speed: 1
     };
   },
   methods: {
@@ -156,7 +149,13 @@ export default {
             // console.log("cycling thru [users]docs to get doc.data()");
             // console.log(doc.data().userPhoto);
             let url = await self.getUrl(doc.data().userPhoto);
-            // console.log(` url -- [ ${typeof url} ] .. ` + url);
+            // let url = "";
+            // self.getUrl(doc.data().userPhoto).then(goturl => {
+            //   console.log(`goturl -- [ ${typeof goturl} ] .. [ ${goturl} ]`);
+            //   // url = goturl;
+            //   return (url = goturl);
+            // });
+            // console.log(`\tNow url is --[ ${url} ]`);
 
             let gotdocument = utils.extend(
               {
@@ -175,18 +174,6 @@ export default {
           console.error(err);
         });
     }
-
-    // async getUserData(uid) {
-    //   await fireAdmin.admin
-    //     .auth()
-    //     .getUser(uid)
-    //     .then(userRecord => {
-    //       console.log("Successfully fetched user data:", userRecord.toJSON());
-    //     })
-    //     .catch(err => {
-    //       console.error(err);
-    //     });
-    // }
   },
   created() {
     this.getUsers();
@@ -196,16 +183,12 @@ export default {
   },
   watch: {
     users: function() {
-      console.log("\tUSERS just changed value to ::");
-      console.log(this.users);
+      console.log("\tUSERS just updated ::");
+      // console.log(this.users);
     },
     kibartMain: function() {
       console.log("\tkibartMain is now ::");
       console.log(this.kibartMain);
-    },
-    artworks: function() {
-      console.log("artworks value just changed ::");
-      // console.log(this.artworks);
     }
   } //end-watch
 };

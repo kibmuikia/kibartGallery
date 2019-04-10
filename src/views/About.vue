@@ -8,16 +8,14 @@
     fill-height
     wrap
   >
-    <!-- <v-flex xs12 text-xs-center>
-      <h2>All the about information shall be placed here.</h2>
-    </v-flex> -->
-
     <v-flex xs12 md3>
       <v-card elevation="5" color="grey lighten-1">
         <v-img
-          :src="require('../assets/art-3-kibart.png')"
+          :src="aboutimages.three.url"
+          :lazy-src="imageUrlLazy"
           height="200"
         ></v-img>
+        <!-- :src="require('../assets/art-3-kibart.png')" -->
 
         <v-card-text>
           <p class="subheading black--text">
@@ -33,11 +31,11 @@
     <v-flex xs12 md3>
       <v-card elevation="5" color="grey lighten-1">
         <v-img
-          :src="require('../assets/art-1-whatever.jpg')"
+          :src="aboutimages.one.url"
+          :lazy-src="imageUrlLazy"
           height="200"
         ></v-img>
-        <!-- src="https://cdn.vuetifyjs.com/images/cards/desert.jpg" -->
-
+        <!-- :src="require('../assets/art-1-whatever.jpg')" -->
         <v-card-text>
           <p class="subheading black--text">
             "The purpose of art is washing the dust of daily life off our
@@ -51,8 +49,12 @@
 
     <v-flex xs12 md4>
       <v-card elevation="5" color="grey lighten-1">
-        <v-img :src="require('../assets/art-2-honey.jpg')" height="200"></v-img>
-
+        <v-img
+          :src="aboutimages.two.url"
+          height="200"
+          :lazy-src="imageUrlLazy"
+        ></v-img>
+        <!-- :src="require('../assets/art-2-honey.jpg')" -->
         <v-card-text>
           <p class="subheading black--text">
             "To me, Art is an expression of one’s personal emotions that cannot
@@ -70,15 +72,79 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
+
+import fire from "@/fire/V1";
+// import utils from "@/utils/V1";
+
 export default {
   name: "about-view",
   data() {
     return {
+      // :src="require('../assets/art-3-kibart.png')"
+      // :src="require('../assets/art-1-whatever.jpg')"
+      // :src="require('../assets/art-2-honey.jpg')"
       show: false,
-      card_text:
-        "Lorem ipsum dolor sit amet, brute iriure accusata ne mea. Eos suavitate referrentur ad, te duo agam libris qualisque, utroque quaestio accommodare no qui. Et percipit laboramus usu, no invidunt verterem nominati mel. Dolorem ancillae an mei, ut putant invenire splendide mel, ea nec propriae adipisci. Ignota salutandi accusamus in sed, et per malis fuisset, qui id ludus appareat."
+      imageUrlLazy: require("@/assets/rings.svg"),
+      aboutimages: {
+        one: {
+          ref: "site/about-page/art-1-whatever.jpg",
+          url: ""
+        },
+        two: {
+          ref: "site/about-page/art-2-honey.jpg",
+          url: ""
+        },
+        three: {
+          ref: "site/about-page/art-3-kibart.png",
+          url: ""
+        }
+      }
     };
-  } //end-data
+  }, //end-data
+  methods: {
+    async getUrl(path) {
+      // console.log(`\tGot path[ ${path} ]`);
+      let imageUrl = "";
+      let storageRef = fire.storage.ref();
+      // let self = this;
+      await storageRef
+        .child(path)
+        .getDownloadURL()
+        .then(url => {
+          // console.log(`\timageUrl[ -[${typeof imageUrl}] --  ${imageUrl}  - ]`);
+          imageUrl = url;
+        })
+        .catch(err => {
+          console.error(err);
+        });
+
+      if (typeof imageUrl === "string" && imageUrl != "") {
+        // console.log(`\timageUrl[ -[${typeof imageUrl}] --  ${imageUrl}  - ]`);
+        return imageUrl;
+      }
+    }
+  },
+  created() {
+    let self = this;
+    this.getUrl(this.aboutimages.one.ref).then(url => {
+      console.log(url);
+      self.aboutimages.one.url = url;
+    });
+    this.getUrl(this.aboutimages.two.ref).then(url => {
+      // console.log(url);
+      self.aboutimages.two.url = url;
+    });
+    this.getUrl(this.aboutimages.three.ref).then(url => {
+      // console.log(url);
+      self.aboutimages.three.url = url;
+    });
+  },
+  watch: {
+    aboutimages: function() {
+      console.log(`\taboutimages just updated`);
+    }
+  }
 }; //end-export
 </script>
 

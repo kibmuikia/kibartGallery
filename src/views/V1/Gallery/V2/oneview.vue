@@ -2,7 +2,16 @@
   <v-layout row wrap align-center justify-center>
     <v-flex xs12 md6 class="">
       <div>
-        <v-breadcrumbs :items="views" divider=">"></v-breadcrumbs>
+        <!-- <v-breadcrumbs :items="views" divider=">"></v-breadcrumbs> -->
+        <v-chip v-ripple>
+          <v-icon>keyboard_arrow_left</v-icon>
+          <router-link
+            to="/gallery"
+            color=""
+            style="text-decoration:none; color:white;"
+            >Main Gallery</router-link
+          >
+        </v-chip>
       </div>
       <h3 v-if="artist.userName" class="text-xs-center pa-2">
         {{ artist.userName }} <small> Gallery </small>
@@ -54,6 +63,9 @@
           max-height="400"
           contain
         ></v-img>
+        <v-card-text v-if="artitem.artDesc">
+          <p class="subheading">{{ artitem.artDesc }}</p>
+        </v-card-text>
         <v-card-actions>
           <!-- <v-btn>Click</v-btn> -->
           <v-spacer></v-spacer>

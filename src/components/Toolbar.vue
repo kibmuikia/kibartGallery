@@ -95,10 +95,7 @@
             </v-list-tile-content>
           </v-list-tile>
 
-          <v-list-tile
-            @click="navigateTo('/auth/artist/signup')"
-            v-if="!userflag"
-          >
+          <v-list-tile @click="navigateTo('/auth/artist/signup')">
             <v-list-tile-action>
               <v-icon>add</v-icon>
             </v-list-tile-action>
@@ -121,7 +118,7 @@
             </v-list-tile>
           </template>
 
-          <v-list-tile @click="navigateTo('/upload-image')" v-if="userflag">
+          <v-list-tile @click="navigateTo('/upload-image')">
             <v-list-tile-action>
               <v-icon>cloud_upload</v-icon>
             </v-list-tile-action>
@@ -130,7 +127,7 @@
             </v-list-tile-content>
           </v-list-tile>
 
-          <v-list-tile @click="signout" v-if="userflag">
+          <v-list-tile @click="signout">
             <v-list-tile-action>
               <v-icon>exit_to_app</v-icon>
             </v-list-tile-action>

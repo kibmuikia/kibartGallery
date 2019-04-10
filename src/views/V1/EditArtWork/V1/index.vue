@@ -1,6 +1,17 @@
 <template>
   <v-layout align-center justify-center column fill-height>
     <v-flex xs12 md12>
+      <div>
+        <v-chip v-ripple>
+          <v-icon>keyboard_arrow_left</v-icon>
+          <router-link
+            to="/upload-image"
+            color=""
+            style="text-decoration:none; color:white;"
+            >Back</router-link
+          >
+        </v-chip>
+      </div>
       <EditArtWorkForm v-if="artwork" :artwork="artwork" />
     </v-flex>
   </v-layout>
