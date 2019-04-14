@@ -143,8 +143,19 @@
             <v-list-tile-content>
               <v-list-tile-title>Sign Out</v-list-tile-title>
             </v-list-tile-content>
-          </v-list-tile> </v-list-group
-        ><!-- end-group-profile -->
+          </v-list-tile>
+        </v-list-group>
+        <!-- end-group-profile -->
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon class="rotating-css">access_time</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="subheading">
+              {{ currentTimeDate }}
+            </v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <!-- . -->
       </v-list>
     </v-navigation-drawer>
@@ -164,6 +175,8 @@
 /* eslint-disable no-console */
 import fire from "@/fire/V1";
 import utils from "@/utils/V1";
+const moment = require("moment");
+require("@/assets/infinite.css");
 export default {
   name: "main-toolbar-component",
   data() {
@@ -172,7 +185,9 @@ export default {
       userflag: false,
       menuPhotoUrl: "",
       status: "",
-      imageUrlLazy: require("@/assets/ball-triangle.svg")
+      imageUrlLazy: require("@/assets/ball-triangle.svg"),
+      timeOne: moment().format("LTS"),
+      date_now: moment().format("MMM Do")
     }; //end-return
   }, //end-data
   methods: {
@@ -240,7 +255,28 @@ export default {
         // console.log(gotuser);
       }
       return gotuser;
+    },
+    time_now: function() {
+      let today = new Date();
+      let time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      return time;
+    },
+    currentTimeDate: function() {
+      return `${this.date_now}, ${this.timeOne}`;
     }
+    // date_now: function() {
+    //   let today = new Date();
+    //   var date =
+    //     today.getFullYear() +
+    //     "-" +
+    //     (today.getMonth() + 1) +
+    //     "-" +
+    //     today.getDate();
+    //   date = date | moment().format("MMM Do YY");
+
+    //   return date;
+    // }
   }, //end-computed
   watch: {
     menuPhotoUrl: function() {
@@ -258,8 +294,18 @@ export default {
         this.menuPhotoUrl = "";
       }
     }
+  },
+  mounted: function() {
+    setInterval(() => {
+      this.timeOne = moment().format("LTS");
+    }, 1000);
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.rotating-css {
+  animation: rotating 2s linear;
+  animation-iteration-count: infinite;
+}
+</style>

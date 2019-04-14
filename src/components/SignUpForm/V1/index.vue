@@ -163,7 +163,7 @@ export default {
         .createUserWithEmailAndPassword(this.user.email, this.user.password)
         .then(data => {
           if (data.user) {
-            console.log("In data.user if function");
+            // console.log("In data.user if function");
             let user = data.user;
             console.log(user);
             let uid = user.uid;

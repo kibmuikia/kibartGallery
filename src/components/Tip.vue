@@ -11,7 +11,7 @@
     <!-- :timeout="timeout" -->
     <!-- :left="x === 'left'" :bottom="y === 'bottom'" :vertical="mode === 'vertical'" -->
     {{ information }}
-    <v-btn color="pink" flat @click="snackbar = false">
+    <v-btn color="pink" flat @click="show = false">
       Close
     </v-btn>
   </v-snackbar>
@@ -26,11 +26,9 @@ export default {
     return {
       // timeout: 3000,
       // snackbar: false,
-      // snackbar: false,
       // y: "top",
       // x: null,
-      mode: "",
-      text: "Hello, I'm a snackbar"
+      mode: ""
     };
   },
   watch: {

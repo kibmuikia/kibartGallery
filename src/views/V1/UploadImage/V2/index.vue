@@ -57,9 +57,14 @@
                     small
                     color="warning"
                     @click="
-                      deleteArtWork(artitem.docID, artitem.artLocation, index)
+                      showDeleteDialog(
+                        artitem.docID,
+                        artitem.artTitle,
+                        artitem.artLocation
+                      )
                     "
                   >
+                    <!-- deleteArtWork(artitem.docID, artitem.artLocation, index) -->
                     <v-icon>delete_outline</v-icon>
                   </v-btn>
                 </v-flex>
@@ -97,6 +102,37 @@
         You currently do not have any art work
       </p>
     </v-flex>
+    <!-- . -->
+    <v-dialog v-model="dialog" max-width="300">
+      <v-card>
+        <v-card-title class="headline">
+          Delete Confirmation !
+        </v-card-title>
+
+        <v-card-text class="subheading">
+          Are you sure you want to delete,<br />
+          [- <strong>{{ dialogData.arttitle }}</strong> -]?
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="orange darken-1" flat @click="closeDeleteDialog">
+            Cancel
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            flat
+            @click="deleteArtWork(dialogData.artid, dialogData.imagelocations)"
+          >
+            <!-- deleteArtWork(docid, imagelocations, indexvalue) -->
+            Agree
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- . -->
   </v-layout>
 </template>
 
@@ -117,7 +153,9 @@ export default {
     return {
       user: {},
       your_artwork: [],
-      loading: false
+      loading: false,
+      dialog: false,
+      dialogData: {}
       // user: {
       //   name: "kibart"
       // }
@@ -142,11 +180,23 @@ export default {
         params: { key: docID }
       });
     },
-    async deleteArtWork(docid, imagelocations, indexvalue) {
+    closeDeleteDialog() {
+      this.dialogData = {};
+      // console.log(this.dialogData);
+      this.dialog = false;
+    }, //end-closeDeleteDialog
+    showDeleteDialog(docid, arttitle, imagelocations) {
+      this.dialogData.arttitle = arttitle;
+      this.dialogData.artid = docid;
+      this.dialogData.imagelocations = imagelocations;
+      // console.log(this.dialogData);
+      this.dialog = true;
+    }, //end-showDeleteDialog
+    async deleteArtWork(docid, imagelocations) {
       this.loading = true;
-      // let self = this;
+      let self = this;
       console.log("delete process starting");
-      console.log(`Doc[ ${docid} ] at index[ ${indexvalue} ]`);
+      console.log(`Doc[ ${docid} ]`);
       let storageRef = fire.storage.ref();
       imagelocations.forEach(async location => {
         console.log(location);
@@ -169,6 +219,7 @@ export default {
         .delete()
         .then(() => {
           console.log("Document successfully deleted!");
+          self.closeDeleteDialog();
           utils.showAlert(
             "Success",
             "Art work successfully deleted!",

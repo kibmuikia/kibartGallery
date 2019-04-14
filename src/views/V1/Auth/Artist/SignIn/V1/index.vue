@@ -18,6 +18,7 @@
                 label="E-mail"
                 :rules="rules.emailRules"
                 required
+                type="email"
               ></v-text-field>
             </v-flex>
             <v-flex xs12 md5>
