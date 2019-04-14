@@ -1,6 +1,16 @@
 <template>
   <v-layout align-center justify-center row fill-height wrap>
     <v-flex xs12 md12>
+      <router-link
+        to="/artist/profile"
+        color=""
+        style="text-decoration:none; color:white;"
+      >
+        <v-chip v-ripple>
+          <v-icon>keyboard_arrow_left</v-icon>
+          Your Profile
+        </v-chip>
+      </router-link>
       <UploadImageForm />
     </v-flex>
     <v-flex xs12 md8 v-if="your_artwork.length > 0">
@@ -169,12 +179,6 @@ export default {
           console.error("Error removing document: ", error);
         });
     },
-    // extend(obj, src) {
-    //   Object.keys(src).forEach(function(key) {
-    //     obj[key] = src[key];
-    //   });
-    //   return obj;
-    // },
     getUrl(array) {
       let imageUrls = [];
       let storageRef = fire.storage.ref();

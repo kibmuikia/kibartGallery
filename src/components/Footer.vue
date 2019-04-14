@@ -69,7 +69,7 @@
           <v-card-text class="">
             <v-layout align-center justify-center row fill-height>
               <v-flex xs3 md2>
-                <span class="body-1"> &copy;2019</span>
+                <span class="body-1"> &copy;{{ currentyear }}</span>
               </v-flex>
               <v-spacer></v-spacer>
               <v-flex xs7 md3>
@@ -90,12 +90,15 @@ export default {
   name: "main-footer-component",
   data() {
     return {
-      // .
+      currentyear: new Date().getFullYear()
     }; //end-return
   }, //end-data
   methods: {
     //func
-  } //end-methods
+  }, //end-methods
+  created() {
+    // console.log(this.currentyear);
+  }
 };
 </script>
 

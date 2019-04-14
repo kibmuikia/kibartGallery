@@ -3,15 +3,16 @@
     <v-flex xs12 md6 class="">
       <div>
         <!-- <v-breadcrumbs :items="views" divider=">"></v-breadcrumbs> -->
-        <v-chip v-ripple>
-          <v-icon>keyboard_arrow_left</v-icon>
-          <router-link
-            to="/gallery"
-            color=""
-            style="text-decoration:none; color:white;"
-            >Main Gallery</router-link
-          >
-        </v-chip>
+        <router-link
+          to="/gallery"
+          color=""
+          style="text-decoration:none; color:white;"
+        >
+          <v-chip v-ripple>
+            <v-icon>keyboard_arrow_left</v-icon>
+            Main Gallery
+          </v-chip>
+        </router-link>
       </div>
       <h3 v-if="artist.userName" class="text-xs-center pa-2">
         {{ artist.userName }} <small> Gallery </small>
@@ -28,7 +29,7 @@
           <v-card>
             <v-img
               :lazy-src="imageUrlLazy"
-              :src="artitem.artUrls[1]"
+              :src="artitem.artUrls[0].mainurl"
               :alt="artitem.artTitle"
               height="200"
             ></v-img>
@@ -58,7 +59,7 @@
         </h3>
         <v-img
           :lazy-src="imageUrlLazy"
-          :src="artitem.artUrls[1]"
+          :src="artitem.artUrls[0].mainurl"
           :alt="artitem.artTitle"
           max-height="400"
           contain
@@ -141,9 +142,9 @@ export default {
           let changes = snapshot.docChanges();
           changes.forEach(change => {
             if (change.type == "added") {
-              console.log(`Doc[${change.doc.id}], ${change.type}`);
+              // console.log(`Doc[${change.doc.id}], ${change.type}`);
               let urls = self.getUrl(change.doc.data().artLocation);
-              // console.log(urls);
+              console.log(urls);
               let gotdocument = {
                 ...change.doc.data(),
                 artUrls: urls,
@@ -176,42 +177,40 @@ export default {
     }, // end-getArtWorks
     getUrl(array) {
       let imageUrls = [];
+      let urls = {};
       let storageRef = fire.storage.ref();
       array.forEach(async (currentValue, index, arr) => {
-        // console.log(currentValue);
         await storageRef
           .child(currentValue)
           .getDownloadURL()
           .then(url => {
-            // console.log(url);
-            if (url.includes("small")) {
-              var lazyurl = url;
-              // imageUrls.push(lazyurl);
-              // console.log(
-              //   `currentValue[ ${currentValue} ] -- lazyurl[ ${lazyurl} ]`
-              // );
+            // console.log(`[ ${url.includes("small")} ] -- [ ${url} ]`);
+            if (url.includes("small") === true) {
+              urls.lazyurl = url;
+              // console.log(`lazyurl--[ ${urls.lazyurl} ]`);
+              // console.log(urls);
             }
-            if (!url.includes("small")) {
-              var mainurl = url;
-              // imageUrls.push(mainurl);
-              // console.log(
-              //   `currentValue[ ${currentValue} ] -- lazyurl[ ${mainurl} ]`
-              // );
+            if (url.includes("small") === false) {
+              urls.mainurl = url;
+              // console.log(`mainurl--[ ${urls.mainurl} ]`);
+              // console.log(urls);
             }
-            // let urls = {
-            //   lazy: lazyurl,
-            //   main: mainurl
-            // };
+            // imageUrls.push(url);
             // console.log(urls);
-            // a.includes('are')
-            imageUrls.push(url);
-            // imageUrls.push(urls);
+            imageUrls.push(urls);
           })
           .catch(err => {
             console.error(err);
           });
-      });
-      if (imageUrls[0] != "undefined" && imageUrls[1] != "undefined") {
+        // .
+      }); // end-forEach
+      // if (urls.mainurl != "" && urls.lazyurl != "") {
+      //   console.log(urls);
+      //   // imageUrls.push(urls);
+      // }
+      if (imageUrls[0] != "undefined") {
+        // && imageUrls[1] != "undefined"
+        // console.log(urls);
         return imageUrls;
       } else {
         console.log(imageUrls);
@@ -243,7 +242,7 @@ export default {
   watch: {
     artist: function() {
       console.log(`\treceived artist :: ${this.artist.userName}`);
-      console.log(this.artist);
+      // console.log(this.artist);
       this.getArtWorks(this.artist.userID);
     },
     your_artwork: function() {

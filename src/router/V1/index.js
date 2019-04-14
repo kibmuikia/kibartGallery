@@ -39,7 +39,7 @@ router.beforeEach((to, from, next) => {
       console.log(`\tUser-id[ ${store.getters.user.uid} ]-not-present !`);
       next({
         path: "/auth/artist/signin",
-        query: { status: "Invalid-User", redirect: to.fullPath }
+        query: { status: "Invalid User, Please Sign In", redirect: to.fullPath }
       });
     } else {
       console.log(

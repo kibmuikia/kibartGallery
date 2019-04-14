@@ -10,13 +10,13 @@
             <v-btn
               flat
               icon
+              class="opacityPulse-css"
               color="blue lighten-2"
               @click="snackbar = true"
               @mouseenter="
                 snackbarinfo =
-                  'Preferably small sized[ equal to or less than 2MB ] images to gurantee upload, for now.'
+                  'Ensure you choose one image file. Preferably small sized[ equal to or less than 2MB ] images to gurantee upload, for now.'
               "
-              class=""
             >
               <v-icon>info</v-icon>
             </v-btn>
@@ -37,25 +37,35 @@
 
     <v-snackbar
       v-model="snackbar"
-      :multi-line="mode === 'multi-line'"
+      multi-line
+      right
+      top
+      vertical
+      color="white"
+      class="black--text"
       :timeout="timeout"
-      top="top"
     >
       {{ snackbarinfo }}
-      <v-btn flat icon color="pink lighten-1" dark @click="snackbar = false">
+      <v-btn flat icon color="black" dark @click="snackbar = false">
         <v-icon>close</v-icon>
       </v-btn>
     </v-snackbar>
+    <!-- <Tip :information="theTip" :show="show" /> -->
   </v-layout>
 </template>
 
 <script>
 /* eslint-disable no-console */
 import { serverBus } from "@/main";
+require("@/assets/infinite.css");
+// import Tip from "@/components/Tip";
 
 export default {
   name: "image-input-component",
   props: [],
+  components: {
+    // Tip
+  },
   data() {
     return {
       filesdata: null,
@@ -64,7 +74,7 @@ export default {
       // y: "top",
       timeout: 4000,
       snackbarinfo:
-        "Preferably small sized[ equal to or less than 2MB ] images to gurantee upload, for now.",
+        "Ensure you choose one image file. Preferably small sized[ equal to or less than 2MB ] images to gurantee upload, for now.",
       labeltext: "Choose Art-Work File"
     }; //end-return
   }, //end-data
@@ -114,5 +124,13 @@ export default {
   -webkit-box-shadow: -1px 2px 11px -2px rgba(79, 240, 135, 1);
   -moz-box-shadow: -1px 2px 11px -2px rgba(79, 240, 135, 1);
   box-shadow: -1px 2px 11px -2px rgba(79, 240, 135, 1);
+}
+.opacityPulse-css {
+  animation: opacityPulse 2s ease-out;
+  animation-iteration-count: infinite;
+  opacity: 1;
+}
+.opacityPulse-css:hover {
+  animation: none;
 }
 </style>

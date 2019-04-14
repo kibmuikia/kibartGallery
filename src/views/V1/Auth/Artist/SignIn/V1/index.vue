@@ -135,7 +135,7 @@ export default {
             // this.checkUserStore();
             utils.showAlert("Success", this.status, "success");
             this.resetForm();
-            this.navigateTo("/upload-image");
+            this.navigateTo("/artist/profile");
           } else {
             throw new Error("Dispatch to set user in store FAILED");
           }
@@ -208,11 +208,15 @@ export default {
     } //end-resetForm
   }, //end-methods
   created() {
+    // console.log(this.$route);
     // registrationStatus
     if (this.$route.params.registrationStatus) {
       this.status = this.$route.params.registrationStatus;
       console.log(`created() running:received param --> [ ${this.status} ]`);
       utils.showAlert("Success", this.status, "success");
+    }
+    if (this.$route.query.status) {
+      utils.showAlert("Status", this.$route.query.status, "info");
     }
   } //end-created
 }; //end-export

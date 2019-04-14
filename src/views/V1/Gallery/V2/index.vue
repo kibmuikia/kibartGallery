@@ -2,7 +2,7 @@
   <v-layout app wrap align-center justify-center row class="">
     <v-flex xs12 md5>
       <v-card
-        color="grass-l"
+        color="blue-grey lighten-3"
         class="black--text mb-3"
         v-if="kibartMain.userName"
       >
@@ -29,7 +29,7 @@
           </v-flex>
         </v-layout>
         <v-divider light></v-divider>
-        <v-card-actions class="pa-3 grass-d">
+        <v-card-actions class="pa-3 blue-grey lighten-4">
           View My Gallery
           <v-spacer></v-spacer>
           <v-btn icon flat @click="viewArtistWork(kibartMain)">
@@ -50,7 +50,7 @@
       <!-- . -->
       <v-layout row wrap align-center justify-center v-if="users.length > 0">
         <v-flex xs12 v-for="(user, i) in users" :key="i" class="mb-3">
-          <v-card color="bitter-sweet-l" class="white--text">
+          <v-card color="blue-grey lighten-4" class="black--text">
             <!-- cyan darken-2 -->
             <v-layout>
               <v-flex xs5 class="pa-2">
@@ -74,7 +74,7 @@
               </v-flex>
             </v-layout>
             <v-divider light></v-divider>
-            <v-card-actions class="pa-3 bitter-sweet-d">
+            <v-card-actions class="pa-3 blue-grey lighten-3">
               <div>Explore {{ user.userName }}'s Gallery</div>
               <v-spacer></v-spacer>
               <v-btn icon flat @click="viewArtistWork(user)">

@@ -107,16 +107,25 @@
         <!-- . -->
 
         <!-- . -->
-        <v-list-group prepend-icon="settings" v-if="userflag">
+        <v-list-group prepend-icon="account_box" v-if="userflag">
           <template v-slot:activator>
             <v-list-tile>
               <v-list-tile-content>
                 <v-list-tile-title>
-                  Your Profile
+                  Your Account
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </template>
+
+          <v-list-tile @click="navigateTo('/artist/profile')">
+            <v-list-tile-action>
+              <v-icon>settings</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>View Profile</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
 
           <v-list-tile @click="navigateTo('/upload-image')">
             <v-list-tile-action>
