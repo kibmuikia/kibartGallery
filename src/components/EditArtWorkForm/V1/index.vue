@@ -84,6 +84,7 @@ export default {
   }, //end-data
   methods: {
     processForm() {
+      this.loadingflag = true;
       console.log("\tprocessing edit !");
       console.log(
         `[${this.artitem.docID}]--Received:: title[ ${
@@ -98,18 +99,22 @@ export default {
       };
       // console.log(artworkUpdate);
       let self = this;
-      const updateRef = fire.db.collection("artworks").doc(this.artitem.docID);
+      const updateRef = fire.db
+        .collection("artworks_v2")
+        .doc(this.artitem.docID);
       updateRef
         .set(artworkUpdate)
         .then(docRef => {
           self.artitem = {};
           artworkUpdate = {};
+          self.loadingflag = false;
           this.$router.push({
             name: "UploadImage",
             params: { status: "Update Successful" }
           });
         })
         .catch(error => {
+          self.loadingflag = false;
           console.error(error);
           alert("Error updating art-work: ", error);
         });

@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap align-center justify-center>
     <v-flex xs12 sm8 md6>
-      <v-card elevation="8">
+      <v-card elevation="8" class="card_bg">
         <v-layout column align-center justify-center>
           <v-flex xs12 class="pa-0 ma-0">
             <v-avatar
@@ -240,6 +240,10 @@ export default {
     -moz-box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
     box-shadow: 0 0 0 0 rgba(204, 169, 44, 0);
   }
+}
+.card_bg {
+  /*background-color: #565656;*/
+  background-image: url("~@/assets/topography.svg");
 }
 /*.*/
 </style>

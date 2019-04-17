@@ -13,6 +13,7 @@
       </router-link>
       <UploadImageForm />
     </v-flex>
+    <!-- . -->
     <v-flex xs12 md8 v-if="your_artwork.length > 0">
       <h3 class="text-xs-center pb-1">Your Art Work</h3>
       <v-expansion-panel>
@@ -22,16 +23,14 @@
         >
           <div slot="header">
             <h6 class="title font-weight-light">
-              <v-avatar size="30" color="" v-if="artitem.artUrls">
+              <v-avatar size="35">
                 <v-img
-                  :lazy-src="artitem.artUrls[0]"
-                  :src="artitem.artUrls[1]"
+                  :lazy-src="imageUrlLazy"
+                  :src="artitem.artLocation.full"
                   alt="artitem.artTitle"
                 ></v-img>
-                <!-- src="https://vuetifyjs.com/apple-touch-icon-180x180.png" -->
               </v-avatar>
               {{ artitem.artTitle }}
-              <!-- {{ artitem.artUrls[1]  -->
             </h6>
           </div>
           <v-card>
@@ -64,7 +63,6 @@
                       )
                     "
                   >
-                    <!-- deleteArtWork(artitem.docID, artitem.artLocation, index) -->
                     <v-icon>delete_outline</v-icon>
                   </v-btn>
                 </v-flex>
@@ -81,7 +79,7 @@
       </p>
     </v-flex>
     <!-- . -->
-    <v-dialog v-model="dialog" max-width="300">
+    <v-dialog v-model="dialog" max-width="300" persistent>
       <v-card>
         <v-card-title class="headline">
           Delete Confirmation !
@@ -102,7 +100,8 @@
           <v-btn
             color="green darken-1"
             flat
-            @click="deleteArtWork(dialogData.artid, dialogData.imagelocations)"
+            :loading="loading"
+            @click="deleteArtWork(dialogData.artid, dialogData.artpaths)"
           >
             <!-- deleteArtWork(docid, imagelocations, indexvalue) -->
             Agree
@@ -118,12 +117,13 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 
-import UploadImageForm from "@/components/UploadImageForm/V1/";
+import UploadImageForm from "@/components/UploadImageForm/V2/";
+
 import fire from "@/fire/V1";
 import utils from "@/utils/V1";
 
 export default {
-  name: "upload-image-view",
+  name: "upload-image-view-v3",
   components: {
     UploadImageForm
   }, //end-components
@@ -133,11 +133,12 @@ export default {
       your_artwork: [],
       loading: false,
       dialog: false,
-      dialogData: {}
+      dialogData: {},
+      imageUrlLazy: require("@/assets/rings.svg")
     }; //end-return
   }, //end-data
   methods: {
-    async editArtWork(artitem, index) {
+    editArtWork(artitem, index) {
       console.log(artitem);
       let docID = artitem.docID;
       // console.log(
@@ -151,81 +152,74 @@ export default {
     },
     closeDeleteDialog() {
       this.dialogData = {};
-      // console.log(this.dialogData);
       this.dialog = false;
     }, //end-closeDeleteDialog
     showDeleteDialog(docid, arttitle, imagelocations) {
       this.dialogData.arttitle = arttitle;
       this.dialogData.artid = docid;
-      this.dialogData.imagelocations = imagelocations;
-      // console.log(this.dialogData);
+      this.dialogData.artpaths = imagelocations;
+      console.log(this.dialogData);
       this.dialog = true;
     }, //end-showDeleteDialog
-    async deleteArtWork(docid, imagelocations) {
+    deleteArtWork(docid, imagelocations) {
       this.loading = true;
       let self = this;
-      console.log("delete process starting");
-      console.log(`Doc[ ${docid} ]`);
+      console.log(`\tDoc[ ${docid} ]`);
       let storageRef = fire.storage.ref();
-      imagelocations.forEach(async location => {
-        console.log(location);
-        let artfileRef = storageRef.child(`${location}`);
-        await artfileRef
-          .delete()
-          .then(() => {
-            console.log(`successfully deleted[ ${location} ]`);
-          })
-          .catch(error => {
-            console.error(`Failed to delete[ ${location} ]`);
-            console.error(error);
-          });
-      });
-      await fire.db
-        .collection("artworks")
-        .doc(docid)
-        // .where("userID", "==", this.user.uid)
-        // .where("artTitle", "==", title)
+      let artfileRef = storageRef.child(`${imagelocations.partial}`);
+      artfileRef
         .delete()
         .then(() => {
-          console.log("Document successfully deleted!");
-          self.closeDeleteDialog();
-          utils.showAlert(
-            "Success",
-            "Art work successfully deleted!",
-            "success"
+          console.log(
+            `image successfully deleted[ ${imagelocations.partial} ]`
           );
+          fire.db
+            .collection("artworks_v2")
+            .doc(docid)
+            .delete()
+            .then(() => {
+              console.log("Document successfully deleted!");
+              self.loading = false;
+              self.closeDeleteDialog();
+              utils.showAlert(
+                "Success",
+                "Art work successfully deleted!",
+                "success"
+              );
+            })
+            .catch(err => {
+              console.error(err);
+              self.loading = false;
+              utils.showAlert("Document Delete Error", err.message, "error");
+            });
         })
-        .catch(error => {
-          console.error("Error removing document: ", error);
+        .catch(err => {
+          console.error(err);
+          self.loading = false;
+          utils.showAlert("Image Delete Error", err.message, "error");
         });
-    },
-    getUrl(array) {
-      let imageUrls = [];
-      let storageRef = fire.storage.ref();
-      array.forEach(async (currentValue, index, arr) => {
-        // console.log(currentValue);
-        await storageRef
-          .child(currentValue)
-          .getDownloadURL()
-          .then(url => {
-            // console.log(url);
-            imageUrls.push(url);
-          })
-          .catch(err => {
-            console.error(err);
-          });
-      });
-      if (imageUrls[0] != "undefined" && imageUrls[1] != "undefined") {
-        return imageUrls;
+    }, //end-deleteArtWork
+    getUser() {
+      if (
+        utils.isEmpty(this.$store.getters.user) ||
+        this.$store.getters.user.emailVerified != true
+      ) {
+        this.user = null;
+        let msg = "No User Available or Not Yet Verified.Redirecting to signin";
+        throw new Error(msg);
       } else {
-        console.log(imageUrls);
-        return false;
+        // Object is NOT empty (would return false in this example)
+        // user is also Verified
+        this.user = this.$store.getters.user;
+        console.log(
+          `In View[ UploadImage ], User=>[ ${this.user.email} ]-present`
+        );
       }
-    },
-    async getArtWork() {
+    }, //end-getUser
+    getArtWork() {
       let self = this;
-      await fire.db
-        .collection("artworks")
+      fire.db
+        .collection("artworks_v2") // artworks_v2 artworks
         .where("userID", "==", this.user.uid)
         .onSnapshot(
           snapshot => {
@@ -233,24 +227,14 @@ export default {
             changes.forEach(change => {
               if (change.type == "added") {
                 console.log(`Doc[${change.doc.id}], ${change.type}`);
-                // console.log(change.doc.data());
-                // artLocation
-                // array.forEach(function(currentValue, index, arr), thisValue)
-                // storageRef.child('images/stars.jpg').getDownloadURL().then
-                // function here
-                let urls = self.getUrl(change.doc.data().artLocation);
-                // console.log(urls);
-                let gotdocument = utils.extend(
-                  {
-                    docID: change.doc.id,
-                    artUrls: urls
-                  },
-                  change.doc.data()
-                );
+                let gotdocument = {
+                  ...change.doc.data(),
+                  docID: change.doc.id
+                };
                 self.your_artwork.push(gotdocument);
                 console.log(self.your_artwork);
-                // }
-              } else if (change.type == "removed") {
+              } //end-if-added
+              if (change.type == "removed") {
                 console.log(`\tDoc[${change.doc.id}] has been removed`);
                 self.your_artwork = self.your_artwork.filter(
                   (value, index, arr) => {
@@ -259,37 +243,14 @@ export default {
                   }
                 );
               }
-            });
-            // console.log(self.your_artwork);
+            }); //end-forEach
           },
           error => {
             console.error("Listener failed :: ", error);
           }
-        );
-    },
-    getUser() {
-      this.user = this.$store.getters.user;
-      if (utils.isEmpty(this.user) || this.user.emailVerified != true) {
-        let msg = "No User Available or Not Yet Verified.Redirecting to signin";
-        console.error(msg);
-        alert(msg);
-        // this.$router.push({
-        //   name: "ArtistSignIn",
-        //   params: { status: "Invalid User" }
-        // });
-        throw new Error(msg);
-      } else {
-        // Object is NOT empty (would return false in this example)
-        // user is also Verified
-        console.log(
-          `In View[ UploadImage ], User=>[ ${this.user.email} ]-present`
-        );
-        // console.log(this.user);
-      }
-    }
+        ); //end-onSnapShot
+    } //end-getArtWork
   }, //end-methods
-  mounted() {}, //end-mounted
-  watch: {}, //end-watch
   created() {
     // console.log(this.$route.params);
     this.getUser();
@@ -298,8 +259,8 @@ export default {
       let status = this.$route.params.status;
       utils.showAlert("Success", status, "success");
     }
-  }
-}; //end-export
+  } //end-created
+};
 </script>
 
 <style scoped>

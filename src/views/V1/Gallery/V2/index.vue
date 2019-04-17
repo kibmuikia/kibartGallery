@@ -32,7 +32,7 @@
         <v-card-actions class="pa-3 blue-grey lighten-4">
           View My Gallery
           <v-spacer></v-spacer>
-          <v-btn icon flat @click="viewArtistWork(kibartMain)">
+          <v-btn icon color="black" flat @click="viewArtistWork(kibartMain)">
             <v-icon>arrow_forward_ios</v-icon>
           </v-btn>
         </v-card-actions>
@@ -49,6 +49,9 @@
 
       <!-- . -->
       <v-layout row wrap align-center justify-center v-if="users.length > 0">
+        <!-- <v-flex xs12>
+          <p>search function here</p>
+        </v-flex> -->
         <v-flex xs12 v-for="(user, i) in users" :key="i" class="mb-3">
           <v-card color="blue-grey lighten-4" class="black--text">
             <!-- cyan darken-2 -->
@@ -77,7 +80,7 @@
             <v-card-actions class="pa-3 blue-grey lighten-3">
               <div>Explore {{ user.userName }}'s Gallery</div>
               <v-spacer></v-spacer>
-              <v-btn icon flat @click="viewArtistWork(user)">
+              <v-btn icon color="black" flat @click="viewArtistWork(user)">
                 <v-icon>arrow_forward_ios</v-icon>
               </v-btn>
             </v-card-actions>
@@ -143,6 +146,7 @@ export default {
       let usersRef = fire.db.collection("users");
       let self = this;
       await usersRef
+        .orderBy("userName")
         .get()
         .then(querySnapshot => {
           querySnapshot.docs.forEach(async doc => {

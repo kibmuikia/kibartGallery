@@ -29,7 +29,7 @@
           <v-card>
             <v-img
               :lazy-src="imageUrlLazy"
-              :src="artitem.artUrls[0].mainurl"
+              :src="artitem.artLocation.full"
               :alt="artitem.artTitle"
               height="200"
             ></v-img>
@@ -59,7 +59,7 @@
         </h3>
         <v-img
           :lazy-src="imageUrlLazy"
-          :src="artitem.artUrls[0].mainurl"
+          :src="artitem.artLocation.full"
           :alt="artitem.artTitle"
           max-height="400"
           contain
@@ -135,91 +135,36 @@ export default {
   },
   methods: {
     getArtWorks(userid) {
-      let artworksRef = fire.db.collection("artworks");
+      let artworksRef = fire.db.collection("artworks_v2");
       let self = this;
-      artworksRef
-        .where("userID", "==", userid)
-        // .orderBy("artTitle")
-        .onSnapshot(
-          snapshot => {
-            let changes = snapshot.docChanges();
-            changes.forEach(change => {
-              if (change.type == "added") {
-                // console.log(`Doc[${change.doc.id}], ${change.type}`);
-                let urls = self.getUrl(change.doc.data().artLocation);
-                console.log(urls);
-                let gotdocument = {
-                  ...change.doc.data(),
-                  artUrls: urls,
-                  docID: change.doc.id
-                };
-                // let gotdocument = utils.extend(
-                //   {
-                //     docID: change.doc.id,
-                //     artUrls: urls
-                //   },
-                //   change.doc.data()
-                // );
-                self.your_artwork.push(gotdocument);
-                // console.log(self.your_artwork);
-              } else if (change.type == "removed") {
-                console.log(`\tDoc[${change.doc.id}] has been removed`);
-                self.your_artwork = self.your_artwork.filter(
-                  (value, index, arr) => {
-                    // console.log(`Found-docID[${value.docID}] -- to-Remove[${change.doc.id}]`);
-                    return value.docID != change.doc.id;
-                  }
-                );
-              }
-            });
-          },
-          error => {
-            console.error("Listener failed :: ", error);
-          }
-        );
-    }, // end-getArtWorks
-    getUrl(array) {
-      let imageUrls = [];
-      let urls = {};
-      let storageRef = fire.storage.ref();
-      array.forEach(async (currentValue, index, arr) => {
-        await storageRef
-          .child(currentValue)
-          .getDownloadURL()
-          .then(url => {
-            // console.log(`[ ${url.includes("small")} ] -- [ ${url} ]`);
-            if (url.includes("small") === true) {
-              urls.lazyurl = url;
-              // console.log(`lazyurl--[ ${urls.lazyurl} ]`);
-              // console.log(urls);
+      artworksRef.where("userID", "==", userid).onSnapshot(
+        snapshot => {
+          let changes = snapshot.docChanges();
+          changes.forEach(change => {
+            if (change.type == "added") {
+              // console.log(`Doc[${change.doc.id}], ${change.type}`);
+              let gotdocument = {
+                ...change.doc.data(),
+                docID: change.doc.id
+              };
+              self.your_artwork.push(gotdocument);
+              console.log(self.your_artwork);
+            } else if (change.type == "removed") {
+              console.log(`\tDoc[${change.doc.id}] has been removed`);
+              self.your_artwork = self.your_artwork.filter(
+                (value, index, arr) => {
+                  // console.log(`Found-docID[${value.docID}] -- to-Remove[${change.doc.id}]`);
+                  return value.docID != change.doc.id;
+                }
+              );
             }
-            if (url.includes("small") === false) {
-              urls.mainurl = url;
-              // console.log(`mainurl--[ ${urls.mainurl} ]`);
-              // console.log(urls);
-            }
-            // imageUrls.push(url);
-            // console.log(urls);
-            imageUrls.push(urls);
-          })
-          .catch(err => {
-            console.error(err);
           });
-        // .
-      }); // end-forEach
-      // if (urls.mainurl != "" && urls.lazyurl != "") {
-      //   console.log(urls);
-      //   // imageUrls.push(urls);
-      // }
-      if (imageUrls[0] != "undefined") {
-        // && imageUrls[1] != "undefined"
-        // console.log(urls);
-        return imageUrls;
-      } else {
-        console.log(imageUrls);
-        return false;
-      }
-    }, //end-getUrl
+        },
+        error => {
+          console.error("Listener failed :: ", error);
+        }
+      );
+    }, // end-getArtWorks
     toggleSheet(title) {
       console.log(`\tViewing art-item-->[ ${title} ]`);
       let showartitem = this.your_artwork.filter(function(artwork) {

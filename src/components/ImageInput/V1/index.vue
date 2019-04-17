@@ -41,7 +41,7 @@
       right
       top
       vertical
-      color="white"
+      :color="snackbarColor"
       class="black--text"
       :timeout="timeout"
     >
@@ -70,12 +70,13 @@ export default {
     return {
       filesdata: null,
       snackbar: false,
+      snackbarColor: "",
       mode: "multi-line",
       // y: "top",
       timeout: 4000,
       snackbarinfo:
         "Ensure you choose one image file. Preferably small sized[ equal to or less than 2MB ] images to gurantee upload, for now.",
-      labeltext: "Choose Art-Work File"
+      labeltext: "Choose An Image"
     }; //end-return
   }, //end-data
   methods: {
@@ -84,20 +85,39 @@ export default {
       // console.log(inputdata);
       this.filesdata = inputdata.files;
       let numfiles = this.filesdata.length;
-      this.snackbarinfo = `You have selected [ ${numfiles} ] files`;
+      this.snackbarinfo = `You have selected [ ${numfiles} ] files.[ ${
+        this.filesdata[0].name
+      } ]`;
+      this.snackbarColor = "white";
       this.snackbar = true;
       this.labeltext = `[ ${numfiles} ] files selected`;
       // console.log(this.filesdata);
       // Using the server bus
       serverBus.$emit("imagesSelected", this.filesdata);
-    } //end-processImage
+    }, //end-processImage
+    resetInput() {
+      // .
+    }
   }, //end-methods
   watch: {}, //end-watch
   computed: {}, //end-computed
   created() {
     // .
   }, //end-created
-  mounted() {} //end-mounted
+  mounted() {
+    serverBus.$on("reset-image-input", () => {
+      this.filesdata = null;
+      this.labeltext = "Choose An Image !";
+    });
+    // invalid-image
+    serverBus.$on("invalid-image", data => {
+      this.filesdata = null;
+      this.labeltext = data;
+      this.snackbarinfo = data;
+      this.snackbarColor = "error";
+      this.snackbar = true;
+    });
+  } //end-mounted
 }; //end-export
 </script>
 

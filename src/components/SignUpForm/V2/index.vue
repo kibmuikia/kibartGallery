@@ -371,6 +371,7 @@ export default {
     }, //end-processForm
     resetForm() {
       console.log(`\tresetting form`);
+      serverBus.$emit("reset-image-input");
       var self = this;
       //Iterate through each object field, key is name of the object field`
       Object.keys(this.user).forEach(function(key) {
@@ -401,17 +402,16 @@ export default {
   created() {
     // Using the server bus
     serverBus.$on("imagesSelected", fd => {
-      // (files[x].size/1024)/1024).toFixed(4); // MB
       let filesize = (fd[0].size / 1024 / 1024).toFixed(4); //in MB
       // console.log(filesize);
-      if (fd.length === 1 && filesize <= 2.0) {
-        this.user.photo = fd;
+      if (fd.length === 1 && filesize <= 2.5) {
+        this.user.photo = fd[0];
       } else {
         this.user.photo = null;
         let msg =
           "Select ONE image ONLY! and ensure its size is BELOW or equal to 2MB";
         utils.showAlert("Error", msg, "error");
-        throw new Error(msg);
+        serverBus.$emit("invalid-image", "Please select another image");
       }
     });
   }

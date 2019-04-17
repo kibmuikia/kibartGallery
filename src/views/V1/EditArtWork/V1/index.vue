@@ -2,15 +2,16 @@
   <v-layout align-center justify-center column fill-height>
     <v-flex xs12 md12>
       <div>
-        <v-chip v-ripple>
-          <v-icon>keyboard_arrow_left</v-icon>
-          <router-link
-            to="/upload-image"
-            color=""
-            style="text-decoration:none; color:white;"
-            >Back</router-link
-          >
-        </v-chip>
+        <router-link
+          to="/upload-image"
+          color=""
+          style="text-decoration:none; color:white;"
+        >
+          <v-chip v-ripple>
+            <v-icon>keyboard_arrow_left</v-icon>
+            Back
+          </v-chip>
+        </router-link>
       </div>
       <EditArtWorkForm v-if="artwork" :artwork="artwork" />
     </v-flex>
@@ -47,7 +48,7 @@ export default {
     this.key = this.$route.params.key;
     console.log(`Key[docID]-[ ${this.key} ]`);
     let self = this;
-    const ref = fire.db.collection("artworks").doc(this.key);
+    const ref = fire.db.collection("artworks_v2").doc(this.key);
     ref.get().then(doc => {
       if (doc.exists) {
         let gotdocument = utils.extend({ docID: self.key }, doc.data());

@@ -25,7 +25,7 @@
       </v-avatar>
       <v-img
         v-else
-        :src="require('../assets/think.svg')"
+        :src="require('../assets/landingPage/kib-art-orange.png')"
         class="mt-4"
         contain
         height="100"
