@@ -274,7 +274,7 @@ export default {
               let user = data.user;
               console.log(user);
               let uid = user.uid;
-              let pic = self.user.photo[0];
+              let pic = self.user.photo;
               let filename = pic.name;
               filename = filename.split(".");
               filename = `${uname}.${filename[1]}`;
@@ -404,7 +404,7 @@ export default {
     serverBus.$on("imagesSelected", fd => {
       let filesize = (fd[0].size / 1024 / 1024).toFixed(4); //in MB
       // console.log(filesize);
-      if (fd.length === 1 && filesize <= 2.5) {
+      if (fd.length === 1 && filesize <= 2.6) {
         this.user.photo = fd[0];
       } else {
         this.user.photo = null;

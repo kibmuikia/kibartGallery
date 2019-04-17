@@ -52,25 +52,37 @@
       <h3 v-else>No Art Work Available</h3>
     </v-flex>
     <!-- . -->
-    <v-bottom-sheet v-model="sheet" v-for="(artitem, i) in sheetData" :key="i">
-      <v-card class="pa-3" light>
-        <h3 class="text-xs-center title black--text mb-2">
+    <v-bottom-sheet
+      v-model="sheet"
+      v-for="(artitem, i) in sheetData"
+      :key="i"
+      inset
+    >
+      <v-card class="pa-1" light>
+        <h5 class="text-xs-center headline font-weight-light black--text py-2">
           {{ artitem.artTitle }}
-        </h3>
+        </h5>
         <v-img
           :lazy-src="imageUrlLazy"
           :src="artitem.artLocation.full"
           :alt="artitem.artTitle"
-          max-height="400"
+          max-height="350"
+          class="px-1"
           contain
         ></v-img>
         <v-card-text v-if="artitem.artDesc">
-          <p class="subheading">{{ artitem.artDesc }}</p>
+          <p class="subheading text-xs-center">{{ artitem.artDesc }}</p>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="">
           <!-- <v-btn>Click</v-btn> -->
           <v-spacer></v-spacer>
-          <v-btn flat icon @click="sheet = false" color="red lighten-2">
+          <v-btn
+            flat
+            icon
+            @click="sheet = false"
+            color="red lighten-2"
+            class=""
+          >
             <v-icon>close</v-icon>
           </v-btn>
           <!-- <social-sharing

@@ -10,7 +10,7 @@
       <v-flex xs12 class="text-xs-center mb-2">
         <p class="title font-weight-light py-2">Upload Your Artwork</p>
       </v-flex>
-      <v-flex xs12 class="mb-2 pa-1">
+      <v-flex xs12 md6 class="mb-2 pa-1">
         <v-text-field
           v-model="art.title"
           label="ArtWork Title"
@@ -18,17 +18,17 @@
           required
         ></v-text-field>
       </v-flex>
-      <v-flex xs12 class="mb-2 pa-1">
+      <v-flex xs12 md8 class="mb-2 pa-1">
         <v-text-field
           v-model="art.description"
           label="ArtWork Description"
           :rules="rules.description"
         ></v-text-field>
       </v-flex>
-      <v-flex xs12 class="mb-2 pt-2">
+      <v-flex xs12 md8 class="mb-2 pt-2">
         <ImageInput ref="imageinput" />
       </v-flex>
-      <v-flex xs12 class="text-xs-center mb-2 pa-1">
+      <v-flex xs12 md8 class="text-xs-center mb-2 pa-1">
         <v-btn color="success" type="submit" :loading="loadingflag">
           Upload Art
         </v-btn>
