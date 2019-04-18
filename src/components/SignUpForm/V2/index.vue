@@ -152,7 +152,7 @@
 
 <script>
 /* eslint-disable no-console */
-import ImageInput from "@/components/ImageInput/V1/";
+import ImageInput from "@/components/ImageInput/V2/";
 import utils from "@/utils/V1";
 import { serverBus } from "@/main";
 import fire from "@/fire/V1";
@@ -414,7 +414,30 @@ export default {
         serverBus.$emit("invalid-image", "Please select another image");
       }
     });
-  }
+  }, //end-created
+  mounted() {
+    serverBus.$on("imageSelected", data => {
+      console.log("\tevent[ imageSelected ] received !!");
+      console.log(data);
+      let filesize = (data.size / 1024 / 1024).toFixed(4); //in MB
+      if (filesize <= 1.3) {
+        console.log("\tvalid User image");
+        // this.user.photo = fd[0];
+        this.user.photo = data;
+        // this.imagedata = data;
+        // console.log(this.imagedata.name);
+      } else {
+        this.user.photo = null;
+        serverBus.$emit(
+          "invalid-image",
+          "Selected image exceeds allowed limit[1 MB]. Please select another image"
+        );
+      }
+    });
+    serverBus.$on("resetImage", () => {
+      this.user.photo = null;
+    });
+  } //end-mounted
 };
 </script>
 

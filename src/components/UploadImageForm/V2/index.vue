@@ -45,7 +45,7 @@
 
 <script>
 /* eslint-disable no-console */
-import ImageInput from "@/components/ImageInput/V1/";
+import ImageInput from "@/components/ImageInput/V2/";
 import { serverBus } from "@/main";
 import utils from "@/utils/V1";
 import fire from "@/fire/V1";
@@ -86,11 +86,13 @@ export default {
         this.loadingflag = false;
         this.status = "Ensure you have selected an image";
         utils.showAlert("Image Error", this.status, "error");
+        throw new Error(this.status);
       } //end-if-image
       if (!this.$refs.formImageUpload_V2.validate()) {
         this.loadingflag = false;
         this.status = "Ensure your title and description are valid";
         utils.showAlert("Error", this.status, "error");
+        throw new Error(this.status);
       } //end-if-valid
       let storageRef = fire.storage.ref();
       let filenameSplit = this.imagedata.name.split(".");
@@ -180,16 +182,37 @@ export default {
     this.user = this.$store.getters.user;
   }, //end-created()
   mounted() {
-    serverBus.$on("imagesSelected", data => {
-      console.log("\tevent[ imagesSelected ] received !!");
-      let filesize = (data[0].size / 1024 / 1024).toFixed(4); //in MB
-      if (data.length === 1 && filesize <= 3.55) {
-        this.imagedata = data[0];
-        console.log(this.imagedata.name);
+    // serverBus.$on("imagesSelected", data => {
+    //   console.log("\tevent[ imagesSelected ] received !!");
+    //   let filesize = (data[0].size / 1024 / 1024).toFixed(4); //in MB
+    //   if (data.length === 1 && filesize <= 3.55) {
+    //     this.imagedata = data[0];
+    //     console.log(this.imagedata.name);
+    //   } else {
+    //     this.imagedata = null;
+    //     serverBus.$emit("invalid-image", "Please select another image");
+    //   }
+    // });
+    // imageSelected
+    serverBus.$on("imageSelected", data => {
+      console.log("\tevent[ imageSelected ] received !!");
+      // console.log(data);
+      let filesize = (data.size / 1024 / 1024).toFixed(4); //in MB
+      if (filesize <= 3.55) {
+        // console.log("\tvalid image");
+        this.imagedata = data;
+        // console.log(this.imagedata.name);
       } else {
         this.imagedata = null;
-        serverBus.$emit("invalid-image", "Please select another image");
+        serverBus.$emit(
+          "invalid-image",
+          "Selected image exceeds allowed limit[ 3 MB ]. Please select another image"
+        );
       }
+    });
+    // resetImage
+    serverBus.$on("resetImage", () => {
+      this.imagedata = null;
     });
   } //end-mounted
 };

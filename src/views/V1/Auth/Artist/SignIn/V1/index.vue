@@ -19,6 +19,7 @@
                 :rules="rules.emailRules"
                 required
                 type="email"
+                ref="userEmailInput"
               ></v-text-field>
             </v-flex>
             <v-flex xs12 md5>
@@ -219,7 +220,11 @@ export default {
     if (this.$route.query.status) {
       utils.showAlert("Status", this.$route.query.status, "info");
     }
-  } //end-created
+  }, //end-created
+  mounted() {
+    // console.log(this.$refs.userEmailInput);
+    // this.$refs.userEmailInput.focus();
+  } //end-mounted
 }; //end-export
 </script>
 

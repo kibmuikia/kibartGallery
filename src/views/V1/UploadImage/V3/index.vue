@@ -226,13 +226,13 @@ export default {
             let changes = snapshot.docChanges();
             changes.forEach(change => {
               if (change.type == "added") {
-                console.log(`Doc[${change.doc.id}], ${change.type}`);
+                // console.log(`Doc[${change.doc.id}], ${change.type}`);
                 let gotdocument = {
                   ...change.doc.data(),
                   docID: change.doc.id
                 };
                 self.your_artwork.push(gotdocument);
-                console.log(self.your_artwork);
+                // console.log(self.your_artwork);
               } //end-if-added
               if (change.type == "removed") {
                 console.log(`\tDoc[${change.doc.id}] has been removed`);

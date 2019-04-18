@@ -244,6 +244,8 @@ export default {
 .card_bg {
   /*background-color: #565656;*/
   background-image: url("~@/assets/topography.svg");
+  background-size: cover;
+  background-position: center center;
 }
 /*.*/
 </style>
