@@ -6,7 +6,7 @@
           <v-flex xs12 class="pa-0 ma-0">
             <v-avatar
               size="125"
-              color="green accent-1"
+              color="grey darken-1"
               style="transform: translateY(-30%);"
               class="kibshadow pa-1"
             >

@@ -11,11 +11,7 @@
         }
       }"
     >
-      <v-avatar
-        v-if="menuPhotoUrl"
-        size="150"
-        class="mt-4 ml-5 indigo lighten-3"
-      >
+      <v-avatar v-if="menuPhotoUrl" size="150" class="mt-4 ml-5 grey darken-1">
         <v-img
           :src="menuPhotoUrl"
           :lazy-src="imageUrlLazy"
