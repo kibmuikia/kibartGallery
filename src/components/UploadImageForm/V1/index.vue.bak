@@ -1,0 +1,62 @@
+            // artworkRef
+            //   .put(file)
+            //   .then(function(snapshot) {
+            //     if (snapshot.state === "success") {
+            //       // console.log(snapshot);
+            //       console.log(`[${snapshot.state}] Uploaded[${i}] ${filename}`);
+            //       let imagepath = snapshot.ref.location.path;
+            //       self.storagepaths.push(imagepath);
+            //     } else {
+            //       console.error("state NOT successful");
+            //     } //end-else
+            //   })
+            //   .catch(e => {
+            //     console.error("artworkRef FAILED");
+            //     console.error(e);
+            //   });
+
+            artworkRefModified
+              .put(fileModified)
+              .then(snapshot => {
+                console.log(
+                  `[${snapshot.state}] Uploaded[${i}] ${filename_for_modified}`
+                );
+                let imagepathModified = snapshot.ref.location.path;
+                self.storagepaths.push(imagepathModified);
+              })
+              .catch(e => {
+                alert("artworkRefModified FAILED");
+                console.error(e);
+              });
+
+      // .
+          //   jimp
+          // .read(this.one.url)
+          // .then(imageoriginal => {
+          //   let imageclone = imageoriginal.clone();
+          //   console.log(imageclone);
+          //   // imageclone.greyscale();
+          //   imageclone.scaleToFit(300, 300);
+          //   imageclone.blur(5);
+          //   this.two.name = "africa-modified.jpeg";
+          //   this.two.pathvalue = `@/assets/galleryimages/${this.two.name}`;
+          //   try {
+          //     // imageclone.write(this.two.pathvalue);
+          //     imageclone.getBase64(jimp.AUTO, (err, res) => {
+          //       console.log(res);
+          //       this.two.url = res;
+          //       console.error(err);
+          //     });
+          //     // this.two.url = require(this.two.pathvalue);
+          //   } catch (e) {
+          //     console.error("write failed");
+          //     console.error(e);
+          //   }
+          //   // return lenna
+          //   //   .quality(60) // set JPEG quality
+          //   //   .write("lena-small-bw.jpg"); // save
+          // })
+          // .catch(err => {
+          //   console.error(err);
+          // });
+          // .

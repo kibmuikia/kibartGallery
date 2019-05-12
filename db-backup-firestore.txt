@@ -1,0 +1,28 @@
+{
+  title: Lilo n Stitch,
+  desc: Ohana means family, family means nobody gets left behind. Or forgotten. ~ Lilo
+}
+{
+  title: Sparta,
+  desc: “We will fight it.” “Why?” “Because you are afraid of it.” ~ Kratos
+}
+{
+  title: Gorilla Perspective,
+  desc: “The more you learn about the dignity of the gorilla, the more you want to avoid people.” ~ Dian Fossey
+}
+{
+  title: I See You,
+  desc: “When life gets you down, you know what you gotta do? Just keep swimming.” ~ Dory
+}
+{
+  title: Mind Vision,
+  desc: Follow your bliss and the universe will open doors where there were only walls. ~ Joseph Campbell
+}
+{
+  title: Gargoyles,
+  desc: It evokes nostalgia for my younger days, when art was all I could think about
+}
+{
+  title: Culture,
+  desc: Culture is the arts elevated to a set of beliefs. ~ Thomas Wolfe
+}
