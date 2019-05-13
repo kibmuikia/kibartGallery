@@ -39,6 +39,8 @@
               :src="artitem.artLocation.full"
               :alt="artitem.artTitle"
               height="170"
+              @click="toggleSheet(artitem.artTitle)"
+              v-ripple
             ></v-img>
             <v-card-text>
               <h2 class="text-xs-right">{{ artitem.artTitle }}</h2>
