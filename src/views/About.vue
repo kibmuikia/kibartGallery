@@ -8,6 +8,61 @@
     fill-height
     wrap
   >
+    <v-flex xs12 md10>
+      <v-card color="grey darken-1">
+        <v-card-title primary-title>
+          <div>
+            <div class="headline">Kibart Gallery</div>
+            <span class="">Spreading the joy of art</span>
+          </div>
+        </v-card-title>
+        <v-card-actions>
+          <v-list-tile class="grow">
+            <v-list-tile-avatar color="grey darken-3">
+              <v-img
+                class="elevation-6"
+                src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+              ></v-img>
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>Muikia.K.Allan</v-list-tile-title>
+            </v-list-tile-content>
+
+            <v-layout align-center justify-end>
+              <v-btn icon color="" flat @click="cardShow = !cardShow">
+                <!-- @click="cardShow = !cardShow" -->
+                <v-icon>
+                  {{ cardShow ? "keyboard_arrow_down" : "keyboard_arrow_up" }}
+                  <!-- keyboard_arrow_down -->
+                </v-icon>
+              </v-btn>
+              <!-- <v-icon class="mr-1">mdi-heart</v-icon> -->
+              <!-- <span class="subheading">256</span> -->
+              <!-- <span class="mr-1">·</span> -->
+              <!-- <v-icon class="mr-1">mdi-share-variant</v-icon> -->
+              <!-- <span class="subheading">45</span> -->
+            </v-layout>
+          </v-list-tile>
+        </v-card-actions>
+        <v-scale-transition mode="out-in" origin="center center">
+          <!-- <v-flex xs12> -->
+          <v-card-text v-show="cardShow">
+            <div>
+              <div class="title grey--text text--lighten-2">About</div>
+              <span class="subheading">
+                To simply put it, I love art. With this in mind, I have
+                developed this online artspace, where I and other fellow artists
+                can get a chance to share our art pieces with the world. Welcome
+                and may you enjoy viewing the art collections.
+              </span>
+            </div>
+          </v-card-text>
+          <!-- </v-flex> -->
+        </v-scale-transition>
+      </v-card>
+    </v-flex>
+
     <v-flex xs12 md3>
       <v-card elevation="5" color="grey lighten-1">
         <v-img
@@ -85,6 +140,7 @@ export default {
       // :src="require('../assets/art-1-whatever.jpg')"
       // :src="require('../assets/art-2-honey.jpg')"
       show: false,
+      cardShow: false,
       imageUrlLazy: require("@/assets/rings.svg"),
       aboutimages: {
         one: {

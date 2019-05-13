@@ -37,6 +37,7 @@ exports.generateThumbnail = functions.storage
   .onFinalize(async object => {
     // [END generateThumbnailTrigger]
     // [START eventAttributes]
+    console.log(object);
     const fileBucket = object.bucket; // The Storage bucket that contains the file.
     const filePath = object.name; // File path in the bucket.
     const contentType = object.contentType; // File content type.
