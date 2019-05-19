@@ -12,8 +12,8 @@ import ArtistWorkView from "../../../views/V1/Gallery/V2/oneview_v2.vue";
 // import UploadImage from "../../../views/V1/UploadImage/V1";
 import UploadImage from "../../../views/V1/UploadImage/V3";
 import ArtistSignUp from "../../../views/V1/Auth/Artist/SignUp/V1";
-import ArtistSignIn from "../../../views/V1/Auth/Artist/SignIn/V1";
-import ArtistProfile from "../../../views/V1/Auth/Artist/Profile/V1";
+import ArtistSignIn from "../../../views/V1/Auth/Artist/SignIn/V2";
+import ArtistProfile from "../../../views/V1/Auth/Artist/Profile/V2";
 import EditArtWork from "../../../views/V1/EditArtWork/V1";
 
 // let AuthenticationRoutes = {

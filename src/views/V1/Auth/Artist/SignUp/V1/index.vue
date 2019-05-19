@@ -9,7 +9,7 @@
 <script>
 /* eslint-disable no-console */
 
-import SignUpForm from "@/components/SignUpForm/V2/";
+import SignUpForm from "@/components/SignUpForm/V3/";
 
 export default {
   name: "artist-sign-up-view",

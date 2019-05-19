@@ -217,8 +217,15 @@ export default {
         .getDownloadURL()
         .then(url => {
           imageUrl = url;
+          if (typeof Storage !== "undefined") {
+            sessionStorage.toolbarPhotoUrl = imageUrl;
+            return (this.menuPhotoUrl = sessionStorage.toolbarPhotoUrl);
+          } else {
+            console.error = "sessionStorage NOT available";
+            return false;
+          }
           // console.log(`\timageUrl[ -[${typeof imageUrl}] --  ${imageUrl}  - ]`);
-          return (this.menuPhotoUrl = imageUrl);
+          // return (this.menuPhotoUrl = imageUrl);
         })
         .catch(err => {
           console.error(err);

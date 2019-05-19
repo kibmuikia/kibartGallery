@@ -4,12 +4,6 @@
       <h4 class="subheading text-xs-center">Artist Sign Up Form</h4>
     </v-flex>
     <v-flex xs12 class="">
-      <p
-        class="subheading text-xs-center light-blue--text text--lighten-2 py-2"
-        v-if="status"
-      >
-        {{ status }}
-      </p>
       <v-form
         v-model="valid"
         id="form-sign-up"
@@ -37,6 +31,7 @@
                       :rules="rules.nameRules"
                       required
                       ref="userNameInput"
+                      autofocus
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 md5>
@@ -142,6 +137,12 @@
         </v-stepper>
         <!-- . form-End -->
       </v-form>
+      <p
+        class="subheading text-xs-center light-blue--text text--lighten-2 py-2"
+        v-if="status"
+      >
+        {{ status }}
+      </p>
       <v-btn small @click="navigateTo('/auth/artist/signin')">
         Have an account?
         <v-icon color="green">keyboard_arrow_right</v-icon> Sign In
@@ -160,7 +161,7 @@ import fire from "@/fire/V1";
 // emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export default {
-  name: "sign-up-v2-component",
+  name: "sign-up-v3-component",
   components: {
     ImageInput
   },
@@ -174,7 +175,11 @@ export default {
         password: "",
         confirm_password: "",
         photo: null,
-        about: ""
+        about: "",
+        fullurl: {
+          main: null,
+          thumb: null
+        }
       },
       rules: {
         nameRules: [
@@ -257,7 +262,7 @@ export default {
         this.e6 = 3;
       }
     }, //end-checkStepTwo
-    processForm() {
+    async processForm() {
       let msg = "";
       if (!this.$refs.userAboutInput.validate()) {
         this.$refs.userAboutInput.focus();
@@ -267,112 +272,109 @@ export default {
       } else {
         // .
         this.loadingflag = true;
-        let self = this;
-        let uname = this.user.displayname.replace(/\s+/g, "").toLowerCase();
-        fire.auth
-          .createUserWithEmailAndPassword(this.user.email, this.user.password)
-          .then(data => {
-            if (data.user) {
-              let user = data.user;
-              console.log(user);
-              let uid = user.uid;
-              let pic = self.user.photo;
-              let filename = pic.name;
-              filename = filename.split(".");
-              filename = `${uname}.${filename[1]}`;
-              let picurl = "";
-              // Create a root reference
-              let storageRef = fire.storage.ref();
-              // Create a reference to 'users/usernameID/imagename.extension[jpg,png,gif]'
-              let usersPhotoRef = storageRef.child(`users/${uid}/${filename}`);
-              // thumb_tester.gif
-              let usersPhotoRefThumb = storageRef.child(
-                `users/${uid}/thumb_${filename}`
-              );
+        let self = this,
+          uname = this.user.displayname.replace(/\s+/g, "").toLowerCase();
+        try {
+          this.status = `Registering user :: ${uname}`;
+          console.log(`\t${this.status} *`);
+          let createUser = await fire.auth.createUserWithEmailAndPassword(
+            this.user.email,
+            this.user.password
+          );
+          // console.log(createUser.user);
 
-              usersPhotoRef
-                .put(pic)
-                .then(snapshot => {
-                  if (snapshot.state === "success") {
-                    picurl = snapshot.ref.location.path;
-                    if (picurl) {
-                      user
-                        .updateProfile({
-                          displayName: self.user.displayname,
-                          photoURL: picurl
-                        })
-                        .then(() => {
-                          fire.db
-                            .collection("users")
-                            .add({
-                              userName: self.user.displayname,
-                              userPhoto: picurl,
-                              userEmail: self.user.email,
-                              userAbout: self.user.about,
-                              userID: uid
-                            })
-                            .then(docRef => {
-                              console.log(
-                                "Document written with ID: ",
-                                docRef.id
-                              );
-                              console.log(`updateProfile process DONE!`);
-                            })
-                            .catch(err => {
-                              console.error(
-                                "Error adding User-document: ",
-                                err
-                              );
-                            });
-                          user
-                            .sendEmailVerification()
-                            .then(() => {
-                              self.loadingflag = false;
-                              self.status = `Registration of [ ${
-                                self.user.displayname
-                              } ] Successfully, Verification of Account Now Required!`;
-                              // utils.showAlert(
-                              //   "Success",
-                              //   "Access Your Email To Verify Your Account",
-                              //   "success"
-                              // );
-                              this.resetForm();
-                              this.signout();
-                              this.$router.push({
-                                name: "ArtistSignIn",
-                                params: { registrationStatus: self.status }
-                              });
-                            })
-                            .catch(e => {
-                              utils.showAlert("Error", e.message, "error");
-                              console.error(e);
-                            });
-                        })
-                        .catch(e => {
-                          self.loadingflag = false;
-                          console.error(e);
-                        });
-                    }
-                  } else {
-                    self.loadingflag = false;
-                    console.log("\tDifferent state received !");
-                  }
-                })
-                .catch(e => {
-                  self.loadingflag = false;
-                  console.error(e);
-                });
-            } else {
+          let storageRef = fire.storage.ref();
+          let pic = this.user.photo,
+            filename = pic.name.split(".");
+          filename = `${uname}.${filename[1]}`;
+          let usersPhotoRef = storageRef.child(
+              `users/${createUser.user.uid}/${filename}`
+            ),
+            usersPhotoRefThumb = storageRef.child(
+              `users/${createUser.user.uid}/thumb_${filename}`
+            );
+          // console.log(`userPhotoRef :: ${usersPhotoRef} *`);
+          let uploadTask = usersPhotoRef.put(pic),
+            progress = null;
+          uploadTask.on(
+            "state_changed",
+            snapshot => {
+              progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              self.status = `profile photo upload progress :: ${progress.toFixed(
+                1
+              )}`;
+              console.log(self.status);
+            },
+            error => {
               self.loadingflag = false;
-              self.status = "User issue raised";
+              self.status = error.message;
+              console.error(error);
+            },
+            async () => {
+              console.log(`upload finished :: ${progress}`);
+              self.status = `Finishing upload process.`;
+              try {
+                self.user.fullurl.main = await uploadTask.snapshot.ref.getDownloadURL();
+                console.log(self.user.fullurl.main);
+                console.time("getThumbUrl");
+                self.user.fullurl.thumb = await usersPhotoRefThumb.getDownloadURL();
+                console.timeEnd("getThumbUrl");
+                console.log(`thumbnail-full-url :: ${self.user.fullurl.thumb}`);
+                self.status = `Upload complete, now finishing up registration process.`;
+                console.log(`\t${self.status}`);
+                // .
+                let updateProfileTask = await createUser.user.updateProfile({
+                  displayName: self.user.displayname,
+                  photoURL: self.user.fullurl.main
+                });
+                let writeToFirestore = await fire.db
+                  .collection("users")
+                  .doc(self.user.email.replace(/[^a-zA-Z0-9]/g, ""))
+                  .set({
+                    userName: self.user.displayname,
+                    userPhoto: self.user.fullurl,
+                    userEmail: self.user.email,
+                    userAbout: self.user.about,
+                    userID: createUser.user.uid
+                  });
+                // console.log(
+                //   `Document for, ${uname} written with ID: ${
+                //     writeToFirestore.id
+                //   }`
+                // );
+                // console.log(`Document for, ${uname} written !`);
+                createUser.user
+                  .sendEmailVerification()
+                  .then(() => {
+                    self.loadingflag = false;
+                    self.status = `Registration complete, check your mail and verify your account`;
+                    utils.showAlert(
+                      "Success",
+                      "Registration complete !",
+                      "success"
+                    );
+                  })
+                  .catch(e => {
+                    utils.showAlert("Error", e.message, "error");
+                    console.error(e);
+                  });
+                // .
+              } catch (error) {
+                self.loadingflag = false;
+                console.error(error);
+                utils.showAlert("Error", error.message, "error");
+              }
             }
-          })
-          .catch(err => {
-            self.loadingflag = false;
-            self.status = err.message;
-            utils.showAlert("Error", err.message, "error");
-          });
-        // .
+          ); // end-uploadTask.on
+          // .
+          // this.loadingflag = false;
+        } catch (error) {
+          this.loadingflag = false;
+          console.error(error);
+          utils.showAlert("Error", error.message, "error");
+        }
+        // . end-main-if-else
       }
     }, //end-processForm
     resetForm() {
@@ -384,6 +386,7 @@ export default {
         self.user[key] = "";
       });
       this.$refs.formSignUp.resetValidation();
+      this.status = "";
     }, //end-resetForm
     navigateTo(path) {
       this.$router.push(path);
@@ -392,12 +395,10 @@ export default {
       fire.auth
         .signOut()
         .then(() => {
-          // this.status = "Now Signed-OUT !";
           console.log(
             "Signed-OUT user, since creating him/her creates an authenticated user."
           );
           // this.$store.dispatch("unsetUser");
-          // this.resetForm();
         })
         .catch(e => {
           this.status = e.message;
@@ -407,24 +408,24 @@ export default {
   }, //end-methods
   created() {
     // Using the server bus
-    serverBus.$on("imagesSelected", fd => {
-      let filesize = (fd[0].size / 1024 / 1024).toFixed(4); //in MB
-      // console.log(filesize);
-      if (fd.length === 1 && filesize <= 2.6) {
-        this.user.photo = fd[0];
-      } else {
-        this.user.photo = null;
-        let msg =
-          "Select ONE image ONLY! and ensure its size is BELOW or equal to 2MB";
-        utils.showAlert("Error", msg, "error");
-        serverBus.$emit("invalid-image", "Please select another image");
-      }
-    });
+    // serverBus.$on("imagesSelected", fd => {
+    //   let filesize = (fd[0].size / 1024 / 1024).toFixed(4); //in MB
+    //   // console.log(filesize);
+    //   if (fd.length === 1 && filesize <= 2.6) {
+    //     this.user.photo = fd[0];
+    //   } else {
+    //     this.user.photo = null;
+    //     let msg =
+    //       "Select ONE image ONLY! and ensure its size is BELOW or equal to 2MB";
+    //     utils.showAlert("Error", msg, "error");
+    //     serverBus.$emit("invalid-image", "Please select another image");
+    //   }
+    // });
   }, //end-created
   mounted() {
     serverBus.$on("imageSelected", data => {
       console.log("\tevent[ imageSelected ] received !!");
-      console.log(data);
+      // console.log(data);
       let filesize = (data.size / 1024 / 1024).toFixed(4); //in MB
       if (filesize <= 0.5109) {
         console.log("\tvalid User image");
@@ -436,7 +437,7 @@ export default {
         this.user.photo = null;
         serverBus.$emit(
           "invalid-image",
-          "Selected image exceeds allowed limit[0.5 MB]. Please select another image"
+          "Selected image exceeds allowed limit[ 0.5 MB ]. Please select another image"
         );
       }
     });

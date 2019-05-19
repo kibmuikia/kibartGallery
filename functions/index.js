@@ -32,14 +32,17 @@ const UUID = require("uuid-v4");
  * ImageMagick.
  */
 // [START generateThumbnailTrigger]
-exports.generateThumbnail = functions.storage
-  .object()
+exports.generateThumbnail = functions
+  .region("europe-west2")
+  .storage.object()
   .onFinalize(async object => {
     // [END generateThumbnailTrigger]
     // [START eventAttributes]
+    console.log("cloud-function[generateThumbnail] starting..");
     console.log(object);
     const fileBucket = object.bucket; // The Storage bucket that contains the file.
     const filePath = object.name; // File path in the bucket.
+    console.log(`filePath :: ${filePath}`);
     const contentType = object.contentType; // File content type.
     const metageneration = object.metageneration; // Number of times metadata has been generated. New objects have a value of 1.
     // [END eventAttributes]
@@ -52,6 +55,7 @@ exports.generateThumbnail = functions.storage
 
     // Get the file name.
     const fileName = path.basename(filePath);
+    console.log(`fileName :: ${fileName}`);
     // Exit if the image is already a thumbnail.
     if (fileName.startsWith("thumb_")) {
       return console.log("Already a Thumbnail.");
@@ -95,10 +99,11 @@ exports.generateThumbnail = functions.storage
           encodeURIComponent(file.name) +
           "?alt=media&token=" +
           uuid;
-        console.log(toresolve);
+        console.log(`full-thumb-url [ ${toresolve} ]`);
         return Promise.resolve(toresolve);
       });
     // Once the thumbnail has been uploaded delete the local file to free up disk space.
+    console.log(`cloud-function[generateThumbnail] END`);
     return fs.unlinkSync(tempFilePath);
     // [END thumbnailGeneration]
   });

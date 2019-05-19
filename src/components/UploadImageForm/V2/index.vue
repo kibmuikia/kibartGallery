@@ -49,6 +49,7 @@ import ImageInput from "@/components/ImageInput/V2/";
 import { serverBus } from "@/main";
 import utils from "@/utils/V1";
 import fire from "@/fire/V1";
+// const UUID = require("uuid-v4");
 
 export default {
   name: "upload-image-form-component-v2",
@@ -100,8 +101,12 @@ export default {
         filenameSplit[1]
       }`;
       let artworkRef = storageRef.child(
-        `artwork/${this.user.uid}/${this.art.title}/${filename}`
-      );
+          `artwork/${this.user.uid}/${this.art.title}/${filename}`
+        ),
+        thumbRefPath = `artwork/${this.user.uid}/${
+          this.art.title
+        }/thumb_${filename}`;
+
       let uploadTask = artworkRef.put(this.imagedata);
       let self = this;
       // let imagepath = "";
@@ -136,22 +141,40 @@ export default {
               artDesc: self.art.description,
               artLocation: {
                 full: fullURL,
-                partial: imagepath
+                partial: imagepath,
+                partialThumb: thumbRefPath
               }
             }; //end-artwork
             console.log(artwork);
-            let docRef = await fire.db.collection("artworks_v2").add(artwork);
-            if (docRef.id) {
-              console.log(docRef);
-              self.loadingflag = false;
-              self.status = `Successful registration of, ${self.art.title}`;
-              utils.showAlert("Success", self.status, "success");
-              self.resetForm();
-            } else {
-              self.loadingflag = false;
-              self.status = `Unsuccessful registration of, ${self.art.title}`;
-              console.error(self.status);
-            }
+            // let docRef = await fire.db.collection("artworks_v2").add(artwork);
+            await fire.db
+              .collection("artworks_v3")
+              .doc(self.titleID)
+              .set(artwork)
+              .then(() => {
+                self.loadingflag = false;
+                self.status = `Successful registration of, ${self.art.title}`;
+                utils.showAlert("Success", self.status, "success");
+                self.resetForm();
+              })
+              .catch(error => {
+                self.loadingflag = false;
+                self.status = `Unsuccessful registration of, ${self.art.title}`;
+                console.log(self.status);
+                console.error(error);
+              });
+
+            // if (docRef.id) {
+            //   console.log(docRef);
+            //   self.loadingflag = false;
+            //   self.status = `Successful registration of, ${self.art.title}`;
+            //   utils.showAlert("Success", self.status, "success");
+            //   self.resetForm();
+            // } else {
+            //   self.loadingflag = false;
+            //   self.status = `Unsuccessful registration of, ${self.art.title}`;
+            //   console.error(self.status);
+            // }
           } catch (err) {
             self.loadingflag = false;
             console.error(err);
@@ -173,6 +196,16 @@ export default {
     } //end-resetForm
   }, //end-methods
   computed: {
+    titleID: function() {
+      let original = this.art.title;
+      // Removing Special Characters :: str.replace(/[^\w\s]/gi, '')
+      let touse = original
+        .replace(/\s+/g, "")
+        .toLowerCase()
+        .replace(/[^\w\s]/gi, "");
+      console.log(`original[ ${original} ], to-use[ ${touse} ]`);
+      return touse;
+    } //end-titleID
     // filteredNames() {
     //   let filter = new RegExp(this.findName, "i");
     //   return this.names.filter(el => el.match(filter));
