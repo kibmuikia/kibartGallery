@@ -5,7 +5,7 @@ import "firebase/storage";
 
 // Initialize Firebase
 const config = {
-  apiKey: "AIzaSyB11yEc9nPCDzXH8tvBrMKdZbocRt1TLXI",
+  apiKey: "",
   authDomain: "kibart-gallery.firebaseapp.com",
   databaseURL: "https://kibart-gallery.firebaseio.com",
   projectId: "kibart-gallery",
