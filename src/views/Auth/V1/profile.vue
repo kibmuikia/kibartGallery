@@ -1,6 +1,5 @@
 <template>
-  
-<section>
+  <section>
     <div class="inner">
       <header>
         <h1>Your Profile</h1>
@@ -15,9 +14,6 @@
       </v-card>
     </div>
   </section>
-
-
-
 </template>
 
 <script>
