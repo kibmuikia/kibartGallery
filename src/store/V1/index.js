@@ -30,7 +30,7 @@ export default new Vuex.Store({
       },
       {
         title: "Account",
-        path: "/profile/art/upload",
+        path: "/sign-in",
         pathname: "upload",
         icon: "mdi-account"
       },
