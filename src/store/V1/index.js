@@ -15,16 +15,30 @@ const vuexPersist = new VuexPersist({
 export default new Vuex.Store({
   state: {
     status: "",
-    basiclinks: [
+    navlinks: [
       {
         title: "Home",
         path: "/",
-        pathname: "home"
+        pathname: "home",
+        icon: "mdi-home-city"
+      },
+      {
+        title: "Gallery",
+        path: "/gallery",
+        pathname: "gallery",
+        icon: "mdi-camera"
+      },
+      {
+        title: "Account",
+        path: "/profile/art/upload",
+        pathname: "upload",
+        icon: "mdi-account"
       },
       {
         title: "About",
         path: "/about",
-        pathname: "about"
+        pathname: "about",
+        icon: "mdi-file"
       }
     ]
   },

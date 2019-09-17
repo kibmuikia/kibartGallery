@@ -5,9 +5,9 @@
 
   <div>
     <!-- Header -->
-    <header id="header">
+    <!-- <header id="header">
       <div>KibArt Gallery <span>by Kibuthi Allan</span></div>
-    </header>
+    </header> -->
 
     <!-- Section -->
     <section>

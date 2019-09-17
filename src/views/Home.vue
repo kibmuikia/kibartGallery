@@ -1,5 +1,4 @@
 <template>
-  <!-- <section id="main"> -->
   <div>
     <!-- Banner -->
     <section id="banner">
@@ -16,19 +15,70 @@
       </div>
     </section>
 
-    <!-- </section> -->
+    <!-- Gallery -->
+    <!-- <section id="galleries">
+      <div class="gallery">
+        <header class="special">
+          <h2>What's New</h2>
+        </header>
+
+        <div class="content">
+          <div class="media">
+            <a href="../assets/images/fulls/01.jpg"
+              ><img
+                src="../assets/images/thumbs/01.jpg"
+                alt=""
+                title="This right here is a caption."
+            /></a>
+          </div>
+          <div class="media">
+            <a href="../assets/images/fulls/05.jpg"
+              ><img
+                src="../assets/images/thumbs/05.jpg"
+                alt=""
+                title="This right here is a caption."
+            /></a>
+          </div>
+          <div class="media">
+            <a href="../assets/images/fulls/09.jpg"
+              ><img
+                src="../assets/images/thumbs/09.jpg"
+                alt=""
+                title="This right here is a caption."
+            /></a>
+          </div>
+          <div class="media">
+            <a href="../assets/images/fulls/02.jpg"
+              ><img
+                src="../assets/images/thumbs/02.jpg"
+                alt=""
+                title="This right here is a caption."
+            /></a>
+          </div>
+        </div>
+
+        <footer>
+          <a @click="navigateTo('/gallery')" class="button big">Full Gallery</a>
+        </footer>
+      </div>
+    </section> -->
+
+    <hGallery />
   </div>
 </template>
 
 <script>
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
+import hGallery from "../components/V1/homeGallery";
 
 let SELF;
 export default {
   name: "",
   title: "", // Home | Glorious Delights
-  components: {},
+  components: {
+    hGallery
+  },
   props: {},
   data() {
     return {
@@ -36,7 +86,9 @@ export default {
     };
   },
   methods: {
-    // .
+    navigateTo(path) {
+      this.$router.push(path);
+    }
   },
   computed: {},
   watch: {},

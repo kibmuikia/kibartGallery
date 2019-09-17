@@ -1,9 +1,23 @@
 <template>
-  <v-footer class="grey lighten-2">
-    <div class="flex-grow-1"></div>
-    <div>&copy; {{ new Date().getFullYear() }}</div>
-    <div class="pl-3">Muikia Allan</div>
-  </v-footer>
+  
+<section>
+    <div class="inner">
+      <header>
+        <h1>Your Profile</h1>
+      </header>
+
+      <v-card class="mx-auto" max-width="344">
+        <v-card-text>
+          <div class="text--primary">
+            Your profile information
+          </div>
+        </v-card-text>
+      </v-card>
+    </div>
+  </section>
+
+
+
 </template>
 
 <script>
@@ -12,7 +26,7 @@
 
 let SELF;
 export default {
-  name: "",
+  name: "profile-view",
   title: "", // Home | Glorious Delights
   components: {},
   props: {},
@@ -35,8 +49,5 @@ export default {
 </script>
 
 <style scoped>
-#footer {
-  /* background-color: blueviolet; */
-  color: black;
-}
+/*.*/
 </style>

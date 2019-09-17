@@ -1,5 +1,5 @@
 <template>
-  <nav id="nav">
+  <!-- <nav id="nav">
     <ul>
       <li>
         <a class="active" @click="navigateTo('/')">
@@ -17,12 +17,42 @@
         </a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
+
+  <v-navigation-drawer
+    v-model="drawer"
+    mini-variant
+    mini-variant-width="70"
+    dark
+    permanent
+    app
+  >
+    <!-- . -->
+
+    <v-list-item>
+      <v-list-item-avatar>
+        <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+      </v-list-item-avatar>
+    </v-list-item>
+
+    <v-divider></v-divider>
+
+    <v-list dense>
+      <v-list-item v-for="(link, index) in navlinks" :key="index" link>
+        <v-list-item-icon @click="navigateTo(link.path)">
+          <v-icon>{{ link.icon }}</v-icon>
+        </v-list-item-icon>
+      </v-list-item>
+    </v-list>
+
+    <!-- . -->
+  </v-navigation-drawer>
 </template>
 
 <script>
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
+import { mapState } from "vuex";
 
 let SELF;
 export default {
@@ -32,7 +62,7 @@ export default {
   props: {},
   data() {
     return {
-      //
+      drawer: false
     };
   },
   methods: {
@@ -40,13 +70,15 @@ export default {
       this.$router.push(path);
     }
   },
-  computed: {},
+  computed: mapState(["navlinks"]),
   watch: {},
   beforeCreate() {
     SELF = this;
   },
   created() {},
-  mounted() {}
+  mounted() {
+    // .
+  }
 };
 </script>
 
