@@ -22,7 +22,7 @@
   <v-navigation-drawer
     v-model="drawer"
     mini-variant
-    mini-variant-width="70"
+    mini-variant-width="60"
     dark
     permanent
     app
@@ -31,7 +31,7 @@
 
     <v-list-item>
       <v-list-item-avatar>
-        <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+        <v-img src="https://randomuser.me/api/portraits/men/85.jpg" class="mt-4"></v-img>
       </v-list-item-avatar>
     </v-list-item>
 

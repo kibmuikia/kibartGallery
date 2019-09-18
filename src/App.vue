@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="kibwrap">
     <Nav />
 
     <v-content>
@@ -33,8 +33,9 @@ export default {
 </script>
 
 <style>
-input {
-  outline-color: none;
+.kibwrap {
+  width: 100%;
+  margin: 0 auto;
 }
 
 /* 422423782@qq.com */

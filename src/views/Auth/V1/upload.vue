@@ -5,13 +5,7 @@
         <h1>Upload Your Artwork</h1>
       </header>
 
-      <v-card class="mx-auto" max-width="344">
-        <v-card-text>
-          <div class="text--primary">
-            Using the form provided
-          </div>
-        </v-card-text>
-      </v-card>
+      <UploadForm />
     </div>
   </section>
 </template>
@@ -20,11 +14,15 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 
+import UploadForm from "../../../components/V1/uploadform";
+
 let SELF;
 export default {
   name: "upload-image-view",
   title: "", // Home | Glorious Delights
-  components: {},
+  components: {
+    UploadForm
+  },
   props: {},
   data() {
     return {
