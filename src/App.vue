@@ -34,8 +34,8 @@ export default {
 
 <style>
 .kibwrap {
-  width: 100%;
-  margin: 0 auto;
+  /* width: 100%;
+  margin: 0 auto; */
 }
 
 /* 422423782@qq.com */

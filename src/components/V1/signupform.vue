@@ -36,24 +36,22 @@
             </v-card-text>
             <v-card-actions>
               <v-row>
+                <v-col col="6">
+                  <v-btn
+                    :disabled="!valid"
+                    color="success"
+                    class="mx-2"
+                    @click="signin"
+                  >
+                    Sign In
+                  </v-btn>
+                </v-col>
 
-              <v-col col="6">
-              <v-btn
-                :disabled="!valid"
-                color="success"
-                class="mx-2"
-                @click="signin"
-              >
-                Sign In
-              </v-btn>
-              </v-col>
-
-              <v-col col="6">
-              <v-btn small color="error" class="mx-1" @click="reset">
-                Reset Form
-              </v-btn>
-              </v-col>
-
+                <v-col col="6">
+                  <v-btn small color="error" class="mx-1" @click="reset">
+                    Reset Form
+                  </v-btn>
+                </v-col>
               </v-row>
             </v-card-actions>
           </v-card>
@@ -65,7 +63,8 @@
                 text
                 color="primary"
                 small
-                >Have an account, <br /> Sign In ></v-btn
+                >Have an account, <br />
+                Sign In ></v-btn
               >
             </v-card-actions>
           </v-card>

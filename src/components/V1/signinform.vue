@@ -21,24 +21,22 @@
             </v-card-text>
             <v-card-actions>
               <v-row>
+                <v-col col="6">
+                  <v-btn
+                    :disabled="!valid"
+                    color="success"
+                    class="mx-2"
+                    @click="signin"
+                  >
+                    Sign In
+                  </v-btn>
+                </v-col>
 
-              <v-col col="6"> 
-              <v-btn
-                :disabled="!valid"
-                color="success"
-                class="mx-2"
-                @click="signin"
-              >
-                Sign In
-              </v-btn>
-              </v-col>
-              
-              <v-col col="6"> 
-              <v-btn small color="error" class="mx-1" @click="reset">
-                Reset Form
-              </v-btn>
-              </v-col>
-
+                <v-col col="6">
+                  <v-btn small color="error" class="mx-1" @click="reset">
+                    Reset Form
+                  </v-btn>
+                </v-col>
               </v-row>
             </v-card-actions>
           </v-card>
@@ -50,7 +48,8 @@
                 class="ml-4 my-2"
                 color="secondary"
                 small
-                >No Account,<br /> Sign Up ></v-btn
+                >No Account,<br />
+                Sign Up ></v-btn
               >
             </v-card-actions>
           </v-card>

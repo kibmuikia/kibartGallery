@@ -31,7 +31,10 @@
 
     <v-list-item>
       <v-list-item-avatar>
-        <v-img src="https://randomuser.me/api/portraits/men/85.jpg" class="mt-4"></v-img>
+        <v-img
+          src="https://randomuser.me/api/portraits/men/85.jpg"
+          class="mt-4"
+        ></v-img>
       </v-list-item-avatar>
     </v-list-item>
 

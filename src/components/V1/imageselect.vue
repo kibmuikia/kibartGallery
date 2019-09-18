@@ -86,7 +86,10 @@ export default {
   title: "", // Home | Glorious Delights
   components: {},
   props: {
-    size: Number
+    size: {
+      type: Number,
+      required: true
+    }
   },
   data() {
     return {

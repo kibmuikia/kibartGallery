@@ -18,7 +18,6 @@
             </v-card-text>
             <v-card-actions>
               <v-row>
-
                 <v-col col="6" class="">
                   <v-btn
                     :disabled="!valid"
@@ -30,19 +29,18 @@
                   </v-btn>
                 </v-col>
 
-                <v-col col="6" class=""> 
+                <v-col col="6" class="">
                   <v-btn small color="error" class="mx-1" @click="reset">
                     Reset Form
                   </v-btn>
                 </v-col>
-
               </v-row>
             </v-card-actions>
           </v-card>
           <v-card>
             <v-card-actions>
               <v-btn
-                @click="$router.push('/your-artwork')"
+                @click="$router.push('/profile/nickname/your-artwork')"
                 class="ma-2"
                 text
                 color="primary"
