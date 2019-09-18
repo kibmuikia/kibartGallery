@@ -11,6 +11,8 @@ Vue.mixin(TitleMixin);
 
 Vue.config.productionTip = false;
 
+export const serverBus = new Vue();
+
 new Vue({
   router,
   store,

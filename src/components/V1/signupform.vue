@@ -2,7 +2,7 @@
   <v-form v-model="valid" id="signupForm" ref="form_signup">
     <v-container fluid>
       <v-row justify="center">
-        <v-col cols="12" sm="6">
+        <v-col cols="12" sm="8">
           <v-card class="pa-4">
             <p class="text-center headline">
               Fill in the form and submit to register.
@@ -29,7 +29,11 @@
                 v-model="c_password"
                 label="Confirm Password"
                 :counter="20"
+                class="mb-4"
               ></v-text-field>
+
+              <ImageSelect v-bind:size=0.7 />
+
             </v-card-text>
             <v-card-actions>
               <v-btn
@@ -67,11 +71,15 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 
+import ImageSelect from './imageselect.vue';
+
 let SELF;
 export default {
   name: "sign-in-form-component",
-  title: "", // Home | Glorious Delights
-  components: {},
+  title: "",
+  components: {
+    ImageSelect
+  },
   props: {},
   data() {
     return {

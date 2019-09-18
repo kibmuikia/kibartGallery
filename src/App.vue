@@ -31,3 +31,14 @@ export default {
   })
 };
 </script>
+
+<style>
+
+input {
+  outline-color: none;
+}
+
+/* 422423782@qq.com */
+/* Htx123654 */
+
+</style>
