@@ -32,8 +32,7 @@
                 class="mb-4"
               ></v-text-field>
 
-              <ImageSelect v-bind:size=0.7 />
-
+              <ImageSelect v-bind:size="0.7" />
             </v-card-text>
             <v-card-actions>
               <v-btn
@@ -71,7 +70,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 
-import ImageSelect from './imageselect.vue';
+import ImageSelect from "./imageselect.vue";
 
 let SELF;
 export default {

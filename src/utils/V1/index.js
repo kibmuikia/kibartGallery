@@ -1,7 +1,7 @@
 import swal from "sweetalert2";
 
 export default {
-  showAlert: function (
+  showAlert: function(
     title,
     message,
     type,
@@ -39,7 +39,7 @@ export default {
     return true;
   },
   extend(obj, src) {
-    Object.keys(src).forEach(function (key) {
+    Object.keys(src).forEach(function(key) {
       obj[key] = src[key];
     });
     return obj;
