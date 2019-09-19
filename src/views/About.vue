@@ -16,8 +16,10 @@
           <h1>About</h1>
         </header>
 
-        <v-card max-width="344" class="mx-auto">
-          <v-card-title>Kibuthi Muikia</v-card-title>
+        <v-card max-width="360" class="mx-auto">
+          <v-card-title>
+            <span class="mx-auto"> Kibuthi Muikia </span>
+            </v-card-title>
           <v-card-text class="body-1">
             <p>
               I am a self taught pencil artist.
@@ -39,8 +41,10 @@
           </v-card-actions>
         </v-card>
 
-        <v-card max-width="344" class="mt-4 mx-auto">
-          <v-card-title>Kibart Gallery</v-card-title>
+        <v-card max-width="360" class="mt-4 mx-auto">
+          <v-card-title>
+            <span class="mx-auto"> Kibart Gallery </span>
+          </v-card-title>
           <v-card-text class="body-1">
             <p>
               Developed this site as my effort to promote art.

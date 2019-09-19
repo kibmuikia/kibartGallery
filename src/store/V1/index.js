@@ -20,7 +20,7 @@ export default new Vuex.Store({
         title: "Home",
         path: "/",
         pathname: "home",
-        icon: "mdi-home-city"
+        icon: "mdi-home"
       },
       {
         title: "Kibart Gallery",
@@ -45,10 +45,11 @@ export default new Vuex.Store({
         title: "About",
         path: "/about",
         pathname: "about",
-        icon: "mdi-file"
+        icon: "mdi-book-information-variant"
       }
     ],
-    kibart: []
+    kibart: [],
+    lazyurl: require("@/assets/over-min.png")
   },
   getters: {
     status: state => {

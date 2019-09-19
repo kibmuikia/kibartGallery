@@ -1,7 +1,7 @@
 <template>
 <!-- . -->
 
-  <v-container class="">
+  <v-container class="" v-if="artwork.length > 0">
     <v-row class="">
       <v-col cols="12" sm="8" offset-sm="2" class="">
         <v-card>
@@ -13,9 +13,9 @@
                   <!-- .start Image -->
                   <v-img
                     :src="art.location.full"
-                    lazy-src="@/assets/over-min.png"
+                    :lazy-src="art.thumb_url"
                     aspect-ratio="1"
-                    class="deep-orange lighten-4"
+                    class="grey lighten-3 kibimage"
                   >
                   <!-- :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`" -->
                     <template v-slot:placeholder>
@@ -40,6 +40,22 @@
       </v-col>
     </v-row>
   </v-container>
+  <v-container v-else>
+    <!-- <p class="mx-auto display-1">
+      Loading...
+    </p> -->
+    <v-row>
+      <v-col cols="4" class="mx-auto">
+          <v-progress-circular
+            indeterminate
+            color="light-green"
+            class="mx-auto"
+            size="100"
+            width="6"
+          ></v-progress-circular>
+      </v-col>
+    </v-row>
+  </v-container>
 
 <!-- . -->
 </template>
@@ -50,7 +66,7 @@
 
 // import { serverBus } from "@/main";
 import fire from "@/fire/V1";
-// import utils from "@/utils/V1";
+import utils from "@/utils/V1";
 
 let SELF;
 export default {
@@ -60,7 +76,9 @@ export default {
   props: {},
   data() {
     return {
-      artwork: []
+      artwork: [],
+      // lazy: SELF.$store.state.lazyurl
+      // lazy: require("@/assets/over-min.png")
     };
   },
   methods: {
@@ -70,9 +88,16 @@ export default {
       let kibartRef = fire.db.collection('kibart');
       let allKibart = await kibartRef.get()
         .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            console.log(doc.id, '=>', doc.data());
-            SELF.artwork.push( doc.data() );
+          querySnapshot.forEach(async doc => {
+            // console.log(doc.id, '=>', doc.data());
+            let url = await SELF.getUrl( doc.data().location.t_partial );
+            let gotdocument = utils.extend(
+                {
+                  thumb_url: url
+                },
+                doc.data()
+              );
+            SELF.artwork.push( gotdocument );
           });
         })
         .catch(err => {
@@ -81,20 +106,39 @@ export default {
 
         // .
     },//end-getKibart
-    async getUrl(path) {}// end-getUrl
+    async getUrl(path) {
+      let imageUrl = "";
+      let storageRef = fire.storage.ref();
+      await storageRef
+        .child(path)
+        .getDownloadURL()
+        .then(url => {
+          imageUrl = url;
+        })
+        .catch(err => {
+          console.error(err);
+        });
+      return imageUrl;
+    }// end-getUrl
   },
   computed: {},
   watch: {},
   beforeCreate() {
     SELF = this;
   },
-  created() {},
-  mounted() {
+  created() {
     SELF.getKibart();
+  },
+  mounted() {
+    // .
   }
 };
 </script>
 
 <style scoped>
-/*.*/
+.kibimage {
+  background-image: url( "../../assets/over-min.png" );
+  background-size: contain;
+  background-position: center;
+}
 </style>
