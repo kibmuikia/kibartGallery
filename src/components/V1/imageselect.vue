@@ -148,7 +148,14 @@ export default {
   created() {
     // .
   },
-  mounted() {}
+  mounted() {
+    serverBus.$on("reset_image_input", () => {
+      // this.resetInput();
+      this.image = null;
+      this.labelText = null;
+      this.previewSrc = null;
+    });
+  }
 };
 </script>
 

@@ -32,6 +32,12 @@ export default {
         }
       });
   }, // end-showAlert
+  makeId(text) {
+    return text
+      .replace(/\s+/g, "")
+      .toLowerCase()
+      .replace(/[^\w\s]/gi, "");
+  },
   isEmpty(obj) {
     for (var key in obj) {
       if (obj.hasOwnProperty(key)) return false;

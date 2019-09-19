@@ -47,11 +47,15 @@ export default new Vuex.Store({
         pathname: "about",
         icon: "mdi-file"
       }
-    ]
+    ],
+    kibart: []
   },
   getters: {
     status: state => {
       return state.status;
+    },
+    kibart: state => {
+      return state.kibart;
     }
   },
   mutations: {

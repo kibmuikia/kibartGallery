@@ -23,6 +23,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import hGallery from "../components/V1/homeGallery";
+import utils from "@/utils/V1";
 
 let SELF;
 export default {
@@ -48,7 +49,9 @@ export default {
     SELF = this;
   },
   created() {},
-  mounted() {}
+  mounted() {
+    utils.showAlert("Information", "Site Currently Under Construction", "");
+  }
 };
 </script>
 

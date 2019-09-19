@@ -2,7 +2,7 @@
   <v-footer class="grey lighten-2">
     <div class="flex-grow-1"></div>
     <div>&copy; {{ new Date().getFullYear() }}</div>
-    <div class="pl-3">Muikia Allan</div>
+    <div class="pl-3">Kibuthi Allan</div>
   </v-footer>
 </template>
 
