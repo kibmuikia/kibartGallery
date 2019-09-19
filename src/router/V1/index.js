@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "../../views/Home.vue";
 import EmptyRouteView from "../../views/EmptyRouterView.vue";
+import KibGallery from "../../views/Kibart/V1/Gallery.vue";
 
 Vue.use(Router);
 
@@ -53,6 +54,22 @@ export default new Router({
           path: "upload",
           name: "upload",
           component: () => import("../../views/Auth/V1/upload.vue")
+        }
+      ]
+    },
+    {
+      path: "/kibart",
+      component: EmptyRouteView,
+      children: [
+        {
+          path: "",
+          name: "kibart",
+          component: KibGallery
+        },
+        {
+          path: "upload",
+          name: "kibupload",
+          component: () => import("../../components/V1/kibupload.vue")
         }
       ]
     }

@@ -1471,11 +1471,11 @@
 		height: 75vh;
 		position: relative;
 		background: #000;
-		background-image: url(../../img/banner.jpg);
-		background-size: cover;
+		background-image: url(../../img/banner.jpeg);
+		background-size: contain;
 		background-attachment: fixed;
-		background-repeat: no-repeat;
-		background-position: center;
+		background-repeat: repeat-x;
+		background-position: top center;
 		text-align: center;
 		color: #FFF;
 	}

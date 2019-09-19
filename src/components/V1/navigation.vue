@@ -31,19 +31,24 @@
 
     <v-list-item>
       <v-list-item-avatar>
-        <v-img
-          src="https://randomuser.me/api/portraits/men/85.jpg"
-          class="mt-4"
-        ></v-img>
+        <v-img src="@/assets/kiblogo.png" class="mt-4 pa-2">
+          <!-- src="https://randomuser.me/api/portraits/men/85.jpg" -->
+        </v-img>
       </v-list-item-avatar>
     </v-list-item>
 
     <v-divider></v-divider>
 
     <v-list dense>
-      <v-list-item v-for="(link, index) in navlinks" :key="index" link>
-        <v-list-item-icon @click="navigateTo(link.path)">
-          <v-icon>{{ link.icon }}</v-icon>
+      <v-list-item
+        v-for="(link, index) in navlinks"
+        :key="index"
+        link
+        @click="navigateTo(link.path)"
+      >
+        <v-list-item-icon>
+          <v-icon v-if="link.color" :color="link.color">{{ link.icon }}</v-icon>
+          <v-icon v-else>{{ link.icon }}</v-icon>
         </v-list-item-icon>
       </v-list-item>
     </v-list>

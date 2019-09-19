@@ -16,26 +16,47 @@
           <h1>About</h1>
         </header>
 
-        <v-card class="mx-auto" max-width="344">
-          <v-card-text>
-            <div>Word of the Day</div>
-            <p class="display-1 text--primary">
-              be•nev•o•lent
+        <v-card max-width="344" class="mx-auto">
+          <v-card-title>Kibuthi Muikia</v-card-title>
+          <v-card-text class="body-1">
+            <p>
+              I am a self taught pencil artist.
             </p>
-            <p>adjective</p>
-            <div class="text--primary">
-              well meaning and kindly.<br />
-              "a benevolent smile"
-            </div>
+            <p>
+              Art is simply epic!
+            </p>
           </v-card-text>
           <v-card-actions>
-            <v-btn text color="deep-purple accent-4">
-              Learn More
+            <v-btn
+              text
+              color="success"
+              href="https://instagram.com/kibmuikia"
+              class="mx-auto"
+              target="_blank"
+            >
+              View Instagram
             </v-btn>
           </v-card-actions>
         </v-card>
 
-        <p>
+        <v-card max-width="344" class="mt-4 mx-auto">
+          <v-card-title>Kibart Gallery</v-card-title>
+          <v-card-text class="body-1">
+            <p>
+              Developed this site as my effort to promote art.
+            </p>
+            <p>
+              All are welcome
+            </p>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn text color="primary" to="/kibart" class="mx-auto">
+              Gallery
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+
+        <!-- <p>
           Faucibus parturient mus phasellus vestibulum suspendisse dui vel
           ridiculus nibh diam placerat tellus scelerisque facilisi mus
           vestibulum arcu mus praesent in blandit. Conubia ullamcorper cum
@@ -65,8 +86,36 @@
           sit condimentum at rutrum vulputate scelerisque erat convallis
           himenaeos consequat a hac ultrices nam vel suspendisse nascetur dictum
           vulputate sed at.
-        </p>
+        </p>-->
       </div>
     </section>
   </div>
 </template>
+
+<script>
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+
+let SELF;
+export default {
+  name: "about-view",
+  title: "About | Kibart Gallery", // Home | Glorious Delights
+  components: {},
+  props: {},
+  data() {
+    return {
+      //
+    };
+  },
+  methods: {
+    // .
+  },
+  computed: {},
+  watch: {},
+  beforeCreate() {
+    SELF = this;
+  },
+  created() {},
+  mounted() {}
+};
+</script>

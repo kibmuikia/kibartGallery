@@ -4,18 +4,19 @@
       <v-col cols="12" sm="8" offset-sm="2" class="">
         <v-card>
           <p class="headline text-center">
-            What's New
+            Kibart Gallery
           </p>
           <v-container class="">
             <v-row>
-              <v-col v-for="n in 6" :key="n" class="d-flex child-flex" cols="6">
+              <v-col v-for="n in 2" :key="n" class="d-flex child-flex" cols="6">
                 <v-card flat tile class="d-flex">
                   <v-img
                     :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-                    :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+                    lazy-src="@/assets/over-min.png"
                     aspect-ratio="1"
                     class="deep-orange lighten-4"
                   >
+                    <!-- :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`" -->
                     <template v-slot:placeholder>
                       <v-row
                         class="fill-height ma-0"
@@ -34,6 +35,11 @@
             </v-row>
           </v-container>
         </v-card>
+      </v-col>
+      <v-col cols="4" offset="5">
+        <v-btn color="primary" class="" to="/kibart" style="cursor: pointer;">
+          More
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>

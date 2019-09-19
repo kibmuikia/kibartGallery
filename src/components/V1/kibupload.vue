@@ -1,11 +1,11 @@
 <template>
-  <v-form v-model="valid" id="uploadForm" ref="form_upload">
+  <v-form v-model="valid" id="kibUploadForm" ref="form_kib_upload">
     <v-container fluid>
       <v-row justify="center">
         <v-col cols="12" sm="8">
           <v-card class="pa-4">
             <p class="text-center body-1">
-              Use the form provided.
+              Use to upload KibArt Artwork.
             </p>
             <v-card-text>
               <v-text-field
@@ -23,7 +23,7 @@
                 :counter="140"
               ></v-textarea>
 
-              <ImageSelect v-bind:size="2" />
+              <ImageSelect v-bind:size="3" />
             </v-card-text>
             <v-card-actions>
               <v-row>
@@ -49,12 +49,12 @@
           <v-card>
             <v-card-actions>
               <v-btn
-                @click="$router.push('/profile/nickname/your-artwork')"
+                @click="$router.push('/kibart')"
                 class="ma-2"
                 text
                 color="primary"
                 small
-                >See your artwork
+                >Kibart Artwork
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -72,7 +72,7 @@ import ImageSelect from "./imageselect.vue";
 
 let SELF;
 export default {
-  name: "upload-form-component",
+  name: "kibart-upload-form-component",
   title: "",
   components: {
     ImageSelect

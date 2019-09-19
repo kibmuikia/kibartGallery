@@ -32,11 +32,7 @@ export default {
     //
   }),
   mounted() {
-    utils.showAlert(
-          "Information",
-          "Site Currently Under Construction",
-          ""
-        );
+    utils.showAlert("Information", "Site Currently Under Construction", "");
   }
 };
 </script>

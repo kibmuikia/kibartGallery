@@ -23,17 +23,24 @@ export default new Vuex.Store({
         icon: "mdi-home-city"
       },
       {
-        title: "Gallery",
-        path: "/gallery",
-        pathname: "gallery",
-        icon: "mdi-camera"
+        title: "Kibart Gallery",
+        path: "/kibart",
+        pathname: "kibart",
+        icon: "mdi-camera",
+        color: "green"
       },
-      {
-        title: "Account",
-        path: "/sign-in",
-        pathname: "upload",
-        icon: "mdi-account"
-      },
+      // {
+      //   title: "Gallery",
+      //   path: "/gallery",
+      //   pathname: "gallery",
+      //   icon: "mdi-camera"
+      // },
+      // {
+      //   title: "Account",
+      //   path: "/sign-in",
+      //   pathname: "upload",
+      //   icon: "mdi-account"
+      // },
       {
         title: "About",
         path: "/about",
