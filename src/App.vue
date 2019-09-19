@@ -19,6 +19,8 @@
 import Nav from "./components/V1/navigation";
 import Footer from "./components/V1/footer";
 
+import utils from "@/utils/V1";
+
 export default {
   name: "App",
   components: {
@@ -28,7 +30,14 @@ export default {
   },
   data: () => ({
     //
-  })
+  }),
+  mounted() {
+    utils.showAlert(
+          "Information",
+          "Site Currently Under Construction",
+          ""
+        );
+  }
 };
 </script>
 
