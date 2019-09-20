@@ -2,7 +2,7 @@
   <section>
     <div class="inner">
       <header>
-        <h1>Sign Up</h1>
+        <h1 class="kibtitle2">Sign Up</h1>
       </header>
 
       <SignUpForm />

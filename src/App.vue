@@ -1,5 +1,5 @@
 <template>
-  <v-app class="kibwrap">
+  <v-app class="">
     <Nav />
 
     <v-content>
@@ -38,11 +38,18 @@ export default {
 </script>
 
 <style>
-.kibwrap {
-  /* width: 100%;
-  margin: 0 auto; */
+.kibtitle {
+  font-family: "Indie Flower", cursive;
+  font-size: 1.35em;
 }
-
-/* 422423782@qq.com */
-/* Htx123654 */
+.kibtitle2 {
+  font-family: "Barrio", cursive;
+  font-size: 2em;
+  letter-spacing: 0.2em;
+}
+.kibtitle3 {
+  font-family: "Caesar Dressing", cursive;
+  font-size: 2em;
+  letter-spacing: 0.2em;
+}
 </style>

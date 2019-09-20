@@ -67,7 +67,7 @@
             <v-card-actions>
               <v-btn
                 @click="$router.push('/kibart')"
-                class="ma-2"
+                class="mx-auto"
                 text
                 color="primary"
                 small
@@ -75,6 +75,20 @@
               </v-btn>
             </v-card-actions>
           </v-card>
+          <v-card class="my-4">
+            <v-card-actions>
+              <v-btn
+                class="mx-auto"
+                text
+                color="success"
+                small
+                target="_blank"
+                href="https://www.iloveimg.com/compress-image"
+                >Compress Image
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <!-- https://www.iloveimg.com/compress-image  -->
         </v-col>
       </v-row>
     </v-container>

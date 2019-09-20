@@ -2,7 +2,7 @@
   <section>
     <div class="inner">
       <header>
-        <h1>Kibart Gallery</h1>
+        <h1 class="kibtitle2">Kibart Gallery</h1>
       </header>
 
       <Gallery />

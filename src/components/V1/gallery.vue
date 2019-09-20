@@ -96,8 +96,7 @@ export default {
     return {
       artwork: [],
       show: false,
-      toview: {},
-      dataSize: null
+      toview: {}
       // lazy: SELF.$store.state.lazyurl
       // lazy: require("@/assets/over-min.png")
     };
@@ -111,28 +110,55 @@ export default {
       // .
 
       let kibartRef = fire.db.collection("kibart");
-      let allKibart = await kibartRef
-        .get()
-        .then(querySnapshot => {
-          // console.log( querySnapshot.size );
-          SELF.dataSize = querySnapshot.size;
-          querySnapshot.forEach(async doc => {
-            // console.log(doc.id, '=>', doc.data());
-            let thumbUrl = await SELF.getUrl(doc.data().location.t_partial);
-            let gotdocument = utils.extend(
-              {
-                thumb_url: thumbUrl,
-                fullPicha: {},
-                fullurl: doc.data().location.full
-              },
-              doc.data()
-            );
-            SELF.artwork.push(gotdocument);
-          });
-        })
-        .catch(err => {
-          console.log("Error getting documents", err);
-        });
+
+      let first = await kibartRef
+        .orderBy("title")
+        // .limit(1)
+        // .get() onSnapshot
+        // .then(querySnapshot => {
+        .onSnapshot(
+          querySnapshot => {
+            querySnapshot.docChanges().forEach(async change => {
+              console.log(change.doc.data().title);
+              let thumbUrl = await SELF.getUrl(
+                change.doc.data().location.t_partial
+              );
+              let gotdocument = utils.extend(
+                {
+                  thumb_url: thumbUrl,
+                  fullurl: change.doc.data().location.full
+                },
+                change.doc.data()
+              );
+              SELF.artwork.push(gotdocument);
+            });
+          },
+          e => {
+            console.log("Encountered error :: ", e);
+          }
+        );
+
+      // let allKibart = await kibartRef
+      //   .get()
+      //   .then(querySnapshot => {
+      //     // console.log( querySnapshot );
+      //     // console.log( querySnapshot.docChanges() );
+      //     querySnapshot.forEach(async doc => {
+      //       // console.log(doc.id, '=>', doc.data());
+      //       let thumbUrl = await SELF.getUrl(doc.data().location.t_partial);
+      //       let gotdocument = utils.extend(
+      //         {
+      //           thumb_url: thumbUrl,
+      //           fullurl: doc.data().location.full
+      //         },
+      //         doc.data()
+      //       );
+      //       SELF.artwork.push(gotdocument);
+      //     });
+      //   })
+      //   .catch(err => {
+      //     console.log("Error getting documents", err);
+      //   });
 
       // .
     }, //end-getKibart

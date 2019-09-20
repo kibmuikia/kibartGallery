@@ -2,7 +2,7 @@
   <section>
     <div class="inner">
       <header>
-        <h1>Upload Your Artwork</h1>
+        <h1 class="kibtitle2">Upload Your Artwork</h1>
       </header>
 
       <UploadForm />

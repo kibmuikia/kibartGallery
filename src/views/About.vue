@@ -13,12 +13,12 @@
     <section>
       <div class="inner">
         <header>
-          <h1>About</h1>
+          <h1 class="kibtitle2">About</h1>
         </header>
 
         <v-card max-width="360" class="mx-auto">
           <v-card-title>
-            <span class="mx-auto"> Kibuthi Muikia </span>
+            <span class="mx-auto kibtitle"> Kibuthi Muikia </span>
           </v-card-title>
           <v-card-text class="body-1">
             <p>
@@ -43,7 +43,7 @@
 
         <v-card max-width="360" class="mt-4 mx-auto mb-2">
           <v-card-title>
-            <span class="mx-auto"> Kibart Gallery </span>
+            <span class="mx-auto kibtitle"> Kibart Gallery </span>
           </v-card-title>
           <v-card-text class="body-1">
             <p>
@@ -59,38 +59,6 @@
             </v-btn>
           </v-card-actions>
         </v-card>
-
-        <!-- <p>
-          Faucibus parturient mus phasellus vestibulum suspendisse dui vel
-          ridiculus nibh diam placerat tellus scelerisque facilisi mus
-          vestibulum arcu mus praesent in blandit. Conubia ullamcorper cum
-          rhoncus vitae dapibus venenatis integer in donec egestas lacus nibh
-          vestibulum habitasse accumsan parturient malesuada sociis auctor
-          scelerisque vehicula urna eu proin euismod. Id facilisi suspendisse
-          parturient leo mus condimentum natoque scelerisque ullamcorper odio
-          tristique ultricies arcu ac condimentum facilisi scelerisque class
-          commodo. Scelerisque sagittis magna mi duis iaculis id erat pharetra
-          vestibulum condimentum hac suspendisse tempor leo aliquet penatibus
-          parturient donec parturient parturient. Vehicula suspendisse sem a
-          adipiscing est ad donec ultricies senectus magnis convallis a
-          fringilla adipiscing vulputate dui elementum diam ipsum eleifend
-          condimentum placerat facilisi viverra mollis scelerisque. Commodo cum
-          vestibulum hendrerit sit condimentum at rutrum vulputate scelerisque
-          erat convallis himenaeos consequat a hac ultrices nam vel suspendisse
-          nascetur dictum vulputate sed at.
-        </p>
-        <h2>Ultricies Senectus Magnis</h2>
-        <p>
-          Scelerisque sagittis magna mi duis iaculis id erat pharetra vestibulum
-          condimentum hac suspendisse tempor leo aliquet penatibus parturient
-          donec parturient parturient. Vehicula suspendisse sem a adipiscing est
-          ad donec ultricies senectus magnis convallis a fringilla adipiscing
-          vulputate dui elementum diam ipsum eleifend condimentum placerat
-          facilisi viverra mollis scelerisque. Commodo cum vestibulum hendrerit
-          sit condimentum at rutrum vulputate scelerisque erat convallis
-          himenaeos consequat a hac ultrices nam vel suspendisse nascetur dictum
-          vulputate sed at.
-        </p>-->
       </div>
     </section>
   </div>
@@ -123,3 +91,7 @@ export default {
   mounted() {}
 };
 </script>
+
+<style scoped>
+/* . */
+</style>

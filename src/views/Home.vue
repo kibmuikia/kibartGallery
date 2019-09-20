@@ -3,7 +3,7 @@
     <!-- Banner -->
     <section id="banner">
       <div class="inner">
-        <h1>Welcome, To KibArt Gallery</h1>
+        <h1 class="kibtitle2">Welcome, To KibArt Gallery</h1>
         <p>
           Where creativity reigns supreme
         </p>
@@ -24,7 +24,7 @@
         <v-col cols="12" class="mx-auto">
           <v-card>
             <v-card-title>
-              <span class="mx-auto">Art</span>
+              <span class="mx-auto kibtitle2">Art</span>
             </v-card-title>
             <v-card-text>
               <p class="body-1 text-center">
