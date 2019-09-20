@@ -6,7 +6,6 @@
       </header>
 
       <Gallery />
-      
     </div>
   </section>
 </template>
@@ -14,7 +13,7 @@
 <script>
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-import Gallery from '../../../components/V1/gallery.vue';
+import Gallery from "../../../components/V1/gallery.vue";
 
 let SELF;
 export default {

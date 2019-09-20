@@ -19,7 +19,7 @@
         <v-card max-width="360" class="mx-auto">
           <v-card-title>
             <span class="mx-auto"> Kibuthi Muikia </span>
-            </v-card-title>
+          </v-card-title>
           <v-card-text class="body-1">
             <p>
               I am a self taught pencil artist.

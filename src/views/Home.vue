@@ -9,7 +9,7 @@
         </p>
         <ul class="actions">
           <li>
-            <a href="#homeinfo" class="button alt scrolly big">
+            <a href="#homeinfo" class="scrolly kibscrolly">
               <!-- <v-icon>mdi-anchor</v-icon> -->
               Proceed
             </a>
@@ -28,17 +28,24 @@
             </v-card-title>
             <v-card-text>
               <p class="body-1 text-center">
-                "To me, Art is an expression of one’s personal emotions that cannot
-                be confined to one definition. It takes on endless forms and can be
-                interpreted in multiple ways through diverse perspectives. It can
-                range from a performance to a painting to even a landscape. It’s a
-                therapeutic form of release that does not necessarily need words."
+                "To me, Art is an expression of one’s personal emotions that
+                cannot be confined to one definition. It takes on endless forms
+                and can be interpreted in multiple ways through diverse
+                perspectives. It can range from a performance to a painting to
+                even a landscape. It’s a therapeutic form of release that does
+                not necessarily need words."
                 <br />
                 - <strong>Avery Singer</strong> .
               </p>
             </v-card-text>
             <v-card-actions>
-              <v-btn class="mx-auto" text color="primary" to="/kibart" id="homeinfo">
+              <v-btn
+                class="mx-auto"
+                text
+                color="primary"
+                to="/kibart"
+                id="homeinfo"
+              >
                 To Gallery
               </v-btn>
             </v-card-actions>
@@ -88,5 +95,8 @@ export default {
 </script>
 
 <style scoped>
-/*.*/
+/* .kibscrolly {
+  ouline: 1px solid white;
+  color: green;
+} */
 </style>
