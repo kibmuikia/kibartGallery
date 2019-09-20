@@ -120,6 +120,7 @@ export default {
         SELF.labelText = `Selected: [ ${SELF.image.name.substring(0, 16)}... ]`;
         let reader = new FileReader();
         reader.onload = function(e) {
+          console.log(e.target.result);
           SELF.previewSrc = e.target.result;
           serverBus.$emit("imageSelected", SELF.image);
         };

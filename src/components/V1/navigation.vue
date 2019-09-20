@@ -1,35 +1,15 @@
 <template>
-  <!-- <nav id="nav">
-    <ul>
-      <li>
-        <a class="active" @click="navigateTo('/')">
-          <span class="icon fa-home"></span>
-        </a>
-      </li>
-      <li>
-        <a>
-          <span class="icon fa-camera-retro"></span>
-        </a>
-      </li>
-      <li>
-        <a @click="navigateTo('/about')">
-          <span class="icon fa-file-text-o"></span>
-        </a>
-      </li>
-    </ul>
-  </nav> -->
-
   <v-navigation-drawer
     v-model="drawer"
     mini-variant
-    mini-variant-width="60"
+    mini-variant-width="50"
     dark
     permanent
     app
   >
     <!-- . -->
 
-    <v-list-item>
+    <v-list-item class="mb-2">
       <v-list-item-avatar>
         <v-img src="@/assets/kiblogo.png" class="mt-4 pa-2">
           <!-- src="https://randomuser.me/api/portraits/men/85.jpg" -->

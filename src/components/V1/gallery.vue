@@ -7,39 +7,46 @@
         <v-card>
           <v-container class="">
             <v-row>
-              <!-- <v-col v-for="n in 2" :key="n" class="d-flex child-flex" cols="6"> -->
               <v-col
                 v-for="(art, index) in artwork"
                 :key="index"
                 class="d-flex child-flex"
                 cols="6"
               >
-                <!-- <template v-slot:activator="{ on }"> -->
-                <v-card flat tile class="d-flex" @click="onaImage(art)">
-                  <!-- .start Image -->
+                <v-card class="d-flex" @click="onaImage(art)">
                   <v-img
-                    :src="art.location.full"
+                    src=""
                     :lazy-src="art.thumb_url"
                     aspect-ratio="1"
                     class="grey lighten-3 kibimage"
+                    height="100%"
                   >
-                    <!-- :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`" -->
                     <template v-slot:placeholder>
                       <v-row
                         class="fill-height ma-0"
                         align="center"
                         justify="center"
                       >
-                        <v-progress-circular
+                        <!-- <v-progress-circular
                           indeterminate
-                          color="deep-orange lighten-2"
-                        ></v-progress-circular>
+                          color="grey"
+                        ></v-progress-circular> -->
+                        <v-btn
+                          small
+                          class="mx-auto caption"
+                          color=""
+                          v-if="art.title.length > 6"
+                        >
+                          {{ art.title.slice(0, 5) + "..." }}
+                        </v-btn>
+                        <v-btn small class="mx-auto caption" color="" v-else>
+                          {{ art.title }}
+                        </v-btn>
                       </v-row>
                     </template>
                   </v-img>
                   <!-- .end Image -->
                 </v-card>
-                <!-- </template> -->
               </v-col>
             </v-row>
           </v-container>
@@ -47,17 +54,14 @@
       </v-col>
     </v-row>
     <!-- . -->
-    <div v-if="show">
+    <div v-show="show">
       <ViewImage :show="show" v-bind:imagedata="toview" />
     </div>
     <!-- . -->
   </v-container>
   <v-container v-else>
-    <!-- <p class="mx-auto display-1">
-      Loading...
-    </p> -->
     <v-row>
-      <v-col cols="4" class="mx-auto">
+      <v-col cols="5" class="mx-auto">
         <v-progress-circular
           indeterminate
           color="light-green"
@@ -80,8 +84,6 @@ import { serverBus } from "@/main";
 import fire from "@/fire/V1";
 import utils from "@/utils/V1";
 
-// import ViewImage from "viewimage.vue";
-
 let SELF;
 export default {
   name: "gallery-component",
@@ -95,16 +97,15 @@ export default {
       artwork: [],
       show: false,
       toview: {},
+      dataSize: null
       // lazy: SELF.$store.state.lazyurl
       // lazy: require("@/assets/over-min.png")
     };
   },
   methods: {
     onaImage(image) {
-      SELF.show = true;
       SELF.toview = image;
-      // console.log( typeof SELF.toview );
-      // console.log( SELF.toview.title );
+      SELF.show = true;
     }, //end-onaImage
     async getKibart() {
       // .
@@ -113,12 +114,16 @@ export default {
       let allKibart = await kibartRef
         .get()
         .then(querySnapshot => {
+          // console.log( querySnapshot.size );
+          SELF.dataSize = querySnapshot.size;
           querySnapshot.forEach(async doc => {
             // console.log(doc.id, '=>', doc.data());
-            let url = await SELF.getUrl(doc.data().location.t_partial);
+            let thumbUrl = await SELF.getUrl(doc.data().location.t_partial);
             let gotdocument = utils.extend(
               {
-                thumb_url: url
+                thumb_url: thumbUrl,
+                fullPicha: {},
+                fullurl: doc.data().location.full
               },
               doc.data()
             );
@@ -132,7 +137,8 @@ export default {
       // .
     }, //end-getKibart
     async getUrl(path) {
-      let imageUrl = "";
+      let imageUrl = "",
+        image = "";
       let storageRef = fire.storage.ref();
       await storageRef
         .child(path)
@@ -147,7 +153,25 @@ export default {
     } // end-getUrl
   },
   computed: {},
-  watch: {},
+  watch: {
+    artwork: function() {
+      // console.log( SELF.artwork.length );
+      // // if( SELF.artwork.length == SELF.dataSize ) {
+      // if( SELF.artwork.length > 0 ) {
+      //   console.log( SELF.artwork );
+      //   SELF.artwork.forEach( async (image,index) => {
+      //     let picha = await fetch(image.location.full).then(r => r.blob());
+      //     const reader = new FileReader();
+      //     reader.readAsDataURL(picha);
+      //     reader.onloadend = function() {
+      //       // result includes identifier 'data:image/png;base64,' plus the base64 data
+      //       image.fullPicha = reader.result;
+      //     };
+      //     console.log( image.fullPicha );
+      //   } );
+      // }
+    }
+  },
   beforeCreate() {
     SELF = this;
   },

@@ -41,13 +41,13 @@
           </v-card-actions>
         </v-card>
 
-        <v-card max-width="360" class="mt-4 mx-auto">
+        <v-card max-width="360" class="mt-4 mx-auto mb-2">
           <v-card-title>
             <span class="mx-auto"> Kibart Gallery </span>
           </v-card-title>
           <v-card-text class="body-1">
             <p>
-              Developed this site as my effort to promote art.
+              Developed this site as my effort to promote the love for art.
             </p>
             <p>
               All are welcome

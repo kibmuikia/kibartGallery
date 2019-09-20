@@ -5,7 +5,9 @@
     <v-content>
       <!-- <div class="page-wrap"> -->
       <!-- <section id="main"> -->
-      <router-view></router-view>
+      <v-scale-transition origin="center center" mode="out-in">
+        <router-view></router-view>
+      </v-scale-transition>
       <!-- </section> -->
       <!-- </div> -->
     </v-content>

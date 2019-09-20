@@ -48,6 +48,15 @@
               >
                 To Gallery
               </v-btn>
+              <v-btn
+                class="mx-auto"
+                text
+                color="success"
+                to="/about"
+                id="homeinfo"
+              >
+                About Me
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -62,7 +71,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 // import hGallery from "../components/V1/homeGallery";
-import utils from "@/utils/V1";
+// import utils from "@/utils/V1";
 
 let SELF;
 export default {
@@ -89,7 +98,7 @@ export default {
   },
   created() {},
   mounted() {
-    utils.showAlert("Information", "Site Currently Under Construction", "");
+    // utils.showAlert("Information", "Site Currently Under Construction", "");
   }
 };
 </script>
