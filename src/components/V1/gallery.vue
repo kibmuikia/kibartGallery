@@ -13,7 +13,7 @@
                 class="d-flex child-flex"
                 cols="6"
               >
-                <v-card class="d-flex" @click="onaImage(art)">
+                <v-card class="d-flex animated bounceIn" @click="onaImage(art)">
                   <v-img
                     src=""
                     :lazy-src="art.thumb_url"
@@ -65,7 +65,7 @@
         <v-progress-circular
           indeterminate
           color="light-green"
-          class="mx-auto"
+          class="mx-auto animated zoomInUp"
           size="100"
           width="6"
         ></v-progress-circular>
@@ -119,7 +119,7 @@ export default {
         .onSnapshot(
           querySnapshot => {
             querySnapshot.docChanges().forEach(async change => {
-              console.log(change.doc.data().title);
+              // console.log(change.doc.data().title);
               let thumbUrl = await SELF.getUrl(
                 change.doc.data().location.t_partial
               );

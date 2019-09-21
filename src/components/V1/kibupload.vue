@@ -225,6 +225,7 @@ export default {
   },
   created() {},
   mounted() {
+    window.scrollTo(0, 0);
     serverBus.$on("imageSelected", image => {
       SELF.art.image = image;
     });

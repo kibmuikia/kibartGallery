@@ -3,17 +3,16 @@
     <!-- Banner -->
     <section id="banner">
       <div class="inner">
-        <h1 class="kibtitle2">Welcome, To KibArt Gallery</h1>
-        <p>
+        <h1 class="kibtitle2 animated slideInUp kibAni">Welcome, To KibArt Gallery</h1>
+        <p class="animated slideInUp kibAni">
           Where creativity reigns supreme
         </p>
-        <ul class="actions">
+        <ul class="actions animated slideInUp kibAni" style="list-style: none;">
           <li>
-            <a href="#homeinfo" class="scrolly kibscrolly">
-              <!-- <v-icon>mdi-anchor</v-icon> -->
+            <a class="" @click="$vuetify.goTo( target, options )" >
+              <!-- class="scrolly" -->
               Proceed
             </a>
-            <!-- <a href="/kibart" class="button alt">View</a> -->
           </li>
         </ul>
       </div>
@@ -53,7 +52,6 @@
                 text
                 color="success"
                 to="/about"
-                id="homeinfo"
               >
                 About Me
               </v-btn>
@@ -83,7 +81,12 @@ export default {
   props: {},
   data() {
     return {
-      //
+      target: "#homeinfo",
+      options: {
+        duration: 400,
+        // offset: -100,
+        easing: 'easeInQuad'
+      }
     };
   },
   methods: {
@@ -99,13 +102,15 @@ export default {
   created() {},
   mounted() {
     // utils.showAlert("Information", "Site Currently Under Construction", "");
+    window.scrollTo(0, 0);
   }
 };
 </script>
 
 <style scoped>
-/* .kibscrolly {
-  ouline: 1px solid white;
-  color: green;
-} */
+.kibAni {
+  animation-duration: 1.75s;
+  /* animation-delay: 2s; */
+  /* animation-iteration-count: infinite; */
+}
 </style>

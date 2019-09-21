@@ -13,10 +13,10 @@
     <section>
       <div class="inner">
         <header>
-          <h1 class="kibtitle2">About</h1>
+          <h1 class="kibtitle2 animated slideInRight">About</h1>
         </header>
 
-        <v-card max-width="360" class="mx-auto">
+        <v-card max-width="360" class="mx-auto animated fadeInLeft">
           <v-card-title>
             <span class="mx-auto kibtitle"> Kibuthi Muikia </span>
           </v-card-title>
@@ -41,7 +41,7 @@
           </v-card-actions>
         </v-card>
 
-        <v-card max-width="360" class="mt-4 mx-auto mb-2">
+        <v-card max-width="360" class="mt-4 mx-auto mb-2 animated fadeInRight">
           <v-card-title>
             <span class="mx-auto kibtitle"> Kibart Gallery </span>
           </v-card-title>
@@ -88,7 +88,9 @@ export default {
     SELF = this;
   },
   created() {},
-  mounted() {}
+  mounted() {
+    window.scrollTo(0, 0);
+  }
 };
 </script>
 

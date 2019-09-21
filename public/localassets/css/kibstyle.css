@@ -3,7 +3,10 @@
 /* @import url('https://fonts.googleapis.com/css?family=Fruktur|Indie+Flower|Montserrat&display=swap'); */
 /* @import url('https://fonts.googleapis.com/css?family=Indie+Flower|Lakki+Reddy|Montserrat&display=swap'); */
 /* @import url('https://fonts.googleapis.com/css?family=Caesar+Dressing|Indie+Flower|Montserrat&display=swap'); */
+
+@import url('animate.css');
 @import url('https://fonts.googleapis.com/css?family=Barrio|Caesar+Dressing|Indie+Flower|Montserrat&display=swap');
+
 html, body {
   font-family: 'Montserrat', sans-serif;
 }

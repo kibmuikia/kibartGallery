@@ -2,7 +2,7 @@
   <section>
     <div class="inner">
       <header>
-        <h1 class="kibtitle2">Kibart Gallery</h1>
+        <h1 class="kibtitle2 animated slideInRight">Kibart Gallery</h1>
       </header>
 
       <Gallery />
@@ -37,7 +37,9 @@ export default {
     SELF = this;
   },
   created() {},
-  mounted() {}
+  mounted() {
+    window.scrollTo(0, 0);
+  }
 };
 </script>
 
