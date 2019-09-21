@@ -13,7 +13,7 @@
           :lazy-src="imagedata.thumb_url"
           aspect-ration="1"
           class="grey lighten-3"
-          max-height="400"
+          max-height="380"
           contain
           :alt="imagedata.title"
         >
