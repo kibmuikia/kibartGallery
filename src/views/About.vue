@@ -1,13 +1,6 @@
 <template>
-  <!-- <div class="about">
-    <h1>This is an about page</h1>
-  </div> -->
 
   <div>
-    <!-- Header -->
-    <!-- <header id="header">
-      <div>KibArt Gallery <span>by Kibuthi Allan</span></div>
-    </header> -->
 
     <!-- Section -->
     <section>
@@ -16,49 +9,128 @@
           <h1 class="kibtitle2 animated slideInRight">About</h1>
         </header>
 
-        <v-card max-width="360" class="mx-auto animated fadeInLeft">
-          <v-card-title>
-            <span class="mx-auto kibtitle"> Kibuthi Muikia </span>
-          </v-card-title>
-          <v-card-text class="body-1">
-            <p>
-              I am a self taught pencil artist.
-            </p>
-            <p>
-              Art is simply epic!
-            </p>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn
-              text
-              color="success"
-              href="https://instagram.com/kibmuikia"
-              class="mx-auto"
-              target="_blank"
-            >
-              View Instagram
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <v-container fluid>
+          <v-row>
+            <!-- .  max-width="360" -->
+            <v-col cols="12" md="6" class="mx-auto">
+              <v-card class="mx-auto animated fadeInLeft">
+                <v-card-title>
+                  <span class="mx-auto kibtitle"> Kibuthi Allan </span>
+                </v-card-title>
+                <v-card-text class="body-1">
+                  <p>
+                    I am a self taught pencil artist.
+                  </p>
+                  <p>
+                    Art is simply epic!
+                  </p>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn
+                    text
+                    color="success"
+                    href="https://instagram.com/kibmuikia"
+                    class="mx-auto"
+                    target="_blank"
+                  >
+                    View Instagram
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+            <!-- . max-width="360" -->
+            <v-col cols="12" md="6" class="mx-auto">
+              <v-card class="mx-auto animated fadeInRight">
+                <v-card-title>
+                  <span class="mx-auto kibtitle"> Kibart Gallery </span>
+                </v-card-title>
+                <v-card-text class="body-1">
+                  <p>
+                    Developed this site as my effort to promote the love for
+                    art.
+                  </p>
+                  <p>
+                    All are welcome
+                  </p>
+                </v-card-text>
+                <v-card-actions>
+                  <v-btn text color="primary" to="/kibart" class="mx-auto">
+                    Gallery
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+            <!-- . -->
 
-        <v-card max-width="360" class="mt-4 mx-auto mb-2 animated fadeInRight">
-          <v-card-title>
-            <span class="mx-auto kibtitle"> Kibart Gallery </span>
-          </v-card-title>
-          <v-card-text class="body-1">
-            <p>
-              Developed this site as my effort to promote the love for art.
-            </p>
-            <p>
-              All are welcome
-            </p>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn text color="primary" to="/kibart" class="mx-auto">
-              Gallery
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+            <v-col cols="12" class="mx-auto">
+              <v-card class="animated fadeInUp">
+                <v-card-title class="kibtitle">
+                  <span class="mx-auto">
+                    Need An Application Developed?
+                  </span>
+                </v-card-title>
+
+                <v-card-text>
+                  <v-row justify="center" class="px-1">
+                    <v-expansion-panels inset>
+                      <!-- . -->
+                      <v-expansion-panel>
+                        <v-expansion-panel-header>
+                          Web Development
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                          <!-- . -->
+                          <v-list-item v-for="(skill,index) in webskills" :key="index">
+                            <v-list-item-content>
+                              <v-list-item-title>
+                                {{ skill.type }}
+                              </v-list-item-title>
+                              <v-list-item-subtitle>
+                                <v-progress-linear :value="skill.level">
+                                </v-progress-linear>
+                              </v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <!-- . -->
+                        </v-expansion-panel-content>
+                      </v-expansion-panel>
+                      <!-- . -->
+                      <v-expansion-panel>
+                        <v-expansion-panel-header>
+                          Mobile Application
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                           <!-- . -->
+                          <v-list-item v-for="(skill,index) in mobileskills" :key="index">
+                            <v-list-item-content>
+                              <v-list-item-title>
+                                {{ skill.type }}
+                              </v-list-item-title>
+                              <v-list-item-subtitle>
+                                <v-progress-linear :value="skill.level">
+                                </v-progress-linear>
+                              </v-list-item-subtitle>
+                            </v-list-item-content>
+                          </v-list-item>
+                          <!-- . -->
+                        </v-expansion-panel-content>
+                      </v-expansion-panel>
+                      <!-- . -->
+                    </v-expansion-panels>
+                  </v-row>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-btn text color="primary" class="mx-auto" target="_blank" href="mailto:muikiaa@gmail.com?subject=Enquiry">
+                    Email Me
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+
+            <!-- . -->
+          </v-row>
+        </v-container>
       </div>
     </section>
   </div>
@@ -76,7 +148,42 @@ export default {
   props: {},
   data() {
     return {
-      //
+      webskills: [
+        {
+          type: 'HTML5',
+          level: 95
+        },
+        {
+          type: 'JavaScript',
+          level: 80
+        },
+        {
+          type: 'CSS3',
+          level: 70
+        },
+        {
+          type: 'VueJs',
+          level: 80
+        },
+        {
+          type: 'Django',
+          level: 85
+        },
+        {
+          type: 'Laravel',
+          level: 70
+        },
+      ],
+      mobileskills: [
+        {
+          type: "Flutter",
+          level: 70
+        },
+        {
+          type: "Android",
+          level: 50
+        },
+      ]
     };
   },
   methods: {

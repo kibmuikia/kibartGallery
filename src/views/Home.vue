@@ -3,13 +3,15 @@
     <!-- Banner -->
     <section id="banner">
       <div class="inner">
-        <h1 class="kibtitle2 animated slideInUp kibAni">Welcome, To KibArt Gallery</h1>
+        <h1 class="kibtitle2 animated slideInUp kibAni">
+          Welcome, To KibArt Gallery
+        </h1>
         <p class="animated slideInUp kibAni">
           Where creativity reigns supreme
         </p>
         <ul class="actions animated slideInUp kibAni" style="list-style: none;">
           <li>
-            <a class="" @click="$vuetify.goTo( target, options )" >
+            <a class="" @click="$vuetify.goTo(target, options)">
               <!-- class="scrolly" -->
               Proceed
             </a>
@@ -47,12 +49,7 @@
               >
                 To Gallery
               </v-btn>
-              <v-btn
-                class="mx-auto"
-                text
-                color="success"
-                to="/about"
-              >
+              <v-btn class="mx-auto" text color="success" to="/about">
                 About Me
               </v-btn>
             </v-card-actions>
@@ -85,7 +82,7 @@ export default {
       options: {
         duration: 400,
         // offset: -100,
-        easing: 'easeInQuad'
+        easing: "easeInQuad"
       }
     };
   },
