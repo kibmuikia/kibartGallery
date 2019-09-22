@@ -13,8 +13,13 @@
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "https://kibart-gallery.web.app",
   "display": "standalone",
-  "background_color": "#FF8A65",
-  "theme_color": "#FF7043"
+  "background_color": "#757575",
+  "theme_color": "#616161",
+  "categories": [
+    "photo",
+    "entertainment"
+  ],
+  "description": "A gallery to showcase artwork by Kibuthi Allan. Also to promote the love for art"
 }
