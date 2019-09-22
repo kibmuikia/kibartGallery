@@ -65,7 +65,7 @@
         <v-progress-circular
           indeterminate
           color="light-green"
-          class="mx-auto animated zoomInUp"
+          class="mx-auto animated fadeIn slow"
           size="100"
           width="6"
         ></v-progress-circular>

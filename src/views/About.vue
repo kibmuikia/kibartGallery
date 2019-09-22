@@ -19,10 +19,11 @@
                 </v-card-title>
                 <v-card-text class="body-1">
                   <p>
-                    I am a self taught pencil artist.
+                    I am a self taught artist, currently using pencil as my tool.
+                    I love art and the creative industry, general.
                   </p>
                   <p>
-                    Art is simply epic!
+                    From its simplest to most complex form, Art is simply epic🤯😄!
                   </p>
                 </v-card-text>
                 <v-card-actions>
@@ -46,11 +47,11 @@
                 </v-card-title>
                 <v-card-text class="body-1">
                   <p>
-                    Developed this site as my effort to promote the love for
-                    art.
+                    This gallery, developed by me, showcases my artwork. 
+                    It also aims to promote the love and appreciation for art🎨 and the creative industry.
                   </p>
                   <p>
-                    All are welcome
+                    All are welcome, Enjoy 😄
                   </p>
                 </v-card-text>
                 <v-card-actions>
@@ -71,6 +72,9 @@
                 </v-card-title>
 
                 <v-card-text>
+                  <p>
+                    My Skills
+                  </p>
                   <v-row justify="center" class="px-1">
                     <v-expansion-panels inset>
                       <!-- . -->

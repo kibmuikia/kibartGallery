@@ -22,6 +22,7 @@
 import Nav from "./components/V1/navigation";
 import Footer from "./components/V1/footer";
 
+// let SELF;
 export default {
   name: "App",
   components: {
@@ -31,6 +32,15 @@ export default {
   data: () => ({
     //
   }),
+  methods: {
+    // .
+  },
+  beforeCreate() {
+    // SELF = this;
+  },
+  created() {
+    // .
+  },
   mounted() {
     // .
   }

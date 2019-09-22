@@ -14,7 +14,7 @@ const vuexPersist = new VuexPersist({
 
 export default new Vuex.Store({
   state: {
-    status: "",
+    status: "qwerty",
     navlinks: [
       {
         title: "Home",

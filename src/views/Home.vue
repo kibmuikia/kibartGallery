@@ -7,7 +7,7 @@
           Welcome, To KibArt Gallery
         </h1>
         <p class="animated slideInUp kibAni">
-          Where creativity reigns supreme
+          Sharing the love for art 🙂
         </p>
         <ul class="actions animated slideInUp kibAni" style="list-style: none;">
           <li>
