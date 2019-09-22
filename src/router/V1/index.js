@@ -72,6 +72,11 @@ export default new Router({
           component: () => import("../../components/V1/kibupload.vue")
         }
       ]
+    },
+    {
+      path: "*",
+      name: "notfound",
+      component: () => import( "../../views/404.vue" )
     }
   ]
 });

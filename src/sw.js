@@ -15,6 +15,8 @@ self.addEventListener("message", e => {
   }
 });
 
+// workbox.core.setCacheNameDetails({ prefix: "kibart_G_app" });
+
 workbox.clientsClaim();
 
 // The precaching code provided by Workbox.

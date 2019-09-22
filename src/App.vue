@@ -26,7 +26,7 @@
         {{ snackBtnText }}
       </v-btn>
       <v-btn icon @click="snackWithButtons = false">
-        <v-icon>close</v-icon>
+        <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-snackbar>
 
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
+
 import Nav from "./components/V1/navigation";
 import Footer from "./components/V1/footer";
 
@@ -46,12 +48,12 @@ export default {
     Footer
   },
   data: () => ({
-    refreshing: false,
     registration: null,
+    refreshing: false,
     snackBtnText: "",
     snackWithBtnText: "",
     snackWithButtons: false,
-    timeout: 0
+    timeout: 0,
   }),
   methods: {
     showRefreshUI(e) {
@@ -77,8 +79,21 @@ export default {
     // SELF = this;
   },
   created() {
+    // .
+  },
+  mounted() {
     // Listen for swUpdated event and display refresh snackbar as required.
     document.addEventListener("swUpdated", this.showRefreshUI, { once: true });
+    // if( document ){
+    //   // console.log( 'present' );
+    //   // console.log( document );
+    //   try{
+    //     document.addEventListener("swUpdated", this.showRefreshUI, { once: true });
+    //   } catch( e ) {
+    //     console.error( 'adding eventlistener failed' );
+    //     console.error( e );
+    //   }
+    // }
 
     // Refresh all open app tabs when a new service worker is installed.
     navigator.serviceWorker.addEventListener("controllerchange", () => {
@@ -86,9 +101,6 @@ export default {
       this.refreshing = true;
       window.location.reload();
     });
-  },
-  mounted() {
-    // .
   }
 };
 </script>
