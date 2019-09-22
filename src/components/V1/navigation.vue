@@ -28,15 +28,14 @@
       >
         <!-- <v-tooltip right color="grey">
           <template v-slot:activator="{ on }"> -->
-            <v-list-item-icon>
-              <v-icon v-if="link.color" :color="link.color">{{ link.icon }}</v-icon>
-              <v-icon v-else>{{ link.icon }}</v-icon>
-            </v-list-item-icon>
-          <!-- </template> -->
+        <v-list-item-icon>
+          <v-icon v-if="link.color" :color="link.color">{{ link.icon }}</v-icon>
+          <v-icon v-else>{{ link.icon }}</v-icon>
+        </v-list-item-icon>
+        <!-- </template> -->
 
-          <!-- <span> {{ link.title }} </span>
+        <!-- <span> {{ link.title }} </span>
         </v-tooltip> -->
-
       </v-list-item>
     </v-list>
 

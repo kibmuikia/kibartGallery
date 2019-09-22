@@ -5,14 +5,30 @@
     <Nav />
 
     <v-content>
-
       <v-scale-transition origin="center center" mode="out-in">
         <router-view></router-view>
       </v-scale-transition>
-
     </v-content>
 
     <Footer />
+    <!-- . -->
+
+    <v-snackbar
+      v-model="snackWithButtons"
+      :timeout="timeout"
+      bottom
+      left
+      class="snack"
+    >
+      {{ snackWithBtnText }}
+      <v-spacer />
+      <v-btn dark text color="#00f500" @click.native="refreshApp">
+        {{ snackBtnText }}
+      </v-btn>
+      <v-btn icon @click="snackWithButtons = false">
+        <v-icon>close</v-icon>
+      </v-btn>
+    </v-snackbar>
 
     <!-- . -->
   </v-app>
@@ -30,16 +46,46 @@ export default {
     Footer
   },
   data: () => ({
-    //
+    refreshing: false,
+    registration: null,
+    snackBtnText: "",
+    snackWithBtnText: "",
+    snackWithButtons: false,
+    timeout: 0
   }),
   methods: {
-    // .
+    showRefreshUI(e) {
+      // Display a snackbar inviting the user to refresh/reload the app due
+      // to an app update being available.
+      // The new service worker is installed, but not yet active.
+      // Store the ServiceWorkerRegistration instance for later use.
+      this.registration = e.detail;
+      this.snackBtnText = "Refresh";
+      this.snackWithBtnText = "New version available!";
+      this.snackWithButtons = true;
+    },
+    refreshApp() {
+      this.snackWithButtons = false;
+      // Protect against missing registration.waiting.
+      if (!this.registration || !this.registration.waiting) {
+        return;
+      }
+      this.registration.waiting.postMessage("skipWaiting");
+    }
   },
   beforeCreate() {
     // SELF = this;
   },
   created() {
-    // .
+    // Listen for swUpdated event and display refresh snackbar as required.
+    document.addEventListener("swUpdated", this.showRefreshUI, { once: true });
+
+    // Refresh all open app tabs when a new service worker is installed.
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (this.refreshing) return;
+      this.refreshing = true;
+      window.location.reload();
+    });
   },
   mounted() {
     // .
@@ -48,7 +94,7 @@ export default {
 </script>
 
 <style>
-@import './assets/css/kibmain.css';
+@import "./assets/css/kibmain.css";
 
 .kibtitle {
   font-family: "Indie Flower", cursive;
@@ -63,5 +109,9 @@ export default {
   font-family: "Caesar Dressing", cursive;
   font-size: 2em;
   letter-spacing: 0.2em;
+}
+/* Provide better right-edge spacing when using an icon button there. */
+.snack >>> .v-snack__content {
+  padding-right: 16px;
 }
 </style>

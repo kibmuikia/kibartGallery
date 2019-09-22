@@ -1,7 +1,5 @@
 <template>
-
   <div>
-
     <!-- Section -->
     <section>
       <div class="inner">
@@ -19,11 +17,12 @@
                 </v-card-title>
                 <v-card-text class="body-1">
                   <p>
-                    I am a self taught artist, currently using pencil as my tool.
-                    I love art and the creative industry, general.
+                    I am a self taught artist, currently using pencil as my
+                    tool. I love art and the creative industry, general.
                   </p>
                   <p>
-                    From its simplest to most complex form, Art is simply epic🤯😄!
+                    From its simplest to most complex form, Art is simply
+                    epic🤯😄!
                   </p>
                 </v-card-text>
                 <v-card-actions>
@@ -47,8 +46,9 @@
                 </v-card-title>
                 <v-card-text class="body-1">
                   <p>
-                    This gallery, developed by me, showcases my artwork. 
-                    It also aims to promote the love and appreciation for art🎨 and the creative industry.
+                    This gallery, developed by me, showcases my artwork. It also
+                    aims to promote the love and appreciation for art🎨 and the
+                    creative industry.
                   </p>
                   <p>
                     All are welcome, Enjoy 😄
@@ -84,7 +84,10 @@
                         </v-expansion-panel-header>
                         <v-expansion-panel-content>
                           <!-- . -->
-                          <v-list-item v-for="(skill,index) in webskills" :key="index">
+                          <v-list-item
+                            v-for="(skill, index) in webskills"
+                            :key="index"
+                          >
                             <v-list-item-content>
                               <v-list-item-title>
                                 {{ skill.type }}
@@ -104,8 +107,11 @@
                           Mobile Application
                         </v-expansion-panel-header>
                         <v-expansion-panel-content>
-                           <!-- . -->
-                          <v-list-item v-for="(skill,index) in mobileskills" :key="index">
+                          <!-- . -->
+                          <v-list-item
+                            v-for="(skill, index) in mobileskills"
+                            :key="index"
+                          >
                             <v-list-item-content>
                               <v-list-item-title>
                                 {{ skill.type }}
@@ -125,7 +131,13 @@
                 </v-card-text>
 
                 <v-card-actions>
-                  <v-btn text color="primary" class="mx-auto" target="_blank" href="mailto:muikiaa@gmail.com?subject=Enquiry">
+                  <v-btn
+                    text
+                    color="primary"
+                    class="mx-auto"
+                    target="_blank"
+                    href="mailto:muikiaa@gmail.com?subject=Enquiry"
+                  >
                     Email Me
                   </v-btn>
                 </v-card-actions>
@@ -154,29 +166,29 @@ export default {
     return {
       webskills: [
         {
-          type: 'HTML5',
+          type: "HTML5",
           level: 95
         },
         {
-          type: 'JavaScript',
+          type: "JavaScript",
           level: 80
         },
         {
-          type: 'CSS3',
+          type: "CSS3",
           level: 70
         },
         {
-          type: 'VueJs',
+          type: "VueJs",
           level: 80
         },
         {
-          type: 'Django',
+          type: "Django",
           level: 85
         },
         {
-          type: 'Laravel',
+          type: "Laravel",
           level: 70
-        },
+        }
       ],
       mobileskills: [
         {
@@ -186,7 +198,7 @@ export default {
         {
           type: "Android",
           level: 50
-        },
+        }
       ]
     };
   },
