@@ -11,10 +11,12 @@
         </p>
         <ul class="actions animated slideInUp kibAni" style="list-style: none;">
           <li>
-            <a class="" @click="$vuetify.goTo(target, options)">
-              <!-- class="scrolly" -->
+            <!-- <a class="" @click="$vuetify.goTo(target, options)">
               Proceed
-            </a>
+            </a> -->
+            <v-btn @click="$vuetify.goTo(target, options)" class="proceed">
+              Proceed
+            </v-btn>
           </li>
         </ul>
       </div>

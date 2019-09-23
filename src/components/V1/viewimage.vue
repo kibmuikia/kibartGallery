@@ -5,6 +5,11 @@
     <v-sheet class="text-center px-4 py-2" height="auto">
       <h3 class="mx-auto headline py-2">
         {{ imagedata.title }}
+        <v-btn icon small color="error" @click="sheet = false" class="ml-2">
+          <v-icon>
+            mdi-close
+          </v-icon>
+        </v-btn>
       </h3>
 
       <v-card class="my-2">
