@@ -1,14 +1,14 @@
 <template>
   <!-- . -->
 
-  <v-container class="" v-if="artwork.length > 0">
+  <v-container class="" v-if="kibart.length > 0">
     <v-row class="">
       <v-col cols="12" sm="8" offset-sm="2" class="">
         <v-card>
           <v-container class="">
             <v-row>
               <v-col
-                v-for="(art, index) in artwork"
+                v-for="(art, index) in kibart"
                 :key="index"
                 class="d-flex child-flex"
                 cols="6"
@@ -84,6 +84,8 @@ import { serverBus } from "@/main";
 import fire from "@/fire/V1";
 import utils from "@/utils/V1";
 
+import { mapState } from "vuex";
+
 let SELF;
 export default {
   name: "gallery-component",
@@ -119,8 +121,7 @@ export default {
         .onSnapshot(
           querySnapshot => {
             querySnapshot.docChanges().forEach(async change => {
-              // console.log(change.doc.data().title);
-              let thumbUrl = await SELF.getUrl(
+              let thumbUrl = await utils.getUrl(
                 change.doc.data().location.t_partial
               );
               let gotdocument = utils.extend(
@@ -162,47 +163,15 @@ export default {
 
       // .
     }, //end-getKibart
-    async getUrl(path) {
-      let imageUrl = "",
-        image = "";
-      let storageRef = fire.storage.ref();
-      await storageRef
-        .child(path)
-        .getDownloadURL()
-        .then(url => {
-          imageUrl = url;
-        })
-        .catch(err => {
-          console.error(err);
-        });
-      return imageUrl;
-    } // end-getUrl
   },
-  computed: {},
-  watch: {
-    artwork: function() {
-      // console.log( SELF.artwork.length );
-      // // if( SELF.artwork.length == SELF.dataSize ) {
-      // if( SELF.artwork.length > 0 ) {
-      //   console.log( SELF.artwork );
-      //   SELF.artwork.forEach( async (image,index) => {
-      //     let picha = await fetch(image.location.full).then(r => r.blob());
-      //     const reader = new FileReader();
-      //     reader.readAsDataURL(picha);
-      //     reader.onloadend = function() {
-      //       // result includes identifier 'data:image/png;base64,' plus the base64 data
-      //       image.fullPicha = reader.result;
-      //     };
-      //     console.log( image.fullPicha );
-      //   } );
-      // }
-    }
-  },
+  // computed: {},
+  computed: mapState(["kibart"]),
+  watch: {},
   beforeCreate() {
     SELF = this;
   },
   created() {
-    SELF.getKibart();
+    // SELF.getKibart();
   },
   mounted() {
     serverBus.$on("resetSheet", () => {

@@ -53,7 +53,7 @@ export default {
     snackBtnText: "",
     snackWithBtnText: "",
     snackWithButtons: false,
-    timeout: 0,
+    timeout: 0
   }),
   methods: {
     showRefreshUI(e) {
@@ -82,19 +82,9 @@ export default {
     // .
   },
   mounted() {
+    this.$store.dispatch("addKibartAction");
     // Listen for swUpdated event and display refresh snackbar as required.
     document.addEventListener("swUpdated", this.showRefreshUI, { once: true });
-    // if( document ){
-    //   // console.log( 'present' );
-    //   // console.log( document );
-    //   try{
-    //     document.addEventListener("swUpdated", this.showRefreshUI, { once: true });
-    //   } catch( e ) {
-    //     console.error( 'adding eventlistener failed' );
-    //     console.error( e );
-    //   }
-    // }
-
     // Refresh all open app tabs when a new service worker is installed.
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       if (this.refreshing) return;

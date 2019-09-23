@@ -76,7 +76,7 @@ export default new Router({
     {
       path: "*",
       name: "notfound",
-      component: () => import( "../../views/404.vue" )
+      component: () => import("../../views/404.vue")
     }
   ]
 });

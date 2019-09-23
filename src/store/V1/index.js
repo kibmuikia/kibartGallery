@@ -2,19 +2,23 @@ import Vue from "vue";
 import Vuex from "vuex";
 import VuexPersist from "vuex-persist";
 
+import utils from "@/utils/V1";
+import fire from "@/fire/V1";
+
 /* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 
 Vue.use(Vuex);
 
 const vuexPersist = new VuexPersist({
-  key: "kibart-app",
+  key: "kibart-gallery-app",
   storage: window.sessionStorage
   // reducer: state => ({ post: state.post, user: state.user })
 });
 
 export default new Vuex.Store({
   state: {
-    status: "qwerty",
+    status: "null",
     navlinks: [
       {
         title: "Home",
@@ -65,6 +69,12 @@ export default new Vuex.Store({
     },
     UNSET_STATUS: state => {
       state.status = "";
+    },
+    ADD_KIBART: (state, newValue) => {
+      state.kibart.push(newValue);
+    },
+    EMPTY_KIBART: state => {
+      state.kibart = [];
     }
   },
   actions: {
@@ -75,6 +85,31 @@ export default new Vuex.Store({
     unsetStatus: ({ commit, state }) => {
       commit("UNSET_STATUS");
       return state.status;
+    },
+    addKibartAction: async ({ commit, state }) => {
+      let kibartRef = fire.db.collection("kibart");
+      await kibartRef.onSnapshot(
+        querySnapshot => {
+          querySnapshot.docChanges().forEach(async change => {
+            let thumbUrl = await utils.getUrl(
+              change.doc.data().location.t_partial
+            );
+            let gotdocument = utils.extend(
+              {
+                thumb_url: thumbUrl,
+                fullurl: change.doc.data().location.full
+              },
+              change.doc.data()
+            );
+            // SELF.artwork.push(gotdocument);
+            commit("ADD_KIBART", gotdocument);
+          });
+        },
+        e => {
+          console.log("Error in [ addKibartAction ]");
+          console.error(e);
+        }
+      );
     }
   },
   plugins: [vuexPersist.plugin]

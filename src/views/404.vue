@@ -1,9 +1,9 @@
 <template>
-<!-- . -->
+  <!-- . -->
 
   <section>
     <div class="inner">
-  <!-- . -->
+      <!-- . -->
       <header>
         <h1 class="kibtitle2 animated slideInRight">Page Not Found</h1>
       </header>
@@ -16,31 +16,26 @@
               <v-card-title>
                 <span class="mx-auto kibtitle"> Warning ! </span>
               </v-card-title>
-                <v-card-text class="body-1">
-                  <p>
-                    The page you have entered does not exist.
-                  </p>
-                </v-card-text>
-                <v-card-actions>
-                  <v-btn
-                    text
-                    to="/"
-                    color="primary"
-                    class="mx-auto"
-                  >
-                    Back Home
-                  </v-btn>
-                </v-card-actions>
+              <v-card-text class="body-1">
+                <p>
+                  The page you have entered does not exist.
+                </p>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn text to="/" color="primary" class="mx-auto">
+                  Back Home
+                </v-btn>
+              </v-card-actions>
             </v-card>
             <!-- . -->
           </v-col>
         </v-row>
       </v-container>
-  <!-- . -->
+      <!-- . -->
     </div>
   </section>
 
-<!-- . -->
+  <!-- . -->
 </template>
 
 <script>

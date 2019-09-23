@@ -1,4 +1,5 @@
 import swal from "sweetalert2";
+import fire from "@/fire/V1";
 
 export default {
   showAlert: function(
@@ -49,5 +50,19 @@ export default {
       obj[key] = src[key];
     });
     return obj;
-  }
+  },
+  async getUrl(path) {
+    let imageUrl;
+    let storageRef = fire.storage.ref();
+    await storageRef
+      .child(path)
+      .getDownloadURL()
+      .then(url => {
+        imageUrl = url;
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    return imageUrl;
+  } // end-getUrl
 };
