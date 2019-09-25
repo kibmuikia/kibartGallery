@@ -32,6 +32,9 @@
         <v-list-item-icon>
           <v-icon v-if="link.color" :color="link.color">{{ link.icon }}</v-icon>
           <v-icon v-else>{{ link.icon }}</v-icon>
+          <!-- <v-avatar size="25">
+          <v-img :src="link.iconpath" :alt="link.title" aspect-ratio="1" class="white" ></v-img>
+          </v-avatar> -->
         </v-list-item-icon>
         <!-- </template> -->
 

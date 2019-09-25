@@ -25,20 +25,23 @@ export default new Vuex.Store({
         title: "Home",
         path: "/",
         pathname: "home",
-        icon: "mdi-home"
+        icon: "mdi-home",
+        // iconpath: require("@/assets/images/kibicons/home.svg"),
       },
       {
         title: "Kibart Gallery",
         path: "/kibart",
         pathname: "kibart",
         icon: "mdi-camera",
+        // iconpath: require("@/assets/images/kibicons/camera.svg"),
         color: "green"
       },
       {
         title: "About",
         path: "/about",
         pathname: "about",
-        icon: "mdi-book-information-variant"
+        icon: "mdi-book-information-variant",
+        // iconpath: require("@/assets/images/kibicons/book-information-variant.svg"),
       }
     ],
     kibart: [],
