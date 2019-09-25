@@ -12,7 +12,8 @@ Vue.use(Vuex);
 
 const vuexPersist = new VuexPersist({
   key: "kibart-gallery-app",
-  storage: window.sessionStorage
+  // storage: window.sessionStorage
+  storage: window.localStorage
   // reducer: state => ({ post: state.post, user: state.user })
 });
 
@@ -33,18 +34,6 @@ export default new Vuex.Store({
         icon: "mdi-camera",
         color: "green"
       },
-      // {
-      //   title: "Gallery",
-      //   path: "/gallery",
-      //   pathname: "gallery",
-      //   icon: "mdi-camera"
-      // },
-      // {
-      //   title: "Account",
-      //   path: "/sign-in",
-      //   pathname: "upload",
-      //   icon: "mdi-account"
-      // },
       {
         title: "About",
         path: "/about",
@@ -87,8 +76,8 @@ export default new Vuex.Store({
       return state.status;
     },
     addKibartAction: async ({ commit, state }) => {
-      let kibartRef = fire.db.collection("kibart");
-      await kibartRef.onSnapshot(
+      let kibartRef = fire.db.collection("kibart"); // title
+      await kibartRef.orderBy("title").onSnapshot(
         querySnapshot => {
           querySnapshot.docChanges().forEach(async change => {
             let thumbUrl = await utils.getUrl(

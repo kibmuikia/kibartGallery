@@ -162,7 +162,7 @@ export default {
       //   });
 
       // .
-    }, //end-getKibart
+    } //end-getKibart
   },
   // computed: {},
   computed: mapState(["kibart"]),

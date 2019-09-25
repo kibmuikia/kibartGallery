@@ -79,10 +79,10 @@ export default {
     // SELF = this;
   },
   created() {
-    // .
+    this.$store.dispatch("addKibartAction");
   },
   mounted() {
-    this.$store.dispatch("addKibartAction");
+    // this.$store.dispatch("addKibartAction");
     // Listen for swUpdated event and display refresh snackbar as required.
     document.addEventListener("swUpdated", this.showRefreshUI, { once: true });
     // Refresh all open app tabs when a new service worker is installed.

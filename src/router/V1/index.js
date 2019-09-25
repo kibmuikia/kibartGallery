@@ -22,42 +22,6 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "../../views/About.vue")
     },
     {
-      path: "/gallery",
-      name: "gallery",
-      component: () => import("../../views/Gallery/V1/All.vue")
-    },
-    {
-      path: "/sign-in",
-      name: "signin",
-      component: () => import("../../views/Auth/V1/signin.vue")
-    },
-    {
-      path: "/sign-up",
-      name: "signup",
-      component: () => import("../../views/Auth/V1/signup.vue")
-    },
-    {
-      path: "/profile/:nickname",
-      component: EmptyRouteView,
-      children: [
-        {
-          path: "",
-          name: "profile",
-          component: () => import("../../views/Auth/V1/profile.vue")
-        },
-        {
-          path: "your-artwork",
-          name: "yourartwork",
-          component: () => import("../../views/Auth/V1/your_artwork.vue")
-        },
-        {
-          path: "upload",
-          name: "upload",
-          component: () => import("../../views/Auth/V1/upload.vue")
-        }
-      ]
-    },
-    {
       path: "/kibart",
       component: EmptyRouteView,
       children: [
@@ -78,5 +42,41 @@ export default new Router({
       name: "notfound",
       component: () => import("../../views/404.vue")
     }
+    // {
+    //   path: "/gallery",
+    //   name: "gallery",
+    //   component: () => import("../../views/Gallery/V1/All.vue")
+    // },
+    // {
+    //   path: "/sign-in",
+    //   name: "signin",
+    //   component: () => import("../../views/Auth/V1/signin.vue")
+    // },
+    // {
+    //   path: "/sign-up",
+    //   name: "signup",
+    //   component: () => import("../../views/Auth/V1/signup.vue")
+    // },
+    // {
+    //   path: "/profile/:nickname",
+    //   component: EmptyRouteView,
+    //   children: [
+    //     {
+    //       path: "",
+    //       name: "profile",
+    //       component: () => import("../../views/Auth/V1/profile.vue")
+    //     },
+    //     {
+    //       path: "your-artwork",
+    //       name: "yourartwork",
+    //       component: () => import("../../views/Auth/V1/your_artwork.vue")
+    //     },
+    //     {
+    //       path: "upload",
+    //       name: "upload",
+    //       component: () => import("../../views/Auth/V1/upload.vue")
+    //     }
+    //   ]
+    // },
   ]
 });
